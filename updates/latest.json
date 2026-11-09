@@ -1,7 +1,7 @@
 {
-  "version": "0.8.1",
+  "version": "0.9.0",
   "file": "Ashlight-Setup.exe",
-  "sha256": "9f3a047aa2293cbc69dfcbb82888af920fc12c288bacd98826dd03c6e37846cd",
-  "appSha256": "ff478903920c292f17c1293fa7e3cd65ab3ab247d2acc3abbba61f57a1ee7df2",
-  "notes": "Closing Ashlight now fades the window out smoothly, whether it goes to the tray or exits. It closes instantly if you turn motion off."
+  "sha256": "b84bc942a9f7a6d8af471a92b91618a35d59b5e1fc610ba39119a2f2c9150cde",
+  "appSha256": "96a48eab748a7286f642df62d1b4fcbb1f59396e2e2289cd64547b6cf53417e3",
+  "notes": "New Decompiler: drop in a .NET program, Java or Kotlin jar, Minecraft mod or plugin, Android app or Electron app and read its source in a built-in viewer. It tells you what the file is, flags code worth a look (like Discord webhooks or password grabbing), and zips the source into Downloads. Everything stays on your PC. Also: a new logo, a smooth close animation, and sidebar categories you can fold."
 }
