@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com https://ashlightapp.github.io https://app-804a9dc99f9869a8.up.railway.app; img-src 'self' https://avatars.githubusercontent.com; style-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'" />
+    <title>Ashlight panel</title>
+    <link rel="icon" href="../assets/logo.png" />
+    <link rel="stylesheet" href="panel.css?v=0.8.0-mw9b0rz8" />
+  </head>
+  <body>
+    <div class="sky" aria-hidden="true"></div>
+    <main>
+      <header>
+        <div class="brand"><img src="../assets/logo.png" alt="" /><b>Ashlight panel</b></div>
+        <a id="openSite" class="link" target="_blank" rel="noopener">Open website</a>
+      </header>
+
+      <section id="signIn" class="card narrow">
+        <h1>Sign in</h1>
+        <p class="muted">For whoever runs <code id="repo"></code>.</p>
+        <ol class="steps">
+          <li><a id="makeToken" class="button primary" target="_blank" rel="noopener">Make a token</a><span>GitHub opens with everything filled in.</span></li>
+          <li><span>Under <b>Repository access</b>, pick <b>Only select repositories</b> and choose <b>ttool</b>. Then press <b>Generate token</b>.</span></li>
+          <li><span>Copy it and paste it here.</span></li>
+        </ol>
+        <form id="signInForm">
+          <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="Paste token" aria-label="GitHub token" />
+          <label class="check"><input id="remember" type="checkbox" checked /> Remember on this device</label>
+          <button id="signInButton" class="primary" type="submit">Sign in</button>
+          <p id="signInError" class="error" role="alert"></p>
+        </form>
+        <p class="muted small">On your PC you can skip all this: run <code>bun run admin</code> in the project folder.</p>
+      </section>
+
+      <section id="dash" hidden>
+        <div class="bar">
+          <div class="me"><img id="whoAvatar" alt="" /><span id="who"></span></div>
+          <div class="row">
+            <button id="reload" class="ghost small-btn">Refresh</button>
+            <button id="signOut" class="ghost small-btn">Sign out</button>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="card stat"><span>Latest version</span><b id="statVersion">…</b><small id="statNotes"></small></div>
+          <div class="card stat"><span>Website</span><b id="statSite">…</b></div>
+          <div class="card stat"><span>Visitors, 14 days</span><b id="statViews">…</b></div>
+        </div>
+
+        <div class="cols">
+          <section class="card">
+            <h2>New message</h2>
+            <div class="chips" id="templates">
+              <button data-template="update">New update</button>
+              <button data-template="maintenance">Heads up</button>
+              <button data-template="important">Important</button>
+              <button data-template="thanks">Thank you</button>
+            </div>
+            <div class="seg" id="levels">
+              <button data-level="info">Info</button>
+              <button data-level="update">Update</button>
+              <button data-level="important">Important</button>
+            </div>
+            <label>Title<input id="title" maxlength="80" placeholder="New update is out" /></label>
+            <label>Message<textarea id="text" maxlength="600" rows="3"></textarea><small id="count"></small></label>
+            <div class="two">
+              <label>Link<input id="url" placeholder="https://" /></label>
+              <label>Show for<select id="expires"><option value="0">Until I stop it</option><option value="1">1 day</option><option value="3">3 days</option><option value="7">1 week</option><option value="30">30 days</option></select></label>
+            </div>
+            <label class="check"><input id="site" type="checkbox" checked /> Also on the website</label>
+            <div id="preview" class="preview"></div>
+            <button id="send" class="primary">Send to everyone</button>
+          </section>
+
+          <section class="card">
+            <h2>Showing now</h2>
+            <div id="live"></div>
+            <div class="row" id="liveActions" hidden>
+              <button id="edit" class="ghost small-btn">Edit</button>
+              <button id="clear" class="ghost small-btn">Stop showing</button>
+            </div>
+            <h2 class="space">Sent before</h2>
+            <ul id="history" class="history"></ul>
+          </section>
+        </div>
+        <section class="card space-top">
+          <div class="row spread-row">
+            <h2>Suggestions</h2>
+            <div class="seg" id="suggestFilter">
+              <button data-f="pending" class="on">New</button>
+              <button data-f="accepted">Accepted</button>
+              <button data-f="done">Added</button>
+              <button data-f="declined">Declined</button>
+              <button data-f="">All</button>
+            </div>
+          </div>
+          <p class="muted small">Accept one and Claude builds it next time you ask it to "do the accepted suggestions". People see the status in their app.</p>
+          <ul id="suggestions" class="suggestions"></ul>
+        </section>
+      </section>
+      <p id="status" class="status" role="status"></p>
+    </main>
+    <script type="module" src="panel.js?v=0.8.0-mw9b0rz8"></script>
+  </body>
+</html>

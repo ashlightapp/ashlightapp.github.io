@@ -1,0 +1,67 @@
+[
+  {
+    "version": "0.8.0",
+    "date": "2026-11-09",
+    "notes": "Ttool is now Ashlight, and your settings come with it. Game profiles switch your colour, crosshair and more when a game is in front. Settings backups: daily, before big changes, and save or open them as a file. Crosshair codes to copy and paste a look. Suggest something from Settings and see when it's accepted. Chat keeps up after a lost connection: missed messages, unsent ones and calls come back by themselves. Safer: Windows settings are put back even if Ashlight crashes."
+  },
+  {
+    "version": "0.7.0",
+    "date": "2026-11-08",
+    "notes": "Library: your Steam and Epic games in one place, with covers and one-click play. Share: stream your screen to friends with a link, up to 1080p60. A new welcome, round zoom lens with sharper zoom, 6 new crosshairs with screen fitting and a dynamic spread, type exact numbers on any slider, smoke background, and a new heading font."
+  },
+  {
+    "version": "0.6.6",
+    "date": "2026-11-08",
+    "notes": "Ashlight now leaves your NVIDIA vibrance alone until you move the Vibrance slider or turn on Control NVIDIA vibrance."
+  },
+  {
+    "version": "0.6.5",
+    "date": "2026-11-07",
+    "notes": "Discord now shows just Playing Ashlight with a Get Ashlight button. The colour darkener takes the exact colour to full dark, with a Pick from screen button. Stats and performance overlays are removed, so Ashlight does less in the background."
+  },
+  {
+    "version": "0.6.4",
+    "date": "2026-11-07",
+    "notes": "A simpler welcome that says hello in many languages. The crosshair preview no longer covers the reticle settings when you scroll, and previews use a plain grey background."
+  },
+  {
+    "version": "0.6.3",
+    "date": "2026-11-07",
+    "notes": "Messages from the Ashlight team can now be info, update or important, and can end on a date."
+  },
+  {
+    "version": "0.6.2",
+    "date": "2026-11-07",
+    "notes": "Cleaner previews: the crosshair preview uses a real photo instead of a drawn backdrop."
+  },
+  {
+    "version": "0.6.1",
+    "date": "2026-11-07",
+    "notes": "Intro when opening, sign in with Discord or a name, and a greeting on Home. Window buttons can be macOS or Windows style, on either side. The app now checks itself against the official build. Fewer words everywhere, a cleaner aspect ratio page, and smoother scrolling."
+  },
+  {
+    "version": "0.6.0",
+    "date": "2026-11-07",
+    "notes": "New look with macOS-style window buttons, a welcome tour, and messages and update notices on Home. Aspect ratio now stretches without changing your resolution. Custom colour picker and dropdowns, better keybinds (Esc clears), a new Utilities page with Game boost, see-through liquid glass, Discord status, and fixes for small memory leaks."
+  },
+  {
+    "version": "0.5.1",
+    "date": "2026-11-07",
+    "notes": "The website is online, and Ashlight now checks it for updates."
+  },
+  {
+    "version": "0.5.0",
+    "date": "2026-11-07",
+    "notes": "New Colour page with shadows, highlights, blacks, whites and tints that go minus and plus. Colour darkener with a wheel, saved looks, picture, GIF and video backgrounds with see-through panels, a quick panel, hiding overlays from recordings and more settings."
+  },
+  {
+    "version": "0.4.3",
+    "date": "2026-11-07",
+    "notes": "Rebuilt in Zig and about 100 times smaller. GPU zoom on your main screen only, new music and performance HUD options, aspect ratio controls, 24 themes and a new setup."
+  },
+  {
+    "version": "0.3.1",
+    "date": "2026-11-07",
+    "notes": "Music HUD gets background transparency, blur, corners, lyric size and glow. Outlines removed and themes added."
+  }
+]

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ashlight</title>
+    <meta name="description" content="Colour, zoom, crosshair, aspect ratio and a live music HUD for your games. Free for Windows." />
+    <meta property="og:title" content="Ashlight" />
+    <meta property="og:description" content="Your screen, tuned for the game. Free for Windows." />
+    <meta property="og:image" content="assets/logo.png" />
+    <meta name="theme-color" content="#121316" />
+    <link rel="icon" href="assets/logo.png" />
+    <link rel="stylesheet" href="style.css?v=0.8.0-mw9b0rz8" />
+    <link rel="stylesheet" href="controls.css?v=0.8.0-mw9b0rz8" />
+  </head>
+  <body>
+    <div class="announce" id="announce" hidden></div>
+
+    <header class="top">
+      <a class="brand" href="#"><img src="assets/logo.png" alt="" /><span>Ashlight</span></a>
+      <nav id="nav">
+        <span class="nav-pill" id="navPill"></span>
+        <a href="#app">App</a>
+        <a href="#features">Features</a>
+        <a href="#try">Overlays</a>
+        <a href="#download">Download</a>
+        <a href="#updates">Updates</a>
+      </nav>
+      <a class="nav-cta" href="#download">Download</a>
+      <button class="menu-button" id="menuButton" aria-label="Menu" aria-expanded="false"><span class="menu-open-icon">☰</span><span class="menu-close-icon">✕</span></button>
+    </header>
+
+    <div class="sky" aria-hidden="true"></div>
+    <section class="hero">
+      <canvas class="hero-smoke" id="smoke" aria-hidden="true"></canvas>
+      <div class="hero-in">
+        <img class="hero-logo" src="assets/logo.png" alt="Ashlight logo, a grey cat with orange eyes" />
+        <h1 class="grad" aria-label="Your screen, tuned for the game."><span id="typed"></span><i class="caret" aria-hidden="true"></i></h1>
+        <p>Colour, zoom, crosshair and live HUDs. Small, fast and free.</p>
+        <div class="hero-actions">
+          <a class="cta" href="#download" data-icon="download">Download for Windows</a>
+          <a class="ghost" href="#app">Try the app</a>
+        </div>
+        <div class="version" id="version"></div>
+      </div>
+    </section>
+
+    <main>
+      <section id="app" class="reveal">
+        <div class="section-head">
+          <h2 class="grad">The real app, right here</h2>
+          <p>Ashlight itself, running in your browser. Click anything.</p>
+        </div>
+        <div class="stage" id="stage">
+          <div class="stage-window" id="stageWindow"></div>
+          <button class="stage-reopen" id="reopen" hidden><img src="assets/logo.png" alt="" />Open Ashlight</button>
+        </div>
+      </section>
+
+      <section id="features" class="reveal">
+        <div class="section-head">
+          <h2 class="grad">Everything in one place</h2>
+          <p>Everything resets the moment Ashlight closes.</p>
+        </div>
+        <div class="bento">
+          <article class="wide" data-icon="palette"><h3>Colour</h3><p>Vibrance, shadows, temperature and more.</p></article>
+          <article data-icon="zoom-in"><h3>Screen zoom</h3><p>Sharp, smooth and instant.</p></article>
+          <article data-icon="rectangle-horizontal"><h3>Aspect ratio</h3><p>Stretch without changing resolution.</p></article>
+          <article data-icon="crosshair"><h3>Crosshair</h3><p>A dozen styles or your own image.</p></article>
+          <article data-icon="moon"><h3>Colour darkener</h3><p>Any colour, down to full dark.</p></article>
+          <article class="wide" data-icon="music"><h3>Music HUD</h3><p>Album art and synced lyrics over your game.</p></article>
+          <article data-icon="rocket"><h3>Game boost</h3><p>One click for max performance.</p></article>
+          <article data-icon="sparkles"><h3>Liquid glass</h3><p>See-through panels and 24 themes.</p></article>
+          <article data-icon="gamepad-2"><h3>Discord</h3><p>Playing Ashlight on your profile.</p></article>
+        </div>
+        <p class="fine">Needs borderless window in games. Some games have rules about overlays, so check before playing online.</p>
+      </section>
+
+      <section id="try" class="reveal">
+        <div class="section-head">
+          <h2 class="grad">Overlays, live</h2>
+          <p>What sits on top of your game.</p>
+        </div>
+        <div class="tabs" id="tabs" role="tablist">
+          <button role="tab" data-panel="p-hud" aria-selected="true">Music HUD</button>
+          <button role="tab" data-panel="p-cross" aria-selected="false">Crosshair</button>
+          <button role="tab" data-panel="p-color" aria-selected="false">Colour</button>
+        </div>
+
+        <div class="panel" id="p-hud">
+          <div class="scene">
+            <div class="demo-hud" id="demoHud">
+              <div class="demo-bg"></div>
+              <div class="demo-head">
+                <img src="assets/logo.png" alt="" />
+                <div class="demo-meta"><b>Example Song</b><span>Example Artist</span><div class="demo-bar"><i id="demoBar"></i></div></div>
+              </div>
+              <div class="demo-lyrics"><div class="demo-reel" id="demoReel"></div></div>
+            </div>
+          </div>
+          <div class="controls">
+            <label>Layout<select id="hudLayout"><option value="card">Card</option><option value="lyrics">Lyrics only</option></select></label>
+            <label>Lyric motion<select id="hudAnim"><option value="slide">Slide</option><option value="type">Type</option></select></label>
+            <label>Transparency <input type="range" id="hudBg" min="0" max="100" value="80" /></label>
+            <label>Art blur <input type="range" id="hudBlur" min="0" max="60" value="28" /></label>
+            <label>Corners <input type="range" id="hudRadius" min="0" max="32" value="20" /></label>
+          </div>
+        </div>
+
+        <div class="panel" id="p-cross" hidden>
+          <div class="scene"><canvas id="crossCanvas"></canvas></div>
+          <div class="controls">
+            <label>Style<select id="crossStyle">
+              <option value="rustholo">Sight ring</option><option value="holo">Holo ring</option><option value="dot">Dot</option><option value="cross">Cross</option>
+              <option value="crossdot">Cross and dot</option><option value="tee">T</option><option value="ring">Ring</option><option value="chevron">Chevron</option><option value="triangle">Triangle</option>
+            </select></label>
+            <label class="inline">Colour <input type="color" id="crossColor" value="#ff3b3b" /></label>
+            <label>Size <input type="range" id="crossSize" min="2" max="60" value="16" /></label>
+            <label>Thickness <input type="range" id="crossThick" min="1" max="8" value="2" /></label>
+            <label>Gap <input type="range" id="crossGap" min="0" max="30" value="4" /></label>
+            <label>Glow <input type="range" id="crossGlow" min="0" max="100" value="40" /></label>
+          </div>
+        </div>
+
+        <div class="panel" id="p-color" hidden>
+          <div class="scene"><div class="landscape" id="landscape"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="controls">
+            <label>Saturation <input type="range" id="fSat" min="0" max="300" value="100" /></label>
+            <label>Contrast <input type="range" id="fCon" min="50" max="150" value="100" /></label>
+            <label>Brightness <input type="range" id="fBri" min="50" max="150" value="100" /></label>
+            <label>Hue <input type="range" id="fHue" min="-180" max="180" value="0" /></label>
+            <p class="small">A browser preview. In the app, these change your whole screen.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="download" class="reveal">
+        <div class="section-head">
+          <h2 class="grad">Download</h2>
+        </div>
+        <div class="download" id="downloadCard">
+          <div class="dl-main">
+            <img src="assets/logo.png" alt="" />
+            <div>
+              <h3>Ashlight for Windows</h3>
+              <p class="dl-meta" id="dlMeta">Windows 10 and 11</p>
+              <div class="dl-facts" id="dlFacts"></div>
+            </div>
+            <button class="cta dl-button" id="dlButton" data-icon="download"><span>Download</span><i class="dl-progress" id="dlProgress"></i></button>
+          </div>
+          <div class="dl-elsewhere" id="dlElsewhere" hidden>
+            <b>You're not on Windows.</b> Ashlight runs on Windows 10 and 11. Send yourself the link and download it on your PC.
+            <button class="mini" id="copyLink">Copy link</button>
+          </div>
+          <div class="dl-done" id="dlDone" hidden>
+            <span class="dl-done-icon">✓</span>
+            <div><b>Downloaded and verified.</b> Open <code>Ashlight-Setup.exe</code> from your downloads to install.</div>
+          </div>
+          <ol class="dl-steps">
+            <li><b>Run Ashlight-Setup.exe.</b> It installs in a few seconds, with no admin prompt.</li>
+            <li><b>If Windows says it protected your PC,</b> click More info, then Run anyway. That shows for new apps that aren't signed yet.</li>
+            <li><b>That's it.</b> Ashlight keeps itself up to date from here.</li>
+          </ol>
+          <div class="dl-hash"><span>SHA-256</span><code id="dlHash">Loading</code><button class="mini" id="copyHash">Copy</button></div>
+          <p class="dl-check">Check the file yourself: <code>certutil -hashfile Ashlight-Setup.exe SHA256</code></p>
+          <div class="dl-other"><span>macOS</span><span>Linux</span><em>Coming soon</em></div>
+        </div>
+      </section>
+
+      <section id="updates" class="reveal">
+        <div class="section-head"><h2 class="grad">Updates</h2></div>
+        <div class="log" id="log"></div>
+      </section>
+    </main>
+
+    <footer><img src="assets/logo.png" alt="" />Ashlight<span>Made for gamers. Free.</span></footer>
+    <script type="module" src="site.js?v=0.8.0-mw9b0rz8"></script>
+  </body>
+</html>
