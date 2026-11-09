@@ -883,3 +883,57 @@ body.chat-mode .c-head { padding-right: 120px; }
 .dc-ext { min-width: 0; padding: 0; background: transparent !important; font-size: 9px; width: 30px; text-align: left; }
 .dc-finding-head > span { flex: 1; margin-left: 0; color: var(--ink); font-size: 12.5px; text-align: left; }
 .dc-finding-head { justify-content: flex-start; }
+
+/* ---------- 0.10 refresh ---------- */
+
+/* Sidebar: categories slide open and shut. */
+.nav-fold { display: grid; grid-template-rows: 1fr; transition: grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 220ms var(--ease); }
+.nav-fold.folded { grid-template-rows: 0fr; opacity: 0; }
+.nav-fold-inner { min-height: 0; overflow: hidden; }
+.nav-item.folded:not(.on) { display: flex; }
+.nav-pill { transition: transform 460ms var(--spring), opacity 200ms var(--ease); }
+
+/* Logo: no box, a glow that follows the beat. */
+.brand img { width: 30px; height: 30px; border-radius: 0; box-shadow: none; --beat: 0;
+  filter: drop-shadow(0 0 calc(2px + var(--beat) * 14px) rgba(var(--glow-1), calc(0.25 + var(--beat) * 0.75)));
+  transform: scale(calc(1 + var(--beat) * 0.08)); transition: filter 70ms linear, transform 70ms linear; }
+
+/* Background: slow drifting light behind everything, so glass has something to show. */
+body::before { content: ""; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(38% 34% at 22% 28%, rgba(var(--glow-1), 0.16), transparent 70%),
+    radial-gradient(34% 30% at 78% 72%, rgba(var(--glow-2), 0.18), transparent 70%),
+    radial-gradient(26% 24% at 70% 20%, rgba(var(--glow-1), 0.08), transparent 70%);
+  animation: drift 28s ease-in-out infinite alternate; }
+body.has-bg::before, body.see-desktop::before { display: none; }
+@keyframes drift { to { transform: translate3d(4%, -3%, 0) rotate(8deg) scale(1.08); } }
+
+/* Sliders: a softer track, a filled glow, and a thumb with a ring. */
+input[type="range"] { height: 24px; }
+input[type="range"]::-webkit-slider-runnable-track { height: 8px; border-radius: 8px; background: linear-gradient(to right, rgba(255, 255, 255, 0.07) var(--a, 0%), rgba(var(--glow-1), 0.9) var(--a, 0%), var(--accent) var(--b, 0%), rgba(255, 255, 255, 0.07) var(--b, 0%)); box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35); }
+input[type="range"]::-webkit-slider-thumb { width: 20px; height: 20px; margin-top: -6px; background: radial-gradient(circle at 50% 40%, #fff 0 35%, #e9ecf2 36%); box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 3px 10px rgba(0, 0, 0, 0.5); }
+input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(var(--glow-1), 0.18), 0 3px 12px rgba(0, 0, 0, 0.5); }
+input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.18); box-shadow: 0 0 0 9px rgba(var(--glow-1), 0.22), 0 3px 14px rgba(0, 0, 0, 0.55); }
+
+/* Buttons: a quiet surface with a light edge; hover lifts instead of flashing white. */
+.btn { border-radius: 11px; background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045)); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 2px rgba(0, 0, 0, 0.3); }
+.btn:hover { background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.08)); color: var(--ink); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 6px 18px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(var(--glow-1), 0.25); }
+.btn.primary, .btn.primary:hover { background: linear-gradient(180deg, #fff, #dfe3ea); color: #0d0e11; box-shadow: 0 6px 20px rgba(var(--glow-1), 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.12); }
+.icon-btn { transition: background var(--fast) var(--ease), transform var(--fast) var(--spring); }
+.icon-btn:hover { transform: translateY(-1px); }
+.switch[aria-checked="true"] { box-shadow: 0 0 14px rgba(var(--glow-1), 0.35); }
+
+/* Liquid glass: real frosted glass with a bright edge, over any background. */
+body.refract .card, body.refract .tile, body.refract .side, body.refract .dc-ide { backdrop-filter: blur(22px) saturate(1.6) brightness(1.05); }
+body.glass-panels:not(.has-bg) .card, body.glass-panels:not(.has-bg) .tile, body.glass-panels:not(.has-bg) .side { --panel-o: 0.12; }
+
+/* Crosshair presets and a game-like preview scene. */
+.presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.preset { height: 28px; padding: 0 11px; border: 0; border-radius: 9px; background: rgba(255, 255, 255, 0.06); color: var(--ink-2); font: inherit; font-size: 12px; cursor: pointer; transition: background var(--fast) var(--ease), color var(--fast) var(--ease), transform var(--fast) var(--spring); }
+.preset:hover { background: rgba(255, 255, 255, 0.13); color: var(--ink); transform: translateY(-1px); }
+.preview .scene { background: radial-gradient(70% 90% at 50% 50%, rgba(255, 255, 255, 0.05), transparent 70%), #17181c; }
+
+/* Decompiler, stripped down: name, buttons, files, code. */
+.dc-ide { height: calc(100vh - var(--dc-top, 190px)); min-height: 420px; }
+.dc-head { padding: 12px 14px; }
+.dc-head h2 { margin: 0; font-size: 16px; }

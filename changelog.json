@@ -1,5 +1,10 @@
 [
   {
+    "version": "0.10.0",
+    "date": "2026-11-09",
+    "notes": "New logo with a glow that follows your music. Cleaner, simpler Decompiler. Liquid glass now works on any background, plus new themes (Aurora, Neon, Glacier, Void), smoother sliders and buttons, crosshair presets, and sidebar categories that fold smoothly. Chat, Music HUD and Aspect ratio were removed."
+  },
+  {
     "version": "0.9.0",
     "date": "2026-11-09",
     "notes": "New Decompiler: drop in a .NET program, Java or Kotlin jar, Minecraft mod or plugin, Android app or Electron app and read its source in a built-in viewer. It tells you what the file is, flags code worth a look (like Discord webhooks or password grabbing), and zips the source into Downloads. Everything stays on your PC. Also: a new logo, a smooth close animation, and sidebar categories you can fold."
