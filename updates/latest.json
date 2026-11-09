@@ -1,7 +1,7 @@
 {
-  "version": "0.8.0",
+  "version": "0.8.1",
   "file": "Ashlight-Setup.exe",
-  "sha256": "eb28366eb59a87b484eeaf1dfef674214af5ca789972976a936a6eef061849cf",
-  "appSha256": "4cceaa6f27bb8de7a0c92511098e524a286d17e66727fed9eb7c7084f412e785",
-  "notes": "Ttool is now Ashlight, and your settings come with it. Game profiles switch your colour, crosshair and more when a game is in front. Settings backups: daily, before big changes, and save or open them as a file. Crosshair codes to copy and paste a look. Suggest something from Settings and see when it's accepted. Chat keeps up after a lost connection: missed messages, unsent ones and calls come back by themselves. Safer: Windows settings are put back even if Ashlight crashes."
+  "sha256": "9f3a047aa2293cbc69dfcbb82888af920fc12c288bacd98826dd03c6e37846cd",
+  "appSha256": "ff478903920c292f17c1293fa7e3cd65ab3ab247d2acc3abbba61f57a1ee7df2",
+  "notes": "Closing Ashlight now fades the window out smoothly, whether it goes to the tray or exits. It closes instantly if you turn motion off."
 }

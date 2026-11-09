@@ -352,6 +352,10 @@ body.no-motion *, body.no-motion *::before, body.no-motion *::after { animation:
   *, *::before, *::after { animation: none !important; transition-duration: 1ms !important; }
 }
 
+/* Close animation: the page settles back a touch while the window fades out. */
+body { transition: transform 170ms cubic-bezier(0.4, 0, 1, 1); }
+body.closing { transform: scale(0.97); pointer-events: none; }
+
 /* Window buttons: macOS lights or Windows buttons, on either side */
 .titlebar { position: relative; height: 22px; }
 .titlebar .lights:not(:empty) { position: absolute; right: 14px; top: 12px; z-index: 5; padding: 0; }

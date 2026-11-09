@@ -1,5 +1,10 @@
 [
   {
+    "version": "0.8.1",
+    "date": "2026-11-09",
+    "notes": "Closing Ashlight now fades the window out smoothly, whether it goes to the tray or exits. It closes instantly if you turn motion off."
+  },
+  {
     "version": "0.8.0",
     "date": "2026-11-09",
     "notes": "Ttool is now Ashlight, and your settings come with it. Game profiles switch your colour, crosshair and more when a game is in front. Settings backups: daily, before big changes, and save or open them as a file. Crosshair codes to copy and paste a look. Suggest something from Settings and see when it's accepted. Chat keeps up after a lost connection: missed messages, unsent ones and calls come back by themselves. Safer: Windows settings are put back even if Ashlight crashes."
