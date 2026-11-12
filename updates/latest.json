@@ -1,7 +1,7 @@
 {
-  "version": "0.12.0",
+  "version": "0.13.0",
   "file": "Ashlight-Setup.exe",
-  "sha256": "7a69a2dceb30a5c94a3e1d1db843f11f9e0e059ef6a9ed7efb0db153b68da6a5",
-  "appSha256": "3c9254ac1040185b20e5a8311c2eb5839f1c57a4b2257b457bfec259583fb116",
-  "notes": "Three modes: Dark, Light and Windows 10. Nicer themes, lighter flat look with no outlines. Library and liquid glass removed. A simpler, working download on the website."
+  "sha256": "2c89881877bc422f9a67ebc82a9f2399e3ac7de713e2f42ef23a3883dfca9d22",
+  "appSha256": "63e7f413556010a54157c2b8373dff534ff858cdd5dec8a202e382f01ba6eaf1",
+  "notes": "Decompiler reads native DLLs and programs, with no descriptions and a faster scan. Tilting 3D tiles and depth. Program details added so Windows and antivirus tools can see who made Ashlight."
 }

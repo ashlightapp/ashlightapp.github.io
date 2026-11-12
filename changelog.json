@@ -1,5 +1,10 @@
 [
   {
+    "version": "0.13.0",
+    "date": "2026-11-12",
+    "notes": "Decompiler reads native DLLs and programs, with no descriptions and a faster scan. Tilting 3D tiles and depth. Program details added so Windows and antivirus tools can see who made Ashlight."
+  },
+  {
     "version": "0.12.0",
     "date": "2026-11-12",
     "notes": "Three modes: Dark, Light and Windows 10. Nicer themes, lighter flat look with no outlines. Library and liquid glass removed. A simpler, working download on the website."
