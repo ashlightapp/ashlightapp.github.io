@@ -1,5 +1,10 @@
 [
   {
+    "version": "0.11.0",
+    "date": "2026-11-12",
+    "notes": "Cleaner look: one sans font, flat tidy panels, a bigger Decompiler drop area, and a lighter, faster website."
+  },
+  {
     "version": "0.10.0",
     "date": "2026-11-09",
     "notes": "New logo with a glow that follows your music. Cleaner, simpler Decompiler. Liquid glass now works on any background, plus new themes (Aurora, Neon, Glacier, Void), smoother sliders and buttons, crosshair presets, and sidebar categories that fold smoothly. Chat, Music HUD and Aspect ratio were removed."
