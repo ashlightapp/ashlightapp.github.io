@@ -987,3 +987,78 @@ body { grid-template-columns: 236px 1fr; }
 .dc-drop b { font-size: 18px; font-weight: 600; }
 .dc-drop span { font-size: 13px; }
 .dc-types { margin-top: 14px; padding: 6px 14px; border-radius: 99px; background: rgba(255, 255, 255, 0.06); color: var(--ink-2); font-size: 12px; }
+
+/* ---------- 0.12: light and smooth. No outlines, no clutter, richer gradients, three modes. ---------- */
+#smoke { display: none !important; }
+.note:not(.warn) { display: none; }
+body { background:
+  radial-gradient(900px 600px at 0% 0%, rgba(var(--glow-1), 0.22), transparent 65%),
+  radial-gradient(800px 600px at 100% 100%, rgba(var(--glow-2), 0.28), transparent 65%),
+  linear-gradient(140deg, rgb(var(--bg-a)), rgb(var(--bg-b))); }
+.side, .card, .tile, .btn, .nav-pill, .chip, .seg, .dc-drop, .dc-ide, .dc-head { box-shadow: none; }
+.side { background: rgba(255, 255, 255, 0.07); border-radius: 18px; }
+.card, .tile { background: rgba(255, 255, 255, 0.075); border-radius: 18px; }
+.tile:hover, .card:hover { background: rgba(255, 255, 255, 0.11); }
+.nav-pill { background: rgba(255, 255, 255, 0.13); border-radius: 12px; }
+.nav-item { border-radius: 12px; }
+.btn { background: rgba(255, 255, 255, 0.11); border-radius: 12px; }
+.btn:hover { background: rgba(255, 255, 255, 0.2); box-shadow: none; }
+.btn.primary, .btn.primary:hover { background: var(--accent); color: var(--on-accent); box-shadow: none; }
+.chip { background: rgba(255, 255, 255, 0.09); }
+.seg { background: rgba(0, 0, 0, 0.18); }
+.dc-drop { border: 0; background: rgba(255, 255, 255, 0.06); }
+.dc-drop:hover, .dc-drop.over { background: rgba(255, 255, 255, 0.1); border: 0; }
+.tile[aria-pressed="true"] { background: var(--accent); }
+.theme { border-radius: 14px; }
+.themes { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.theme.on { box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85); }
+
+/* Light mode */
+body.mode-light { color-scheme: light; --ink: #181a20; --ink-2: rgba(24, 26, 32, 0.68); --ink-3: rgba(24, 26, 32, 0.46); --track: rgba(0, 0, 0, 0.13); --accent: #2f6df6; --on-accent: #fff; --warn: #a8641a;
+  --bg-a: 236, 242, 252; --bg-b: 214, 224, 244; --glow-1: 150, 190, 255; --glow-2: 200, 170, 255; }
+body.mode-light .side, body.mode-light .card, body.mode-light .tile { background: rgba(255, 255, 255, 0.62); }
+body.mode-light .tile:hover, body.mode-light .card:hover { background: rgba(255, 255, 255, 0.85); }
+body.mode-light .nav-pill { background: rgba(47, 109, 246, 0.14); }
+body.mode-light .nav-item.on, body.mode-light .nav-item:hover { color: var(--accent); }
+body.mode-light .btn, body.mode-light .chip { background: rgba(0, 0, 0, 0.06); color: var(--ink); }
+body.mode-light .btn:hover, body.mode-light .chip:hover { background: rgba(0, 0, 0, 0.11); color: var(--ink); }
+body.mode-light .btn.primary, body.mode-light .btn.primary:hover, body.mode-light .chip.on { background: var(--accent); color: #fff; }
+body.mode-light .seg { background: rgba(0, 0, 0, 0.07); }
+body.mode-light .seg .thumb { background: #fff; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18); }
+body.mode-light .seg button.on, body.mode-light .seg button.on:hover { color: var(--ink); }
+body.mode-light .switch { background: rgba(0, 0, 0, 0.2); }
+body.mode-light .switch::after { background: #fff; }
+body.mode-light .switch[aria-checked="true"] { background: var(--accent); box-shadow: none; }
+body.mode-light .tile-icon, body.mode-light .dc-drop .dc-icon, body.mode-light .dc-types { background: rgba(0, 0, 0, 0.06); }
+body.mode-light .dc-drop { background: rgba(255, 255, 255, 0.5); }
+body.mode-light .page-wrap::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.22); background-clip: padding-box; }
+body.mode-light input[type="range"]::-webkit-slider-runnable-track { background: linear-gradient(to right, rgba(0, 0, 0, 0.12) var(--a, 0%), var(--accent) var(--a, 0%), var(--accent) var(--b, 0%), rgba(0, 0, 0, 0.12) var(--b, 0%)); box-shadow: none; }
+body.mode-light input[type="range"]::-webkit-slider-thumb { background: #fff; box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35); }
+body.mode-light .brand img { filter: invert(1) drop-shadow(0 0 calc(2px + var(--beat) * 12px) rgba(47, 109, 246, calc(0.1 + var(--beat) * 0.8))); }
+
+/* Windows 10 mode: flat, square, Segoe UI, blue accent. */
+body.mode-win10 { --accent: #0078d4; --on-accent: #fff; --bg-a: 32, 32, 32; --bg-b: 32, 32, 32; --glow-1: 0, 120, 212; --glow-2: 0, 120, 212; --ink-2: rgba(255, 255, 255, 0.72); --track: rgba(255, 255, 255, 0.2);
+  background: #202020; grid-template-columns: 240px 1fr; }
+body.mode-win10::before { display: none; }
+body.mode-win10 .side { margin: 0; border-radius: 0; background: #2b2b2b; padding-top: 10px; }
+body.mode-win10 .card, body.mode-win10 .tile { border-radius: 2px; background: #2d2d2d; }
+body.mode-win10 .card:hover, body.mode-win10 .tile:hover { background: #333; }
+body.mode-win10 .nav-pill { border-radius: 0; background: rgba(255, 255, 255, 0.1); }
+body.mode-win10 .nav-pill::before { content: ""; position: absolute; left: 0; top: 9px; bottom: 9px; width: 3px; border-radius: 2px; background: var(--accent); }
+body.mode-win10 .nav-item { border-radius: 0; }
+body.mode-win10 .nav-item.on, body.mode-win10 .nav-item:hover { color: #fff; }
+body.mode-win10 .btn, body.mode-win10 .chip { border-radius: 2px; background: #3a3a3a; }
+body.mode-win10 .btn:hover, body.mode-win10 .chip:hover { background: #484848; }
+body.mode-win10 .btn.primary, body.mode-win10 .btn.primary:hover, body.mode-win10 .chip.on { background: var(--accent); color: #fff; }
+body.mode-win10 .btn.primary:hover { filter: brightness(1.12); }
+body.mode-win10 .seg { border-radius: 2px; background: #3a3a3a; }
+body.mode-win10 .seg .thumb { border-radius: 2px; }
+body.mode-win10 .seg button.on, body.mode-win10 .seg button.on:hover { color: #fff; }
+body.mode-win10 .switch { border-radius: 24px; background: transparent; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7); }
+body.mode-win10 .switch::after { background: rgba(255, 255, 255, 0.9); }
+body.mode-win10 .switch[aria-checked="true"] { background: var(--accent); box-shadow: none; }
+body.mode-win10 .switch[aria-checked="true"]::after { background: #fff; }
+body.mode-win10 .dc-drop { border-radius: 2px; background: #2d2d2d; }
+body.mode-win10 .theme { border-radius: 2px; }
+body.mode-win10 input[type="range"]::-webkit-slider-runnable-track { height: 4px; border-radius: 0; }
+body.mode-win10 input[type="range"]::-webkit-slider-thumb { width: 12px; height: 22px; margin-top: -9px; border-radius: 6px; background: var(--accent); box-shadow: none; }

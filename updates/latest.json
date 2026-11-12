@@ -1,7 +1,7 @@
 {
-  "version": "0.11.0",
+  "version": "0.12.0",
   "file": "Ashlight-Setup.exe",
-  "sha256": "b324e9ccf2665400fe7575c4a487f771b2d61adb0d4b3c4617fd67b650671fc7",
-  "appSha256": "d17b6ab95efe4372873c305a842da10d5ffbfc41fe72879534f687c5a80ce7b0",
-  "notes": "Cleaner look: one sans font, flat tidy panels, a bigger Decompiler drop area, and a lighter, faster website."
+  "sha256": "7a69a2dceb30a5c94a3e1d1db843f11f9e0e059ef6a9ed7efb0db153b68da6a5",
+  "appSha256": "3c9254ac1040185b20e5a8311c2eb5839f1c57a4b2257b457bfec259583fb116",
+  "notes": "Three modes: Dark, Light and Windows 10. Nicer themes, lighter flat look with no outlines. Library and liquid glass removed. A simpler, working download on the website."
 }

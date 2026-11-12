@@ -13,8 +13,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700&display=swap" />
-    <link rel="stylesheet" href="style.css?v=0.11.0-mwe01avs" />
-    <link rel="stylesheet" href="controls.css?v=0.11.0-mwe01avs" />
+    <link rel="stylesheet" href="style.css?v=0.12.0-mwe0bij8" />
+    <link rel="stylesheet" href="controls.css?v=0.12.0-mwe0bij8" />
   </head>
   <body>
     <div class="ambient" aria-hidden="true"><div class="sky"></div><div class="grid"></div><div class="glow"></div><div class="noise"></div></div>
@@ -45,8 +45,7 @@
           <a class="cta" href="#download" data-icon="download">Download for Windows</a>
           <a class="ghost" href="#app">Try it in your browser <span class="arrow">→</span></a>
         </div>
-        <ul class="hero-facts"><li>No admin needed</li><li>Updates itself</li><li>Stays on your PC</li></ul>
-      </div>
+              </div>
       <a class="scroll-hint" href="#app" aria-label="Scroll to the app"><i></i></a>
     </section>
 
@@ -55,7 +54,7 @@
         <div class="section-head reveal">
           <span class="kicker">01 · Live</span>
           <h2>The real app, right here</h2>
-          <p>Ashlight itself, running in your browser. Click anything.</p>
+          
         </div>
         <div class="stage reveal" id="stage">
           <div class="stage-window" id="stageWindow"></div>
@@ -67,7 +66,7 @@
         <div class="section-head reveal">
           <span class="kicker">02 · Features</span>
           <h2>Everything in one place</h2>
-          <p>One small app for how your game looks and how you aim.</p>
+          
         </div>
         <div class="bento">
           <article class="wide reveal" data-icon="palette"><h3>Colour</h3><p>Vibrance, shadows, temperature and more, across your whole screen.</p></article>
@@ -76,10 +75,9 @@
           <article class="reveal" data-icon="moon"><h3>Colour darkener</h3><p>Any colour, down to full dark.</p></article>
           <article class="reveal" data-icon="rocket"><h3>Game boost</h3><p>One click for max performance.</p></article>
           <article class="wide reveal" data-icon="file-code"><h3>Decompiler</h3><p>Drop in a jar, mod, .NET or Android app and read its source. It flags code worth a look, and nothing leaves your PC.</p></article>
-          <article class="reveal" data-icon="library"><h3>Library</h3><p>Your Steam and Epic games, one click to play.</p></article>
-          <article class="reveal" data-icon="sparkles"><h3>Liquid glass</h3><p>See-through panels and 24 themes.</p></article>
+          <article class="reveal" data-icon="sparkles"><h3>Themes</h3><p>Dark, light or Windows 10, in 12 colours.</p></article>
           <article class="reveal" data-icon="gamepad-2"><h3>Discord</h3><p>Playing Ashlight on your profile.</p></article>
-          <article class="reveal" data-icon="shield-check"><h3>Safe by design</h3><p>Windows settings come back even after a crash.</p></article>
+          <article class="wide reveal" data-icon="shield-check"><h3>Safe by design</h3><p>Windows settings come back even after a crash.</p></article>
         </div>
         <p class="fine reveal">Needs borderless window in games. Some games have rules about overlays, so check before playing online.</p>
       </section>
@@ -88,7 +86,7 @@
         <div class="section-head reveal">
           <span class="kicker">03 · Overlays</span>
           <h2>Overlays, live</h2>
-          <p>What sits on top of your game. Drag the sliders.</p>
+          
         </div>
         <div class="tabs reveal" id="tabs" role="tablist">
           <span class="tab-pill" id="tabPill"></span>
@@ -127,34 +125,23 @@
         <div class="section-head reveal">
           <span class="kicker">04 · Download</span>
           <h2>Get Ashlight</h2>
-          <p>One small installer. Checked against its fingerprint before it lands in your downloads.</p>
+          
         </div>
         <div class="download reveal" id="downloadCard">
           <div class="dl-main">
             <div class="dl-logo"><img src="assets/logo.png" alt="" /></div>
-            <div>
+            <div class="dl-text">
               <h3>Ashlight for Windows</h3>
               <p class="dl-meta" id="dlMeta">Windows 10 and 11</p>
-              <div class="dl-facts" id="dlFacts"></div>
             </div>
-            <button class="cta dl-button" id="dlButton" data-icon="download"><span>Download</span><i class="dl-progress" id="dlProgress"></i></button>
+            <a class="cta dl-button" id="dlButton" href="updates/Ashlight-Setup.exe" download data-icon="download"><span>Download</span></a>
           </div>
-          <div class="dl-elsewhere" id="dlElsewhere" hidden>
-            <b>You're not on Windows.</b> Ashlight runs on Windows 10 and 11. Send yourself the link and download it on your PC.
-            <button class="mini" id="copyLink">Copy link</button>
-          </div>
-          <div class="dl-done" id="dlDone" hidden>
-            <span class="dl-done-icon">✓</span>
-            <div><b>Downloaded and verified.</b> Open <code>Ashlight-Setup.exe</code> from your downloads to install.</div>
-          </div>
-          <ol class="dl-steps">
-            <li><b>Run Ashlight-Setup.exe.</b> It installs in a few seconds, with no admin prompt.</li>
-            <li><b>If Windows says it protected your PC,</b> click More info, then Run anyway. That shows for new apps that aren't signed yet.</li>
-            <li><b>That's it.</b> Ashlight keeps itself up to date from here.</li>
-          </ol>
-          <div class="dl-hash"><span>SHA-256</span><code id="dlHash">Loading</code><button class="mini" id="copyHash">Copy</button></div>
-          <p class="dl-check">Check the file yourself: <code>certutil -hashfile Ashlight-Setup.exe SHA256</code></p>
-          <div class="dl-other"><span>macOS</span><span>Linux</span><em>Coming soon</em></div>
+          <p class="dl-elsewhere" id="dlElsewhere" hidden>Ashlight runs on Windows 10 and 11. Open this page on your PC to download it.</p>
+          <details class="dl-more">
+            <summary>Installing and checking the file</summary>
+            <p>Run <b>Ashlight-Setup.exe</b>. If Windows says it protected your PC, click More info, then Run anyway.</p>
+            <div class="dl-hash"><span>SHA-256</span><code id="dlHash">Loading</code><button class="mini" id="copyHash">Copy</button></div>
+          </details>
         </div>
       </section>
 
@@ -162,7 +149,7 @@
         <div class="section-head reveal">
           <span class="kicker">05 · Updates</span>
           <h2>What's new</h2>
-          <p>Every release, newest first.</p>
+          
         </div>
         <div class="log reveal" id="log"></div>
       </section>
@@ -173,6 +160,6 @@
       <span>Made for gamers. Free.</span>
       <a href="#">Back to top ↑</a>
     </footer>
-    <script type="module" src="site.js?v=0.11.0-mwe01avs"></script>
+    <script type="module" src="site.js?v=0.12.0-mwe0bij8"></script>
   </body>
 </html>

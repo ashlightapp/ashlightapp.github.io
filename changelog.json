@@ -1,5 +1,10 @@
 [
   {
+    "version": "0.12.0",
+    "date": "2026-11-12",
+    "notes": "Three modes: Dark, Light and Windows 10. Nicer themes, lighter flat look with no outlines. Library and liquid glass removed. A simpler, working download on the website."
+  },
+  {
     "version": "0.11.0",
     "date": "2026-11-12",
     "notes": "Cleaner look: one sans font, flat tidy panels, a bigger Decompiler drop area, and a lighter, faster website."
