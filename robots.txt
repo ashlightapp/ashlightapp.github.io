@@ -1,2 +1,2 @@
 User-agent: *
-Disallow: /owner-k7q2/
+Disallow: /

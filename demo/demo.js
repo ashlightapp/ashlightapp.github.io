@@ -1276,7 +1276,6 @@ var defaults = () => ({
     autoUpdate: true,
     theme: "graphite",
     accent: "#ffffff",
-    welcomed: true,
     windowButtons: "mac",
     buttonsSide: "right",
     intro: true,
@@ -1310,7 +1309,7 @@ var defaults = () => ({
     font: "mono",
     motion: true,
     pauseVideo: true,
-    smoke: false,
+    smoke: true,
     navFolded: []
   },
   plugins: {}
@@ -1533,7 +1532,6 @@ async function replaceAll(raw, reason) {
   settings = sanitize(migrate(raw));
   settings = ownSettings();
   settings.social = social;
-  settings.app.welcomed = true;
   settings.app.lastVersion = version;
   if (settings.app.startWithWindows !== wasStartup)
     host("startup", settings.app.startWithWindows);
@@ -2275,12 +2273,10 @@ async function bootCore() {
       settings = sanitize(migrate(raw));
     } else {
       settings = defaults();
-      settings.app.welcomed = true;
       notice = "Your settings file couldn't be read, so Ashlight started fresh. The old file is saved in Settings, Backups.";
       makeBackup("unreadable", String(boot.settings));
     }
   } else {
-    settings.app.welcomed = false;
     settings.app.lastVersion = version;
   }
   settings.games.profiles = (Array.isArray(settings.games.profiles) ? settings.games.profiles : []).filter((p) => p && typeof p.exe === "string" && Array.isArray(p.parts) && p.values && typeof p.values === "object").map((p) => ({ exe: cleanExe(p.exe), parts: p.parts.filter((x) => (x in PROFILE_SECTIONS)), values: p.values })).slice(0, 50);
@@ -2969,7 +2965,7 @@ function colorPage() {
       const i = h("i");
       i.style.setProperty("--c", c);
       return i;
-    })))))
+    }))), monitorCard()))
   ];
 }
 function macroPage() {
@@ -3128,25 +3124,19 @@ function crosshairPage() {
     grid(stack(card(null, null, toggleRow("crosshair.enabled", "Show crosshair", "Rust's own reticle can't be changed without modifying the game, which risks a ban, so yours is drawn on top. Run the game in borderless window."), rowOf("When", undefined, segmented("crosshair.show", [["aim", "Aiming"], ["always", "Always"], ["toggle", "Toggle"]], changed)), aimRow, delayRow, toggleKeyRow, toggleRow("crosshair.onlyRust", "Only in Rust", "Shows only while Rust is the window in front.")), darkenerCard(), card("Hide Rust's reticle", Layers, slider("crosshair.cover", "Cover size", { tip: "A solid disc under your reticle that covers the game's dot. Keep it small, because it also hides what's behind it.", ...opts }), rowOf("Cover colour", undefined, swatches("crosshair.coverColor", ["#1a1c1f", "#000000", "#3a3f36", "#5a5f66"], changed))), card("Position", Move, slider("crosshair.offsetX", "Left and right", { tip: "Nudges the reticle if it isn't perfectly on the sight." }), slider("crosshair.offsetY", "Up and down"))), stack(h("section", { class: "card preview" }, h("div", { class: "scene" }), preview), card("Reticle", Crosshair, presets, stylesRoot, slider("crosshair.size", "Size", opts), slider("crosshair.thickness", "Thickness", opts), slider("crosshair.gap", "Gap", opts), slider("crosshair.opacity", "Opacity", { unit: "%", ...opts }), slider("crosshair.glow", "Glow", { unit: "%", ...opts }), toggleRow("crosshair.outline", "Black outline", undefined, changed), toggleRow("crosshair.fitScreen", "Fit to screen", "Same size on screen at 1080p, 1440p or 4K."), toggleRow("crosshair.dynamic", "Dynamic", "Opens up while you hold left mouse, then settles back."), rowOf("Colour", undefined, swatches("crosshair.color", ["#ff3b3b", "#ffffff", "#3bff6f", "#3be8ff", "#ffe23b", "#ff4fd8"], changed)))))
   ];
 }
-function resolutionPage() {
-  const intro = h("div", { class: "note" }, "Changes a monitor's resolution and refresh rate for this session only. Windows' own setting comes back after a restart, or right away with Reset.");
+function monitorCard() {
   const monitorRow = h("div", { class: "chips" });
-  const modeGrid = h("div", { class: "tiles four" });
+  const resRow = h("div", { class: "chips" });
+  const hzRow = h("div", { class: "chips" });
   const currentText = h("div", { class: "note" });
   const status = h("div", { class: "note" });
   let devices = [];
   let device = "";
   let modes = [];
   let current = null;
+  let resKey = "";
   let selected = null;
-  let scaling = "default";
   let revertTimer = null;
-  const scalingButtons = ["default", "stretch", "center"].map((v) => h("button", { class: "chip", onclick: () => {
-    scaling = v;
-    paintScaling();
-  } }, v === "default" ? "Default" : v === "stretch" ? "Stretch" : "Center"));
-  const scalingRow = h("div", { class: "chips" }, ...scalingButtons);
-  const paintScaling = () => scalingButtons.forEach((b, i) => b.classList.toggle("on", ["default", "stretch", "center"][i] === scaling));
   const applyButton = h("button", { class: "btn primary", onclick: () => void apply() }, icon(Monitor), "Apply");
   const resetButton = h("button", { class: "btn ghost", onclick: () => void reset(true) }, "Reset to Windows' setting");
   function stopRevertTimer() {
@@ -3168,7 +3158,7 @@ function resolutionPage() {
     if (!device || !selected)
       return;
     stopRevertTimer();
-    const ok = await api.call("applyMode", device, selected, scaling);
+    const ok = await api.call("applyMode", device, selected, "default");
     if (!ok) {
       status.textContent = "That monitor wouldn't accept this mode.";
       return;
@@ -3188,37 +3178,44 @@ function resolutionPage() {
     }, 1000);
     await loadModes();
   }
-  function paintModes() {
-    const groups = new Map;
-    for (const m of modes) {
-      const key2 = `${m.width}x${m.height}`;
-      if (!groups.has(key2))
-        groups.set(key2, []);
-      groups.get(key2).push(m);
-    }
-    const rows = [...groups.entries()].sort((a, b) => {
-      const [aw, ah] = a[0].split("x").map(Number);
-      const [bw, bh] = b[0].split("x").map(Number);
+  function paintHz() {
+    const group = modes.filter((m) => `${m.width}x${m.height}` === resKey).sort((a, b) => b.hz - a.hz);
+    hzRow.replaceChildren(...group.map((m) => {
+      const isCurrent = current?.width === m.width && current?.height === m.height && current?.hz === m.hz;
+      const b = h("button", { class: `chip${selected?.hz === m.hz ? " on" : ""}`, onclick: () => {
+        selected = m;
+        paintHz();
+      } }, `${m.hz} Hz${isCurrent ? " · current" : ""}`);
+      return b;
+    }));
+  }
+  function paintRes() {
+    const keys = [...new Set(modes.map((m) => `${m.width}x${m.height}`))].sort((a, b) => {
+      const [aw, ah] = a.split("x").map(Number);
+      const [bw, bh] = b.split("x").map(Number);
       return bw * bh - aw * ah;
     });
-    modeGrid.replaceChildren(...rows.flatMap(([key2, group]) => group.sort((a, b) => b.hz - a.hz).map((m) => {
-      const on = selected?.width === m.width && selected?.height === m.height && selected?.hz === m.hz;
-      const isCurrent = current?.width === m.width && current?.height === m.height && current?.hz === m.hz;
-      const tile = h("button", { class: `tile${on ? " on" : ""}`, onclick: () => {
-        selected = m;
-        paintModes();
-      } }, h("b", {}, key2), h("span", {}, `${m.hz} Hz${isCurrent ? " · current" : ""}`));
-      return tile;
-    })));
+    resRow.replaceChildren(...keys.map((key2) => {
+      const b = h("button", { class: `chip${key2 === resKey ? " on" : ""}`, onclick: () => {
+        resKey = key2;
+        selected = modes.find((m) => `${m.width}x${m.height}` === key2 && m.hz === current?.hz) ?? modes.find((m) => `${m.width}x${m.height}` === key2) ?? null;
+        paintRes();
+        paintHz();
+      } }, key2.replace("x", " x "));
+      return b;
+    }));
   }
   async function loadModes() {
-    modeGrid.replaceChildren(h("div", { class: "note" }, "Loading…"));
+    resRow.replaceChildren(h("div", { class: "note" }, "Loading…"));
+    hzRow.replaceChildren();
     const r = await api.call("modes", device);
     modes = r?.modes ?? [];
     current = r?.current ?? null;
     selected = current;
+    resKey = current ? `${current.width}x${current.height}` : "";
     currentText.textContent = current ? `Current: ${current.width} x ${current.height} at ${current.hz} Hz` : "Couldn't read this monitor's modes.";
-    paintModes();
+    paintRes();
+    paintHz();
   }
   function paintMonitors() {
     monitorRow.replaceChildren(...devices.map((d, i) => {
@@ -3240,12 +3237,7 @@ function resolutionPage() {
     paintMonitors();
     await loadModes();
   })();
-  paintScaling();
-  return [
-    head("Resolution"),
-    card(null, null, intro, monitorRow),
-    card(null, null, currentText, modeGrid, h("div", { class: "gap" }), rowOf("Scaling", "Only matters when the mode doesn't match the monitor's native size.", scalingRow), h("div", { class: "row", style: "gap:8px" }, applyButton, resetButton), status)
-  ];
+  return card("Monitor", Monitor, h("div", { class: "note" }, "Resolution and refresh rate, for this session only - Windows' own setting comes back after a restart, or right away with Reset."), monitorRow, h("div", { class: "gap" }), currentText, resRow, h("div", { class: "gap" }), hzRow, h("div", { class: "gap" }), h("div", { class: "row", style: "gap:8px" }, applyButton, resetButton), status);
 }
 var BOOST_TOOLS = [
   ["tools.highPerformance", "Top power plan", Gauge, "Stops Windows lowering CPU speed to save power."],
@@ -3837,7 +3829,7 @@ function customizePage() {
   requestAnimationFrame(applyBackground);
   return [
     head("Customize"),
-    grid(stack(card("Background", Image2, typeChips, h("div", { class: "gap" }, fileName), h("div", { class: "gap" }), slider("ui.dim", "Dim", { unit: "%", ...onUi, tip: "Darkens the background so text stays easy to read." }), slider("ui.blur", "Blur", { unit: "px", ...onUi, tip: "Softens the picture itself. Panels never blur." }), toggleRow("ui.pauseVideo", "Pause video when not in front", "Saves your GPU while you are in another window."))), stack(card("Theme", Sparkles, themePicker()), card("Style", Palette, rowOf("Accent", "Colour of buttons, sliders and hovers.", swatches("app.accent", ["#ffffff", "#c9cdd4", "#ffb86b", "#ff6b6b", "#c9a6ff", "#6fb7ff"], applyTheme)), rowOf("Mode", undefined, segmented("ui.mode", [["dark", "Dark"], ["light", "Light"], ["win10", "Windows 10"]], applyBackground)), h("div", { class: "gap" }), slider("ui.scale", "Interface size", { unit: "%", ...onUi }), toggleRow("ui.motion", "Animations", undefined, applyBackground), toggleRow("ui.smoke", "Smoke", "Soft moving smoke behind the app. It stops while Ashlight is hidden.", applyBackground))))
+    grid(stack(card("Background", Image2, typeChips, h("div", { class: "gap" }, fileName), h("div", { class: "gap" }), slider("ui.dim", "Dim", { unit: "%", ...onUi, tip: "Darkens the background so text stays easy to read." }), slider("ui.blur", "Blur", { unit: "px", ...onUi, tip: "Softens the picture itself. Panels never blur." }), toggleRow("ui.pauseVideo", "Pause video when not in front", "Saves your GPU while you are in another window."))), stack(card("Theme", Sparkles, themePicker()), card("Style", Palette, rowOf("Accent", "Colour of buttons, sliders and hovers.", swatches("app.accent", ["#ffffff", "#c9cdd4", "#ffb86b", "#ff6b6b", "#c9a6ff", "#6fb7ff"], applyTheme)), rowOf("Mode", undefined, segmented("ui.mode", [["dark", "Dark"], ["light", "Light"], ["win10", "Windows 10"]], applyBackground)), h("div", { class: "gap" }), slider("ui.scale", "Interface size", { unit: "%", ...onUi }), toggleRow("ui.motion", "Animations", undefined, applyBackground), toggleRow("ui.smoke", "Liquid background", "A soft, slow-moving liquid light behind the app, tinted to your theme. It stops while Ashlight is hidden.", applyBackground))))
   ];
 }
 function confirmClick(ask, run) {
@@ -4043,7 +4035,7 @@ function settingsPage() {
       await api.call("resetAll");
       await afterReplace("Everything is back to default. Your old settings are in Backups.");
     }) }, icon(RotateCcw), "Reset all")),
-    grid(stack(accountCard(), card("Window", Monitor, rowOf("Buttons", undefined, segmented("app.windowButtons", [["mac", "macOS"], ["windows", "Windows"]], mountWindowButtons)), rowOf("Side", undefined, segmented("app.buttonsSide", [["left", "Left"], ["right", "Right"]], mountWindowButtons)), toggleRow("app.intro", "Intro when opening")), card("App", Settings, toggleRow("app.startWithWindows", "Start with Windows", "Starts in the tray and puts your look back."), toggleRow("app.startMinimized", "Start hidden in the tray"), toggleRow("app.closeToTray", "Keep running in tray", "Closing the window keeps effects and HUDs running."), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => showWelcome() }, icon(Sparkles), "Show the welcome again"))), card("Keybinds", Keyboard, ...KEYBINDS.map(([path, label]) => rowOf(label, undefined, keyButton(path)))), card("Recording and streaming", Camera, toggleRow("app.hideFromCapture", "Hide overlays from recordings", "Your crosshair and HUDs stay on your screen but won't appear in OBS, Discord or screenshots.")), backupsCard(replaced, copy)), stack(suggestCard(), card("Discord", Gamepad2, toggleRow("discord.enabled", "Show Ashlight on my profile"), h("div", { class: "row gap" }, discordText)), card("Updates", Bell, toggleRow("app.autoUpdate", "Update automatically"), h("div", { class: "gap" }), slider("app.updateEveryHours", "Check every", { unit: " h" }), h("div", { class: "row gap" }, updateText, updateButton), h("div", { class: "note gap" }, `Ashlight ${version2}`)), card("Verify this copy", ShieldCheck, verdict, h("div", { class: "gap" }, hashText), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => hash && void copy(hash, "Fingerprint copied.") }, icon(Copy), "Copy SHA-256"))), card("Diagnostics", Wrench, h("div", { class: "spread" }, h("button", { class: "btn", tip: "Copies your Ashlight version, screen and feature status, for reporting a problem. Nothing is sent anywhere.", onclick: async () => copy(await api.call("diagnostics"), "Diagnostics copied.") }, icon(Copy), "Copy diagnostics")))))
+    grid(stack(accountCard(), card("Window", Monitor, rowOf("Buttons", undefined, segmented("app.windowButtons", [["mac", "macOS"], ["windows", "Windows"]], mountWindowButtons)), rowOf("Side", undefined, segmented("app.buttonsSide", [["left", "Left"], ["right", "Right"]], mountWindowButtons)), toggleRow("app.intro", "Intro when opening")), card("App", Settings, toggleRow("app.startWithWindows", "Start with Windows", "Starts in the tray and puts your look back."), toggleRow("app.startMinimized", "Start hidden in the tray"), toggleRow("app.closeToTray", "Keep running in tray", "Closing the window keeps effects and HUDs running.")), card("Keybinds", Keyboard, ...KEYBINDS.map(([path, label]) => rowOf(label, undefined, keyButton(path)))), card("Recording and streaming", Camera, toggleRow("app.hideFromCapture", "Hide overlays from recordings", "Your crosshair and HUDs stay on your screen but won't appear in OBS, Discord or screenshots.")), backupsCard(replaced, copy)), stack(suggestCard(), card("Discord", Gamepad2, toggleRow("discord.enabled", "Show Ashlight on my profile"), h("div", { class: "row gap" }, discordText)), card("Updates", Bell, toggleRow("app.autoUpdate", "Update automatically"), h("div", { class: "gap" }), slider("app.updateEveryHours", "Check every", { unit: " h" }), h("div", { class: "row gap" }, updateText, updateButton), h("div", { class: "note gap" }, `Ashlight ${version2}`)), card("Verify this copy", ShieldCheck, verdict, h("div", { class: "gap" }, hashText), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => hash && void copy(hash, "Fingerprint copied.") }, icon(Copy), "Copy SHA-256"))), card("Diagnostics", Wrench, h("div", { class: "spread" }, h("button", { class: "btn", tip: "Copies your Ashlight version, screen and feature status, for reporting a problem. Nothing is sent anywhere.", onclick: async () => copy(await api.call("diagnostics"), "Diagnostics copied.") }, icon(Copy), "Copy diagnostics")))))
   ];
 }
 var chat = {
@@ -4094,8 +4086,7 @@ setInterval(() => {
 var GROUPS = [
   ["", [{ id: "home", title: "Home", icon: House, build: homePage }]],
   ["Display", [
-    { id: "color", title: "Colour", icon: Palette, build: colorPage },
-    { id: "resolution", title: "Resolution", icon: Monitor, build: resolutionPage }
+    { id: "color", title: "Colour", icon: Palette, build: colorPage }
   ]],
   ["Overlay", [
     { id: "crosshair", title: "Crosshair", icon: Crosshair, build: crosshairPage, features: ["crosshair.enabled"] },
@@ -4382,8 +4373,6 @@ async function start() {
   showPage("home", true);
   if (state.recovered)
     toast("Ashlight closed unexpectedly last time. Your original settings were restored.");
-  if (!settings2.app.welcomed)
-    showWelcome();
 }
 function mountWindowButtons() {
   const left = document.getElementById("lights"), right = document.getElementById("lightsRight");
@@ -4474,87 +4463,5 @@ function playIntro() {
     intro.remove();
     document.body.classList.remove("entered");
   }, 1600);
-}
-var HELLOS = ["Hello", "Hej", "Hola", "Bonjour", "Hallo", "Ciao", "Olá", "Привет", "こんにちは", "안녕하세요", "你好", "مرحبا", "Merhaba", "Cześć", "नमस्ते", "Hei"];
-function showWelcome() {
-  if (document.querySelector(".hello"))
-    return;
-  let helloTimer = null;
-  const word = h("div", { class: "hello-word" }, h("span", {}, HELLOS[0]));
-  const tick = h("div", { class: "hello-done" });
-  tick.innerHTML = `<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>`;
-  const screens = [
-    { body: () => h("div", { class: "hello-first" }, h("img", { class: "hello-logo", src: "logo.png", alt: "" }), word, h("p", { class: "hello-sub" }, "Welcome to Ashlight")), button: "Get started" },
-    { title: "Make it yours", text: "Sign in to see your name and picture. You can skip this.", body: () => h("div", { class: "hello-panel" }, accountCard()), button: "Continue" },
-    { title: "Pick a theme", text: "You can change it any time.", body: () => h("div", { class: "hello-panel" }, themePicker()), button: "Continue" },
-    { title: "You're ready", text: "Everything's set up.", body: () => tick, button: "Open Ashlight" }
-  ];
-  const built2 = screens.map((s) => s.body());
-  const title = h("h1", {});
-  const text = h("p", {});
-  const body = h("div", { class: "hello-body" });
-  const content = h("div", { class: "hello-content" }, body, title, text);
-  const progress = h("div", { class: "hello-progress" }, ...screens.map(() => h("i")));
-  const next = h("button", { class: "hello-next" });
-  const back = h("button", { class: "hello-back", "aria-label": "Back", onclick: () => index > 0 && go(index - 1) }, icon(ArrowRight));
-  const skip = h("button", { class: "hello-skip", onclick: () => finish() }, "Skip");
-  const glow = h("div", { class: "hello-glow", "aria-hidden": "true" }, h("i"), h("i"), h("i"));
-  const root = h("div", { class: "hello", role: "dialog", "aria-modal": "true", "aria-label": "Welcome" }, glow, h("div", { class: "hello-top" }, back, progress, skip), content, h("div", { class: "hello-foot" }, next));
-  let index = 0;
-  const startHellos = () => {
-    let n = 0;
-    helloTimer = setInterval(() => {
-      n = (n + 1) % HELLOS.length;
-      const old = word.firstElementChild;
-      const fresh = h("span", { class: "enter" }, HELLOS[n]);
-      old.classList.add("leave");
-      word.append(fresh);
-      setTimeout(() => old.remove(), 700);
-    }, 2200);
-  };
-  const go = (i) => {
-    const forward = i >= index;
-    index = i;
-    const s = screens[i];
-    const show = () => {
-      title.textContent = s.title ?? "";
-      title.hidden = !s.title;
-      text.textContent = s.text ?? "";
-      text.hidden = !s.text;
-      body.replaceChildren(built2[i]);
-      next.textContent = s.button;
-      progress.querySelectorAll("i").forEach((d, n) => d.classList.toggle("on", n <= i));
-      back.classList.toggle("shown", i > 0);
-      content.classList.remove("leaving", "back");
-      tick.classList.toggle("draw", i === screens.length - 1);
-    };
-    if (content.dataset.ready !== "1") {
-      content.dataset.ready = "1";
-      return show();
-    }
-    content.classList.add("leaving");
-    content.classList.toggle("back", !forward);
-    setTimeout(show, 240);
-  };
-  next.addEventListener("click", () => index === screens.length - 1 ? finish() : go(index + 1));
-  const finish = () => {
-    set("app.welcomed", true);
-    if (helloTimer)
-      clearInterval(helloTimer);
-    root.classList.add("out");
-    setTimeout(() => root.remove(), 700);
-  };
-  root.addEventListener("keydown", (e) => {
-    if (e.key === "Escape")
-      finish();
-    if (e.key === "Enter" && document.activeElement === document.body)
-      next.click();
-  });
-  document.body.append(root);
-  go(0);
-  if (settings2.ui.motion)
-    startHellos();
-  requestAnimationFrame(() => root.classList.add("in"));
-  next.focus();
 }
 start();
