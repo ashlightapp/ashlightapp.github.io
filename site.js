@@ -1,4 +1,700 @@
-var l={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"};var a=([_,P,S])=>{let D=document.createElementNS("http://www.w3.org/2000/svg",_);if(Object.keys(P).forEach((q)=>{D.setAttribute(q,String(P[q]))}),S?.length)S.forEach((q)=>{let A=a(q);D.appendChild(A)});return D},w=(_,P={})=>{let D={...l,...P};return a(["svg",D,_])};var g=[["circle",{cx:"12",cy:"12",r:"10"}],["line",{x1:"22",x2:"18",y1:"12",y2:"12"}],["line",{x1:"6",x2:"2",y1:"12",y2:"12"}],["line",{x1:"12",x2:"12",y1:"6",y2:"2"}],["line",{x1:"12",x2:"12",y1:"22",y2:"18"}]];var b=[["path",{d:"M12 15V3"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}],["path",{d:"m7 10 5 5 5-5"}]];var y=[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5"}],["path",{d:"M10 12.5 8 15l2 2.5"}],["path",{d:"m14 12.5 2 2.5-2 2.5"}]];var j=[["line",{x1:"6",x2:"10",y1:"11",y2:"11"}],["line",{x1:"8",x2:"8",y1:"9",y2:"13"}],["line",{x1:"15",x2:"15.01",y1:"12",y2:"12"}],["line",{x1:"18",x2:"18.01",y1:"10",y2:"10"}],["path",{d:"M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"}]];var u=[["path",{d:"m16 6 4 14"}],["path",{d:"M12 6v14"}],["path",{d:"M8 8v12"}],["path",{d:"M4 4v16"}]];var x=[["path",{d:"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"}]];var d=[["path",{d:"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"}],["circle",{cx:"13.5",cy:"6.5",r:".5",fill:"currentColor"}],["circle",{cx:"17.5",cy:"10.5",r:".5",fill:"currentColor"}],["circle",{cx:"6.5",cy:"12.5",r:".5",fill:"currentColor"}],["circle",{cx:"8.5",cy:"7.5",r:".5",fill:"currentColor"}]];var m=[["path",{d:"M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"}],["path",{d:"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"}],["path",{d:"M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"}],["path",{d:"M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"}]];var p=[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"}],["path",{d:"m9 12 2 2 4-4"}]];var z=[["path",{d:"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"}],["path",{d:"M20 2v4"}],["path",{d:"M22 4h-4"}],["circle",{cx:"4",cy:"20",r:"2"}]];var r=[["circle",{cx:"11",cy:"11",r:"8"}],["line",{x1:"21",x2:"16.65",y1:"21",y2:"16.65"}],["line",{x1:"11",x2:"11",y1:"8",y2:"14"}],["line",{x1:"8",x2:"14",y1:"11",y2:"11"}]];function i(_,P,S,D,q,A,J=0){let X=D.size*q*(1+0.18*J),I=Math.max(1,Math.round(D.thickness*q)),K=D.gap*q+J*(D.size*0.55+3)*q,Y=new Path2D,G=new Path2D,N=(F,V,Q,W)=>G.rect(Math.round(F),Math.round(V),Math.round(Q),Math.round(W)),C=(F,V=X,Q=K)=>{if(N(P-Q-V,S-I/2,V,I),N(P+Q,S-I/2,V,I),N(P-I/2,S+Q,I,V),F)N(P-I/2,S-Q-V,I,V)},L=(F)=>{G.moveTo(P+F,S),G.arc(P,S,F,0,Math.PI*2)},T=(F)=>{Y.moveTo(P+F,S),Y.arc(P,S,F,0,Math.PI*2)};switch(D.style){case"rustholo":T(X),L(Math.max(1.2*q,I*0.8));for(let[F,V]of[[1,0],[-1,0],[0,1],[0,-1]])Y.moveTo(P+F*X,S+V*X),Y.lineTo(P+F*X*0.72,S+V*X*0.72);break;case"rustdot":L(Math.max(1,X/6));break;case"rustcross":C(!0,X*0.45,Math.max(K,2*q));break;case"holo":T(X),L(Math.max(1.2*q,I*0.9));break;case"dot":L(Math.max(1,X/4));break;case"cross":C(!0);break;case"crossdot":C(!0),L(I*0.75);break;case"tee":C(!1);break;case"ring":T(X);break;case"chevron":Y.moveTo(P-X,S+X*0.8),Y.lineTo(P,S+K*0.25),Y.lineTo(P+X,S+X*0.8);break;case"triangle":Y.moveTo(P,S-X),Y.lineTo(P+X*0.87,S+X*0.5),Y.lineTo(P-X*0.87,S+X*0.5),Y.closePath();break;case"x":for(let[F,V]of[[1,1],[-1,1],[1,-1],[-1,-1]]){let Q=Math.SQRT1_2;Y.moveTo(P+F*K*Q,S+V*K*Q),Y.lineTo(P+F*(K+X)*Q,S+V*(K+X)*Q)}break;case"square":Y.rect(P-X*0.7,S-X*0.7,X*1.4,X*1.4),L(Math.max(1,I*0.8));break;case"diamond":Y.moveTo(P,S-X),Y.lineTo(P+X,S),Y.lineTo(P,S+X),Y.lineTo(P-X,S),Y.closePath(),L(Math.max(1,I*0.8));break;case"brackets":{let F=X*0.9,V=X*0.45;for(let[Q,W]of[[1,1],[-1,1],[1,-1],[-1,-1]])Y.moveTo(P+Q*F,S+W*(F-V)),Y.lineTo(P+Q*F,S+W*F),Y.lineTo(P+Q*(F-V),S+W*F);L(Math.max(1,I*0.7));break}case"ringcross":T(X),C(!0,X*0.55,Math.max(K,X*0.35));break;case"sniper":{let F=X*2.6,V=Math.max(1,Math.round(I*0.6));G.rect(Math.round(P-F),Math.round(S-V/2),Math.round(F*2),V),G.rect(Math.round(P-V/2),Math.round(S-F),V,Math.round(F*2));for(let Q=1;Q<=3;Q++)for(let[W,O]of[[1,0],[-1,0],[0,1],[0,-1]]){let H=P+W*Q*X*0.7,Z=S+O*Q*X*0.7;G.moveTo(H+I*0.9,Z),G.arc(H,Z,Math.max(1.2,I*0.9),0,Math.PI*2)}break}case"image":break}if(_.save(),D.cover>0)_.fillStyle=D.coverColor,_.beginPath(),_.arc(P,S,D.cover*q,0,Math.PI*2),_.fill();if(_.globalAlpha=D.opacity/100,D.style==="image"){if(A?.complete&&A.naturalWidth>0){let F=X*2,V=A.naturalWidth/A.naturalHeight,Q=V>=1?F:F*V,W=V>=1?F/V:F;_.imageSmoothingQuality="high",_.drawImage(A,P-Q/2,S-W/2,Q,W)}_.restore();return}if(_.lineWidth=I,_.lineCap="round",_.lineJoin="round",D.outline)_.strokeStyle="rgba(0,0,0,0.85)",_.lineWidth=I+2*q,_.stroke(Y),_.lineWidth=2*q,_.stroke(G),_.lineWidth=I;if(_.strokeStyle=D.color,_.fillStyle=D.color,D.glow>0)_.shadowColor=D.color,_.shadowBlur=D.glow/100*14*q;_.stroke(Y),_.fill(G),_.restore()}var E=(_,P="")=>{let S=document.createElement(_);if(P)S.className=P;return S};function o(_,P,S){let D=Object.getOwnPropertyDescriptor(P,"value");Object.defineProperty(_,"value",{configurable:!0,get:()=>D.get.call(_),set:(q)=>{D.set.call(_,q),S()}})}function q0(_,P,S){let D=P.getBoundingClientRect();if(S)_.style.minWidth=`${D.width}px`;let q=_.getBoundingClientRect(),A=D.bottom+6+q.height<=innerHeight-8;_.style.left=`${Math.max(8,Math.min(innerWidth-q.width-8,D.left))}px`,_.style.top=`${A?D.bottom+6:Math.max(8,D.top-q.height-6)}px`,_.style.transformOrigin=A?"top left":"bottom left"}var $=null;function s(_,P,S,D){$?.(),document.body.append(_),q0(_,P,S),requestAnimationFrame(()=>_.classList.add("show"));let q=(I)=>{if(!_.contains(I.target)&&!P.contains(I.target))X()},A=(I)=>{if(!_.contains(I.target))X()},J=(I)=>{if(I.key==="Escape")I.stopPropagation(),X(),P.focus()};function X(){$=null,removeEventListener("pointerdown",q,!0),removeEventListener("scroll",A,!0),removeEventListener("resize",X),removeEventListener("keydown",J,!0),_.remove(),_.classList.remove("show"),D?.()}return addEventListener("pointerdown",q,!0),addEventListener("scroll",A,!0),addEventListener("resize",X),addEventListener("keydown",J,!0),$=X,X}function e(_){let P=E("span","dd-wrap"),S=E("button","dd");S.type="button",S.setAttribute("aria-haspopup","listbox"),S.setAttribute("aria-expanded","false");let D=_.getAttribute("aria-label");if(D)S.setAttribute("aria-label",D);let q=E("span","dd-text"),A=E("span","dd-arrow");A.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',S.append(q,A),_.style.display="none",P.append(_,S);let J=()=>{q.textContent=_.selectedOptions[0]?.textContent??""};o(_,HTMLSelectElement.prototype,J),new MutationObserver(J).observe(_,{childList:!0,subtree:!0}),J();let X=()=>{let I=E("div","dd-pop");I.setAttribute("role","listbox");let K=[..._.options],Y=Math.max(0,_.selectedIndex),G=K.map((Q,W)=>{let O=E("button","dd-row");O.type="button",O.setAttribute("role","option");let H=E("span");H.textContent=Q.textContent;let Z=E("i");return Z.innerHTML='<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',O.append(H,Z),O.classList.toggle("on",W===_.selectedIndex),O.setAttribute("aria-selected",String(W===_.selectedIndex)),O.addEventListener("click",()=>C(W)),O.addEventListener("pointermove",()=>N(W)),I.append(O),O}),N=(Q)=>{Y=Q,G.forEach((W,O)=>W.classList.toggle("active",O===Q))},C=(Q)=>{_.selectedIndex=Q,J(),_.dispatchEvent(new Event("input",{bubbles:!0})),_.dispatchEvent(new Event("change",{bubbles:!0})),V(),S.focus()},L="",T=0,F=(Q)=>{let W=Q.key==="ArrowDown"?1:Q.key==="ArrowUp"?-1:0;if(W)Q.preventDefault(),N(Math.max(0,Math.min(G.length-1,Y+W))),G[Y]?.scrollIntoView({block:"nearest"});else if(Q.key==="Enter"||Q.key===" ")Q.preventDefault(),C(Y);else if(Q.key.length===1){L=Date.now()-T<700?L+Q.key.toLowerCase():Q.key.toLowerCase(),T=Date.now();let O=K.findIndex((H)=>H.textContent.toLowerCase().startsWith(L));if(O>=0)N(O),G[O]?.scrollIntoView({block:"nearest"})}};addEventListener("keydown",F,!0),S.setAttribute("aria-expanded","true"),S.classList.add("open");let V=s(I,S,!0,()=>{removeEventListener("keydown",F,!0),S.setAttribute("aria-expanded","false"),S.classList.remove("open")});N(Y),G[Y]?.scrollIntoView({block:"center"})};return S.addEventListener("click",()=>S.classList.contains("open")?$?.():X()),S.addEventListener("keydown",(I)=>{if((I.key==="ArrowDown"||I.key==="ArrowUp")&&!S.classList.contains("open"))I.preventDefault(),X()}),P}var t=(_)=>Math.min(1,Math.max(0,_)),n=([_,P,S])=>`#${[_,P,S].map((D)=>Math.round(D).toString(16).padStart(2,"0")).join("")}`,v=(_)=>{let P=_.trim().replace(/^#/,"");if(/^[0-9a-f]{3}$/i.test(P))P=P.replace(/./g,"$&$&");if(!/^[0-9a-f]{6}$/i.test(P))return null;let S=parseInt(P,16);return[S>>16&255,S>>8&255,S&255]};function A0(_,P,S){let D=(q)=>{let A=(q+_/60)%6;return 255*S*(1-P*Math.max(0,Math.min(A,4-A,1)))};return[D(5),D(3),D(1)]}function f([_,P,S]){let D=_/255,q=P/255,A=S/255,J=Math.max(D,q,A),X=J-Math.min(D,q,A),I=0;if(X)I=J===D?((q-A)/X+6)%6:J===q?(A-D)/X+2:(D-q)/X+4;return[I*60,J?X/J:0,J]}var I0=["#ffffff","#c9cdd4","#ff3b3b","#ff8a3b","#ffe23b","#3bff6f","#3be8ff","#3b7bff","#a56bff","#ff4fd8","#1a1c1f","#000000"],_0="ttool.recentColours",S0=()=>{try{return JSON.parse(localStorage.getItem(_0)??"[]")}catch{return[]}};function k(_){try{localStorage.setItem(_0,JSON.stringify([_,...S0().filter((P)=>P!==_)].slice(0,12)))}catch{}}function c(_,P,S){let D=null,q=()=>{if(!D)return;let J=_.getBoundingClientRect();P(t((D.clientX-J.left)/J.width),t((D.clientY-J.top)/J.height)),D=null};_.addEventListener("pointerdown",(J)=>{_.setPointerCapture(J.pointerId),_.classList.add("dragging"),D=J,q()}),_.addEventListener("pointermove",(J)=>{if(!_.hasPointerCapture(J.pointerId))return;let X=!D;if(D=J,X)requestAnimationFrame(q)});let A=(J)=>{if(!_.classList.contains("dragging"))return;_.classList.remove("dragging"),D=J,q(),S()};_.addEventListener("pointerup",A),_.addEventListener("pointercancel",A)}function P0(_){let P=E("span","cp-wrap"),S=E("button","cp-btn");if(S.type="button",S.setAttribute("aria-label",_.getAttribute("aria-label")??"Pick a colour"),_.dataset.tip)S.dataset.tip=_.dataset.tip,delete _.dataset.tip;let D=E("i");S.append(D),_.style.display="none",P.append(_,S);let q=()=>S.style.setProperty("--c",_.value);return o(_,HTMLInputElement.prototype,q),q(),S.addEventListener("click",()=>{if(S.classList.contains("open"))return $?.();let[A,J,X]=f(v(_.value)??[255,255,255]),I=E("div","cp-pop"),K=E("div","cp-sv"),Y=E("i","cp-thumb");K.append(Y);let G=E("div","cp-hue"),N=E("i","cp-thumb");G.append(N);let C=E("i","cp-preview"),L=E("input","cp-field cp-hex");L.spellcheck=!1,L.maxLength=7,L.setAttribute("aria-label","Hex colour");let T=["R","G","B"].map((Z)=>{let U=E("input","cp-field");U.inputMode="numeric",U.maxLength=3,U.setAttribute("aria-label",Z);let M=E("label","cp-rgb"),R=E("span");return R.textContent=Z,M.append(U,R),{field:U,box:M}}),F=E("div","cp-row");if(F.append(C,L),"EyeDropper"in window){let Z=E("button","cp-drop");Z.type="button",Z.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>',Z.setAttribute("aria-label","Pick a colour from your screen"),Z.addEventListener("click",async()=>{try{let{sRGBHex:U}=await new window.EyeDropper().open(),M=v(U);if(M)[A,J,X]=f(M),H(!0),k(n(M))}catch{}}),F.append(Z)}let V=E("div","cp-row cp-rgbs");V.append(...T.map((Z)=>Z.box));let Q=(Z)=>{let U=E("div","cp-swatches");for(let M of Z){let R=E("button","cp-swatch");R.type="button",R.style.setProperty("--c",M),R.setAttribute("aria-label",M),R.addEventListener("click",()=>{[A,J,X]=f(v(M)),H(!0)}),U.append(R)}return U};I.append(K,G,F,V,Q(I0));let W=S0();if(W.length)I.append(Q(W));let O=(Z)=>{let U=A0(A,J,X),M=n(U);if(K.style.setProperty("--hue",`hsl(${A} 100% 50%)`),Y.style.left=`${J*100}%`,Y.style.top=`${(1-X)*100}%`,Y.style.setProperty("--c",M),N.style.left=`${A/360*100}%`,N.style.setProperty("--c",`hsl(${A} 100% 50%)`),C.style.setProperty("--c",M),Z)L.value=M,T.forEach((R,X0)=>R.field.value=String(Math.round(U[X0])));return M},H=(Z)=>{let U=O(Z);if(U===_.value.toLowerCase())return;_.value=U,_.dispatchEvent(new Event("input",{bubbles:!0}))};c(K,(Z,U)=>{J=Z,X=1-U,H(!0)},()=>k(_.value)),c(G,(Z)=>{A=Z*360,H(!0)},()=>k(_.value)),L.addEventListener("input",()=>{let Z=v(L.value);if(!Z)return;[A,J,X]=f(Z),H(!1),T.forEach((M,R)=>M.field.value=String(Z[R]))}),L.addEventListener("blur",()=>O(!0)),T.forEach((Z)=>{Z.field.addEventListener("input",()=>{let U=T.map((M)=>Math.min(255,Number(M.field.value.replace(/\D/g,""))||0));[A,J,X]=f(U),H(!1),L.value=n(U)}),Z.field.addEventListener("blur",()=>O(!0))}),O(!0),S.classList.add("open"),s(I,S,!1,()=>{S.classList.remove("open"),k(_.value)})}),P}function D0(_,P){let S=_.getContext("webgl",{antialias:!1,alpha:!0,premultipliedAlpha:!0});if(!S)return()=>{};let D=(Q,W)=>{let O=S.createShader(Q);return S.shaderSource(O,W),S.compileShader(O),O},q=S.createProgram();if(S.attachShader(q,D(S.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}")),S.attachShader(q,D(S.FRAGMENT_SHADER,`precision mediump float;
+// node_modules/lucide/dist/esm/defaultAttributes.mjs
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": 2,
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+
+// node_modules/lucide/dist/esm/createElement.mjs
+var createSVGElement = ([tag, attrs, children]) => {
+  const element = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  Object.keys(attrs).forEach((name) => {
+    element.setAttribute(name, String(attrs[name]));
+  });
+  if (children?.length) {
+    children.forEach((child) => {
+      const childElement = createSVGElement(child);
+      element.appendChild(childElement);
+    });
+  }
+  return element;
+};
+var createElement = (iconNode, customAttrs = {}) => {
+  const tag = "svg";
+  const attrs = {
+    ...defaultAttributes,
+    ...customAttrs
+  };
+  return createSVGElement([tag, attrs, iconNode]);
+};
+
+// node_modules/lucide/dist/esm/icons/crosshair.mjs
+var Crosshair = [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["line", { x1: "22", x2: "18", y1: "12", y2: "12" }],
+  ["line", { x1: "6", x2: "2", y1: "12", y2: "12" }],
+  ["line", { x1: "12", x2: "12", y1: "6", y2: "2" }],
+  ["line", { x1: "12", x2: "12", y1: "22", y2: "18" }]
+];
+
+// node_modules/lucide/dist/esm/icons/download.mjs
+var Download = [
+  ["path", { d: "M12 15V3" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" }],
+  ["path", { d: "m7 10 5 5 5-5" }]
+];
+
+// node_modules/lucide/dist/esm/icons/file-code.mjs
+var FileCode = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+  ["path", { d: "M10 12.5 8 15l2 2.5" }],
+  ["path", { d: "m14 12.5 2 2.5-2 2.5" }]
+];
+
+// node_modules/lucide/dist/esm/icons/gamepad-2.mjs
+var Gamepad2 = [
+  ["line", { x1: "6", x2: "10", y1: "11", y2: "11" }],
+  ["line", { x1: "8", x2: "8", y1: "9", y2: "13" }],
+  ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12" }],
+  ["line", { x1: "18", x2: "18.01", y1: "10", y2: "10" }],
+  [
+    "path",
+    {
+      d: "M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/moon.mjs
+var Moon = [
+  [
+    "path",
+    {
+      d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/palette.mjs
+var Palette = [
+  [
+    "path",
+    {
+      d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"
+    }
+  ],
+  ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor" }]
+];
+
+// node_modules/lucide/dist/esm/icons/rocket.mjs
+var Rocket = [
+  ["path", { d: "M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" }],
+  [
+    "path",
+    {
+      d: "M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"
+    }
+  ],
+  [
+    "path",
+    {
+      d: "M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"
+    }
+  ],
+  ["path", { d: "M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" }]
+];
+
+// node_modules/lucide/dist/esm/icons/shield-check.mjs
+var ShieldCheck = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4" }]
+];
+
+// node_modules/lucide/dist/esm/icons/sparkles.mjs
+var Sparkles = [
+  [
+    "path",
+    {
+      d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+    }
+  ],
+  ["path", { d: "M20 2v4" }],
+  ["path", { d: "M22 4h-4" }],
+  ["circle", { cx: "4", cy: "20", r: "2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/zoom-in.mjs
+var ZoomIn = [
+  ["circle", { cx: "11", cy: "11", r: "8" }],
+  ["line", { x1: "21", x2: "16.65", y1: "21", y2: "16.65" }],
+  ["line", { x1: "11", x2: "11", y1: "8", y2: "14" }],
+  ["line", { x1: "8", x2: "14", y1: "11", y2: "11" }]
+];
+// src/shared/reticle.ts
+function drawReticle(ctx, cx, cy, r, scale, image, spread = 0) {
+  const size = r.size * scale * (1 + 0.18 * spread);
+  const t = Math.max(1, Math.round(r.thickness * scale));
+  const gap = r.gap * scale + spread * (r.size * 0.55 + 3) * scale;
+  const strokes = new Path2D;
+  const fills = new Path2D;
+  const bar = (x, y, w, h) => fills.rect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+  const arms = (top, length = size, g = gap) => {
+    bar(cx - g - length, cy - t / 2, length, t);
+    bar(cx + g, cy - t / 2, length, t);
+    bar(cx - t / 2, cy + g, t, length);
+    if (top)
+      bar(cx - t / 2, cy - g - length, t, length);
+  };
+  const dot = (radius) => {
+    fills.moveTo(cx + radius, cy);
+    fills.arc(cx, cy, radius, 0, Math.PI * 2);
+  };
+  const ring = (radius) => {
+    strokes.moveTo(cx + radius, cy);
+    strokes.arc(cx, cy, radius, 0, Math.PI * 2);
+  };
+  switch (r.style) {
+    case "rustholo":
+      ring(size);
+      dot(Math.max(1.2 * scale, t * 0.8));
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        strokes.moveTo(cx + dx * size, cy + dy * size);
+        strokes.lineTo(cx + dx * size * 0.72, cy + dy * size * 0.72);
+      }
+      break;
+    case "rustdot":
+      dot(Math.max(1, size / 6));
+      break;
+    case "rustcross":
+      arms(true, size * 0.45, Math.max(gap, 2 * scale));
+      break;
+    case "holo":
+      ring(size);
+      dot(Math.max(1.2 * scale, t * 0.9));
+      break;
+    case "dot":
+      dot(Math.max(1, size / 4));
+      break;
+    case "cross":
+      arms(true);
+      break;
+    case "crossdot":
+      arms(true);
+      dot(t * 0.75);
+      break;
+    case "tee":
+      arms(false);
+      break;
+    case "ring":
+      ring(size);
+      break;
+    case "chevron":
+      strokes.moveTo(cx - size, cy + size * 0.8);
+      strokes.lineTo(cx, cy + gap * 0.25);
+      strokes.lineTo(cx + size, cy + size * 0.8);
+      break;
+    case "triangle":
+      strokes.moveTo(cx, cy - size);
+      strokes.lineTo(cx + size * 0.87, cy + size * 0.5);
+      strokes.lineTo(cx - size * 0.87, cy + size * 0.5);
+      strokes.closePath();
+      break;
+    case "x":
+      for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        const k = Math.SQRT1_2;
+        strokes.moveTo(cx + dx * gap * k, cy + dy * gap * k);
+        strokes.lineTo(cx + dx * (gap + size) * k, cy + dy * (gap + size) * k);
+      }
+      break;
+    case "square":
+      strokes.rect(cx - size * 0.7, cy - size * 0.7, size * 1.4, size * 1.4);
+      dot(Math.max(1, t * 0.8));
+      break;
+    case "diamond":
+      strokes.moveTo(cx, cy - size);
+      strokes.lineTo(cx + size, cy);
+      strokes.lineTo(cx, cy + size);
+      strokes.lineTo(cx - size, cy);
+      strokes.closePath();
+      dot(Math.max(1, t * 0.8));
+      break;
+    case "brackets": {
+      const e = size * 0.9, l = size * 0.45;
+      for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        strokes.moveTo(cx + dx * e, cy + dy * (e - l));
+        strokes.lineTo(cx + dx * e, cy + dy * e);
+        strokes.lineTo(cx + dx * (e - l), cy + dy * e);
+      }
+      dot(Math.max(1, t * 0.7));
+      break;
+    }
+    case "ringcross":
+      ring(size);
+      arms(true, size * 0.55, Math.max(gap, size * 0.35));
+      break;
+    case "sniper": {
+      const long = size * 2.6;
+      const thin = Math.max(1, Math.round(t * 0.6));
+      fills.rect(Math.round(cx - long), Math.round(cy - thin / 2), Math.round(long * 2), thin);
+      fills.rect(Math.round(cx - thin / 2), Math.round(cy - long), thin, Math.round(long * 2));
+      for (let i = 1;i <= 3; i++) {
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const px = cx + dx * i * size * 0.7, py = cy + dy * i * size * 0.7;
+          fills.moveTo(px + t * 0.9, py);
+          fills.arc(px, py, Math.max(1.2, t * 0.9), 0, Math.PI * 2);
+        }
+      }
+      break;
+    }
+    case "image":
+      break;
+  }
+  ctx.save();
+  if (r.cover > 0) {
+    ctx.fillStyle = r.coverColor;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r.cover * scale, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = r.opacity / 100;
+  if (r.style === "image") {
+    if (image?.complete && image.naturalWidth > 0) {
+      const box = size * 2;
+      const ratio = image.naturalWidth / image.naturalHeight;
+      const w = ratio >= 1 ? box : box * ratio;
+      const h = ratio >= 1 ? box / ratio : box;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(image, cx - w / 2, cy - h / 2, w, h);
+    }
+    ctx.restore();
+    return;
+  }
+  ctx.lineWidth = t;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  if (r.outline) {
+    ctx.strokeStyle = "rgba(0,0,0,0.85)";
+    ctx.lineWidth = t + 2 * scale;
+    ctx.stroke(strokes);
+    ctx.lineWidth = 2 * scale;
+    ctx.stroke(fills);
+    ctx.lineWidth = t;
+  }
+  ctx.strokeStyle = r.color;
+  ctx.fillStyle = r.color;
+  if (r.glow > 0) {
+    ctx.shadowColor = r.color;
+    ctx.shadowBlur = r.glow / 100 * 14 * scale;
+  }
+  ctx.stroke(strokes);
+  ctx.fill(fills);
+  ctx.restore();
+}
+
+// src/shared/controls.ts
+var CHEVRON = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>`;
+var TICK = `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+var DROPPER = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>`;
+var el = (tag, className = "") => {
+  const node = document.createElement(tag);
+  if (className)
+    node.className = className;
+  return node;
+};
+function watchValue(input, proto, changed) {
+  const native = Object.getOwnPropertyDescriptor(proto, "value");
+  Object.defineProperty(input, "value", {
+    configurable: true,
+    get: () => native.get.call(input),
+    set: (v) => {
+      native.set.call(input, v);
+      changed();
+    }
+  });
+}
+function placeNear(pop, anchor, matchWidth) {
+  const a = anchor.getBoundingClientRect();
+  if (matchWidth)
+    pop.style.minWidth = `${a.width}px`;
+  const b = pop.getBoundingClientRect();
+  const below = a.bottom + 6 + b.height <= innerHeight - 8;
+  pop.style.left = `${Math.max(8, Math.min(innerWidth - b.width - 8, a.left))}px`;
+  pop.style.top = `${below ? a.bottom + 6 : Math.max(8, a.top - b.height - 6)}px`;
+  pop.style.transformOrigin = below ? "top left" : "bottom left";
+}
+var closeOpen = null;
+function openPopup(pop, anchor, matchWidth, onClose) {
+  closeOpen?.();
+  document.body.append(pop);
+  placeNear(pop, anchor, matchWidth);
+  requestAnimationFrame(() => pop.classList.add("show"));
+  const outside = (e) => {
+    if (!pop.contains(e.target) && !anchor.contains(e.target))
+      close();
+  };
+  const scrolled = (e) => {
+    if (!pop.contains(e.target))
+      close();
+  };
+  const keys = (e) => {
+    if (e.key === "Escape") {
+      e.stopPropagation();
+      close();
+      anchor.focus();
+    }
+  };
+  function close() {
+    closeOpen = null;
+    removeEventListener("pointerdown", outside, true);
+    removeEventListener("scroll", scrolled, true);
+    removeEventListener("resize", close);
+    removeEventListener("keydown", keys, true);
+    pop.remove();
+    pop.classList.remove("show");
+    onClose?.();
+  }
+  addEventListener("pointerdown", outside, true);
+  addEventListener("scroll", scrolled, true);
+  addEventListener("resize", close);
+  addEventListener("keydown", keys, true);
+  closeOpen = close;
+  return close;
+}
+function dropdown(select) {
+  const root = el("span", "dd-wrap");
+  const button = el("button", "dd");
+  button.type = "button";
+  button.setAttribute("aria-haspopup", "listbox");
+  button.setAttribute("aria-expanded", "false");
+  const label = select.getAttribute("aria-label");
+  if (label)
+    button.setAttribute("aria-label", label);
+  const text = el("span", "dd-text");
+  const arrow = el("span", "dd-arrow");
+  arrow.innerHTML = CHEVRON;
+  button.append(text, arrow);
+  select.style.display = "none";
+  root.append(select, button);
+  const paint = () => {
+    text.textContent = select.selectedOptions[0]?.textContent ?? "";
+  };
+  watchValue(select, HTMLSelectElement.prototype, paint);
+  new MutationObserver(paint).observe(select, { childList: true, subtree: true });
+  paint();
+  const open = () => {
+    const pop = el("div", "dd-pop");
+    pop.setAttribute("role", "listbox");
+    const options = [...select.options];
+    let active = Math.max(0, select.selectedIndex);
+    const rows = options.map((option, i) => {
+      const row = el("button", "dd-row");
+      row.type = "button";
+      row.setAttribute("role", "option");
+      const name = el("span");
+      name.textContent = option.textContent;
+      const tick = el("i");
+      tick.innerHTML = TICK;
+      row.append(name, tick);
+      row.classList.toggle("on", i === select.selectedIndex);
+      row.setAttribute("aria-selected", String(i === select.selectedIndex));
+      row.addEventListener("click", () => pick(i));
+      row.addEventListener("pointermove", () => mark(i));
+      pop.append(row);
+      return row;
+    });
+    const mark = (i) => {
+      active = i;
+      rows.forEach((r, n) => r.classList.toggle("active", n === i));
+    };
+    const pick = (i) => {
+      select.selectedIndex = i;
+      paint();
+      select.dispatchEvent(new Event("input", { bubbles: true }));
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      close();
+      button.focus();
+    };
+    let typed = "", typedAt = 0;
+    const onKey = (e) => {
+      const move = e.key === "ArrowDown" ? 1 : e.key === "ArrowUp" ? -1 : 0;
+      if (move) {
+        e.preventDefault();
+        mark(Math.max(0, Math.min(rows.length - 1, active + move)));
+        rows[active]?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        pick(active);
+      } else if (e.key.length === 1) {
+        typed = Date.now() - typedAt < 700 ? typed + e.key.toLowerCase() : e.key.toLowerCase();
+        typedAt = Date.now();
+        const found = options.findIndex((o) => o.textContent.toLowerCase().startsWith(typed));
+        if (found >= 0) {
+          mark(found);
+          rows[found]?.scrollIntoView({ block: "nearest" });
+        }
+      }
+    };
+    addEventListener("keydown", onKey, true);
+    button.setAttribute("aria-expanded", "true");
+    button.classList.add("open");
+    const close = openPopup(pop, button, true, () => {
+      removeEventListener("keydown", onKey, true);
+      button.setAttribute("aria-expanded", "false");
+      button.classList.remove("open");
+    });
+    mark(active);
+    rows[active]?.scrollIntoView({ block: "center" });
+  };
+  button.addEventListener("click", () => button.classList.contains("open") ? closeOpen?.() : open());
+  button.addEventListener("keydown", (e) => {
+    if ((e.key === "ArrowDown" || e.key === "ArrowUp") && !button.classList.contains("open")) {
+      e.preventDefault();
+      open();
+    }
+  });
+  return root;
+}
+var clamp01 = (v) => Math.min(1, Math.max(0, v));
+var toHex = ([r, g, b]) => `#${[r, g, b].map((n) => Math.round(n).toString(16).padStart(2, "0")).join("")}`;
+var fromHex = (hex) => {
+  let t = hex.trim().replace(/^#/, "");
+  if (/^[0-9a-f]{3}$/i.test(t))
+    t = t.replace(/./g, "$&$&");
+  if (!/^[0-9a-f]{6}$/i.test(t))
+    return null;
+  const n = parseInt(t, 16);
+  return [n >> 16 & 255, n >> 8 & 255, n & 255];
+};
+function hsvToRgb(h, s, v) {
+  const f = (n) => {
+    const k = (n + h / 60) % 6;
+    return 255 * v * (1 - s * Math.max(0, Math.min(k, 4 - k, 1)));
+  };
+  return [f(5), f(3), f(1)];
+}
+function rgbToHsv([r, g, b]) {
+  const R = r / 255, G = g / 255, B = b / 255;
+  const max = Math.max(R, G, B), d = max - Math.min(R, G, B);
+  let h = 0;
+  if (d)
+    h = max === R ? ((G - B) / d + 6) % 6 : max === G ? (B - R) / d + 2 : (R - G) / d + 4;
+  return [h * 60, max ? d / max : 0, max];
+}
+var PRESETS = ["#ffffff", "#c9cdd4", "#ff3b3b", "#ff8a3b", "#ffe23b", "#3bff6f", "#3be8ff", "#3b7bff", "#a56bff", "#ff4fd8", "#1a1c1f", "#000000"];
+var RECENT_KEY = "ttool.recentColours";
+var readRecent = () => {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
+};
+function remember(color) {
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify([color, ...readRecent().filter((c) => c !== color)].slice(0, 12)));
+  } catch {}
+}
+function dragArea(area, moved, done) {
+  let pending = null;
+  const flush = () => {
+    if (!pending)
+      return;
+    const r = area.getBoundingClientRect();
+    moved(clamp01((pending.clientX - r.left) / r.width), clamp01((pending.clientY - r.top) / r.height));
+    pending = null;
+  };
+  area.addEventListener("pointerdown", (e) => {
+    area.setPointerCapture(e.pointerId);
+    area.classList.add("dragging");
+    pending = e;
+    flush();
+  });
+  area.addEventListener("pointermove", (e) => {
+    if (!area.hasPointerCapture(e.pointerId))
+      return;
+    const first = !pending;
+    pending = e;
+    if (first)
+      requestAnimationFrame(flush);
+  });
+  const end = (e) => {
+    if (!area.classList.contains("dragging"))
+      return;
+    area.classList.remove("dragging");
+    pending = e;
+    flush();
+    done();
+  };
+  area.addEventListener("pointerup", end);
+  area.addEventListener("pointercancel", end);
+}
+function colorPicker(input) {
+  const root = el("span", "cp-wrap");
+  const button = el("button", "cp-btn");
+  button.type = "button";
+  button.setAttribute("aria-label", input.getAttribute("aria-label") ?? "Pick a colour");
+  if (input.dataset.tip) {
+    button.dataset.tip = input.dataset.tip;
+    delete input.dataset.tip;
+  }
+  const dot = el("i");
+  button.append(dot);
+  input.style.display = "none";
+  root.append(input, button);
+  const paintButton = () => button.style.setProperty("--c", input.value);
+  watchValue(input, HTMLInputElement.prototype, paintButton);
+  paintButton();
+  button.addEventListener("click", () => {
+    if (button.classList.contains("open"))
+      return closeOpen?.();
+    let [hue, sat, val] = rgbToHsv(fromHex(input.value) ?? [255, 255, 255]);
+    const pop = el("div", "cp-pop");
+    const sv = el("div", "cp-sv");
+    const svThumb = el("i", "cp-thumb");
+    sv.append(svThumb);
+    const hueBar = el("div", "cp-hue");
+    const hueThumb = el("i", "cp-thumb");
+    hueBar.append(hueThumb);
+    const preview = el("i", "cp-preview");
+    const hexField = el("input", "cp-field cp-hex");
+    hexField.spellcheck = false;
+    hexField.maxLength = 7;
+    hexField.setAttribute("aria-label", "Hex colour");
+    const rgbFields = ["R", "G", "B"].map((name) => {
+      const field = el("input", "cp-field");
+      field.inputMode = "numeric";
+      field.maxLength = 3;
+      field.setAttribute("aria-label", name);
+      const box = el("label", "cp-rgb");
+      const caption = el("span");
+      caption.textContent = name;
+      box.append(field, caption);
+      return { field, box };
+    });
+    const top = el("div", "cp-row");
+    top.append(preview, hexField);
+    if ("EyeDropper" in window) {
+      const pick = el("button", "cp-drop");
+      pick.type = "button";
+      pick.innerHTML = DROPPER;
+      pick.setAttribute("aria-label", "Pick a colour from your screen");
+      pick.addEventListener("click", async () => {
+        try {
+          const { sRGBHex } = await new window.EyeDropper().open();
+          const rgb = fromHex(sRGBHex);
+          if (rgb) {
+            [hue, sat, val] = rgbToHsv(rgb);
+            commit(true);
+            remember(toHex(rgb));
+          }
+        } catch {}
+      });
+      top.append(pick);
+    }
+    const rgbRow = el("div", "cp-row cp-rgbs");
+    rgbRow.append(...rgbFields.map((f) => f.box));
+    const row = (colors) => {
+      const list = el("div", "cp-swatches");
+      for (const color of colors) {
+        const s = el("button", "cp-swatch");
+        s.type = "button";
+        s.style.setProperty("--c", color);
+        s.setAttribute("aria-label", color);
+        s.addEventListener("click", () => {
+          [hue, sat, val] = rgbToHsv(fromHex(color));
+          commit(true);
+        });
+        list.append(s);
+      }
+      return list;
+    };
+    pop.append(sv, hueBar, top, rgbRow, row(PRESETS));
+    const recent = readRecent();
+    if (recent.length)
+      pop.append(row(recent));
+    const paint = (fields) => {
+      const rgb = hsvToRgb(hue, sat, val);
+      const hex = toHex(rgb);
+      sv.style.setProperty("--hue", `hsl(${hue} 100% 50%)`);
+      svThumb.style.left = `${sat * 100}%`;
+      svThumb.style.top = `${(1 - val) * 100}%`;
+      svThumb.style.setProperty("--c", hex);
+      hueThumb.style.left = `${hue / 360 * 100}%`;
+      hueThumb.style.setProperty("--c", `hsl(${hue} 100% 50%)`);
+      preview.style.setProperty("--c", hex);
+      if (fields) {
+        hexField.value = hex;
+        rgbFields.forEach((f, i) => f.field.value = String(Math.round(rgb[i])));
+      }
+      return hex;
+    };
+    const commit = (fields) => {
+      const hex = paint(fields);
+      if (hex === input.value.toLowerCase())
+        return;
+      input.value = hex;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    dragArea(sv, (x, y) => {
+      sat = x;
+      val = 1 - y;
+      commit(true);
+    }, () => remember(input.value));
+    dragArea(hueBar, (x) => {
+      hue = x * 360;
+      commit(true);
+    }, () => remember(input.value));
+    hexField.addEventListener("input", () => {
+      const rgb = fromHex(hexField.value);
+      if (!rgb)
+        return;
+      [hue, sat, val] = rgbToHsv(rgb);
+      const hex = commit;
+      hex(false);
+      rgbFields.forEach((f, i) => f.field.value = String(rgb[i]));
+    });
+    hexField.addEventListener("blur", () => paint(true));
+    rgbFields.forEach((f) => {
+      f.field.addEventListener("input", () => {
+        const values = rgbFields.map((x) => Math.min(255, Number(x.field.value.replace(/\D/g, "")) || 0));
+        [hue, sat, val] = rgbToHsv(values);
+        commit(false);
+        hexField.value = toHex(values);
+      });
+      f.field.addEventListener("blur", () => paint(true));
+    });
+    paint(true);
+    button.classList.add("open");
+    openPopup(pop, button, false, () => {
+      button.classList.remove("open");
+      remember(input.value);
+    });
+  });
+  return root;
+}
+
+// src/shared/smoke.ts
+var FRAG = `precision mediump float;
 uniform vec2 res; uniform float t; uniform vec3 tint; uniform float strength;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
@@ -10,4 +706,400 @@ void main(){
   float f=fbm(p+1.6*q+vec2(t*.015,0.));
   float a=smoothstep(.35,.95,f*1.1)*strength;
   gl_FragColor=vec4(tint*a,a);
-}`)),S.linkProgram(q),!S.getProgramParameter(q,S.LINK_STATUS))return()=>{};S.useProgram(q),S.bindBuffer(S.ARRAY_BUFFER,S.createBuffer()),S.bufferData(S.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),S.STATIC_DRAW),S.enableVertexAttribArray(0),S.vertexAttribPointer(S.getAttribLocation(q,"a"),2,S.FLOAT,!1,0,0);let A=(Q)=>S.getUniformLocation(q,Q),J=A("res"),X=A("t"),I=A("tint"),K=A("strength");S.uniform1f(K,P.strength);let Y=()=>{let Q=_.getBoundingClientRect();_.width=Math.max(160,Math.round(Q.width/4)),_.height=Math.max(100,Math.round(Q.height/4)),S.viewport(0,0,_.width,_.height),S.uniform2f(J,_.width,_.height)};Y(),addEventListener("resize",Y);let G=matchMedia("(prefers-reduced-motion: reduce)").matches,N=(Q)=>{let[W,O,H]=P.tint();S.uniform3f(I,W,O,H),S.uniform1f(X,G?20:Q/1000),S.clear(S.COLOR_BUFFER_BIT),S.drawArrays(S.TRIANGLES,0,3)},C=!0,L=new IntersectionObserver(([Q])=>C=!!Q?.isIntersecting);L.observe(_);let T=!0,F=0,V=(Q)=>{if(!T)return;if(C&&!document.hidden&&Q-F>33)F=Q,N(Q);if(!G)requestAnimationFrame(V)};return requestAnimationFrame(V),()=>{T=!1,L.disconnect(),removeEventListener("resize",Y)}}var B=(_)=>document.getElementById(_),J0=matchMedia("(prefers-reduced-motion: reduce)").matches,Q0={palette:d,"zoom-in":r,crosshair:g,moon:x,"file-code":y,library:u,"shield-check":p,rocket:m,sparkles:z,"gamepad-2":j,download:b};function Y0(){document.querySelectorAll("[data-icon]").forEach((_)=>{let P=Q0[_.dataset.icon];if(!P)return;let S=w(P);if(S.classList.add("lucide"),_.tagName==="ARTICLE"){let D=document.createElement("span");D.className="icon",D.append(S),_.prepend(D)}else _.prepend(S)})}function F0(){requestAnimationFrame(()=>requestAnimationFrame(()=>document.body.classList.add("ready")))}function V0(){document.querySelectorAll(".bento article, .download, .controls").forEach((_)=>{_.addEventListener("pointermove",(P)=>{let S=_.getBoundingClientRect();_.style.setProperty("--mx",`${P.clientX-S.left}px`),_.style.setProperty("--my",`${P.clientY-S.top}px`)})})}function Z0(){let _=B("stage"),P=B("stageWindow"),S=B("reopen"),D=null,q=()=>{if(D)return;D=document.createElement("iframe"),D.title="Ashlight, running live",D.src="demo/index.html",D.allow="clipboard-write",P.replaceChildren(D)};P.innerHTML='<div class="stage-load">Loading Ashlight</div>',new IntersectionObserver(([J])=>J?.isIntersecting&&q(),{rootMargin:"400px"}).observe(_);let A=null;addEventListener("message",(J)=>{if(J.origin!==location.origin||!J.data?.ttool)return;let X=J.data;if(typeof X.filter==="string"){let I=A===null;if(A=X.filter,I)requestAnimationFrame(()=>{_.style.filter=A==="none"?"":A,A=null})}if(X.compare===!0)_.style.filter="";if(typeof X.glass==="boolean")_.classList.toggle("glass",X.glass);if(X.window==="closed"||X.window==="minimized")_.classList.add("closed"),S.hidden=!1;if(X.window==="maximize")_.classList.toggle("maxed")}),S.addEventListener("click",()=>{_.classList.remove("closed"),S.hidden=!0,D?.contentWindow?.postMessage({ttool:!0,show:!0},location.origin)})}function B0(){let _=[...B("tabs").querySelectorAll("button")],P=B("tabPill"),S=()=>{let D=_.find((q)=>q.getAttribute("aria-selected")==="true");if(!D)return;P.style.width=`${D.offsetWidth}px`,P.style.transform=`translateX(${D.offsetLeft}px)`};for(let D of _)D.addEventListener("click",()=>{if(_.forEach((q)=>{let A=q===D;q.setAttribute("aria-selected",String(A)),B(q.dataset.panel).hidden=!A,B(q.dataset.panel).classList.add("in")}),S(),D.dataset.panel==="p-cross")h()});S(),addEventListener("resize",S),document.fonts?.ready.then(S)}function h(){let _=B("crossCanvas"),P=_.getBoundingClientRect();if(P.width===0)return;let S=devicePixelRatio||1;_.width=P.width*S,_.height=P.height*S;let D=(q)=>B(q).value;i(_.getContext("2d"),_.width/2,_.height/2,{style:D("crossStyle"),color:D("crossColor"),size:Number(D("crossSize")),thickness:Number(D("crossThick")),gap:Number(D("crossGap")),opacity:100,glow:Number(D("crossGlow")),outline:!1,cover:0,coverColor:"#000000"},S)}function K0(){for(let _ of["crossStyle","crossColor","crossSize","crossThick","crossGap","crossGlow"])B(_).addEventListener("input",h),B(_).addEventListener("change",h);new ResizeObserver(h).observe(B("crossCanvas"))}function O0(){let _=B("landscape"),P=(q)=>B(q).value,S=!1,D=()=>{if(S)return;S=!0,requestAnimationFrame(()=>{S=!1,_.style.filter=`saturate(${P("fSat")}%) contrast(${P("fCon")}%) brightness(${P("fBri")}%) hue-rotate(${P("fHue")}deg)`})};for(let q of["fSat","fCon","fBri","fHue"])B(q).addEventListener("input",D)}function W0(){document.querySelectorAll(".controls select").forEach((_)=>{_.parentElement.append(e(_))}),document.querySelectorAll('.controls input[type="color"]').forEach((_)=>_.parentElement.append(P0(_)))}async function G0(_){let P=B("dlButton"),S=B("dlMeta"),D=_?.file??"Ashlight-Setup.exe",q=`updates/${D}`;P.href=q,P.setAttribute("download",D);let A=0;try{A=Number((await fetch(q,{method:"HEAD",cache:"no-store"})).headers.get("content-length"))||0}catch{}if(S.textContent=[_?`Version ${_.version}`:"",A?`${(A/1048576).toFixed(1)} MB`:"","Windows 10 and 11"].filter(Boolean).join("  ·  "),!_)return;if(B("dlHash").textContent=_.sha256,B("copyHash").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(_.sha256)}catch{let J=document.createElement("textarea");J.value=_.sha256,document.body.append(J),J.select(),document.execCommand("copy"),J.remove()}B("copyHash").textContent="Copied",setTimeout(()=>B("copyHash").textContent="Copy",1600)}),!/Windows/i.test(navigator.userAgent)||/Phone|Android/i.test(navigator.userAgent))B("dlElsewhere").hidden=!1}function E0(){let _=(q,A,J="")=>Object.assign(document.createElement(q),{className:A,textContent:J}),P=(q)=>q.split(/(?<=[.!])\s+(?=[A-Z0-9])/).map((A)=>A.trim()).filter(Boolean),S=(q)=>{let A=_("ul","points");for(let J of P(q))A.append(_("li","",J));return A},D=(q)=>{let A=new Date(`${q}T12:00:00`);return isNaN(A.getTime())?q:A.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})};fetch("changelog.json",{cache:"no-store"}).then((q)=>q.json()).then((q)=>{let A=B("log"),J=_("div","older");if(q.forEach((X,I)=>{let K=_("details",I===0?"release latest":"release");K.open=I===0;let Y=_("summary",""),G=_("span","head");if(G.append(_("b","badge",`v${X.version}`),_("time","date",D(X.date))),I===0)G.append(_("i","tag","Latest"));Y.append(_("span","node"),G,_("span","gist",P(X.notes)[0]??""),_("span","chev"));let N=_("div","body");N.append(S(X.notes)),K.append(Y,N),(I<=4?A:J).append(K)}),J.childElementCount){let X=_("button","more",`Show ${J.childElementCount} older releases`);X.type="button",X.addEventListener("click",()=>{X.replaceWith(J)}),A.append(X)}}).catch(()=>{})}function L0(){fetch("announce.json",{cache:"no-store"}).then((_)=>_.ok?_.json():null).then((_)=>{if(!_?.site||!_.title)return;let P=B("announce"),S=document.createElement("b");if(S.textContent=_.title,P.append(S),_.text)P.append(document.createTextNode(_.text));if(_.url&&/^https:\/\//.test(_.url)){let D=document.createElement("a");D.href=_.url,D.rel="noopener",D.textContent="Open",P.append(D)}P.hidden=!1}).catch(()=>{})}function U0(){let _=B("nav"),P=B("navPill"),S=B("menuButton"),D=[..._.querySelectorAll("a")],q=(I)=>{if(D.forEach((K)=>K.classList.toggle("on",K===I)),!I||innerWidth<=760){P.style.opacity="0";return}P.style.opacity="1",P.style.width=`${I.offsetWidth}px`,P.style.transform=`translateX(${I.offsetLeft}px)`},A=D.map((I)=>document.querySelector(I.hash)),J=()=>{document.body.classList.toggle("scrolled",scrollY>12);let I=null;A.forEach((K,Y)=>{if(K&&K.getBoundingClientRect().top<innerHeight*0.4)I=D[Y]}),q(I)};addEventListener("scroll",J,{passive:!0}),addEventListener("resize",J),J();let X=()=>{document.body.classList.remove("menu-open"),S.setAttribute("aria-expanded","false")};S.addEventListener("click",()=>{let I=!document.body.classList.contains("menu-open");document.body.classList.toggle("menu-open",I),S.setAttribute("aria-expanded",String(I))}),D.forEach((I)=>I.addEventListener("click",X))}function M0(){let _=[...document.querySelectorAll(".reveal")];if(_.forEach((S)=>{if(S.parentElement?.classList.contains("bento"))S.style.setProperty("--d",`${[...S.parentElement.children].indexOf(S)%4*70}ms`)}),J0||!("IntersectionObserver"in window)){_.forEach((S)=>S.classList.add("in"));return}let P=new IntersectionObserver((S)=>{for(let D of S)if(D.isIntersecting)D.target.classList.add("in"),P.unobserve(D.target)},{threshold:0.08,rootMargin:"0px 0px -6% 0px"});_.forEach((S)=>P.observe(S))}Y0();D0(B("smoke"),{tint:()=>[0.86,0.88,0.92],strength:0.42});F0();Z0();B0();W0();K0();V0();O0();E0();L0();M0();U0();fetch("updates/latest.json",{cache:"no-store"}).then((_)=>_.ok?_.json():null).catch(()=>null).then((_)=>{if(_)B("version").textContent=`v${_.version}`;G0(_)});
+}`;
+function startSmoke(canvas, opts) {
+  const gl = canvas.getContext("webgl", { antialias: false, alpha: true, premultipliedAlpha: true });
+  if (!gl)
+    return () => {};
+  const shader = (type, source) => {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, source);
+    gl.compileShader(s);
+    return s;
+  };
+  const program = gl.createProgram();
+  gl.attachShader(program, shader(gl.VERTEX_SHADER, "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}"));
+  gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+    return () => {};
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(gl.getAttribLocation(program, "a"), 2, gl.FLOAT, false, 0, 0);
+  const u = (n) => gl.getUniformLocation(program, n);
+  const uRes = u("res"), uT = u("t"), uTint = u("tint"), uStrength = u("strength");
+  gl.uniform1f(uStrength, opts.strength);
+  const resize = () => {
+    const box = canvas.getBoundingClientRect();
+    canvas.width = Math.max(160, Math.round(box.width / 4));
+    canvas.height = Math.max(100, Math.round(box.height / 4));
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+  };
+  resize();
+  addEventListener("resize", resize);
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const draw = (now) => {
+    const [r, g, b] = opts.tint();
+    gl.uniform3f(uTint, r, g, b);
+    gl.uniform1f(uT, reduced ? 20 : now / 1000);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  let onScreen = true;
+  const watcher = new IntersectionObserver(([e]) => onScreen = !!e?.isIntersecting);
+  watcher.observe(canvas);
+  let running = true, last = 0;
+  const frame = (now) => {
+    if (!running)
+      return;
+    if (onScreen && !document.hidden && now - last > 33) {
+      last = now;
+      draw(now);
+    }
+    if (!reduced)
+      requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  return () => {
+    running = false;
+    watcher.disconnect();
+    removeEventListener("resize", resize);
+  };
+}
+
+// website/site.ts
+var $ = (id) => document.getElementById(id);
+var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+var ICONS = {
+  palette: Palette,
+  "zoom-in": ZoomIn,
+  crosshair: Crosshair,
+  moon: Moon,
+  "file-code": FileCode,
+  "shield-check": ShieldCheck,
+  rocket: Rocket,
+  sparkles: Sparkles,
+  "gamepad-2": Gamepad2,
+  download: Download
+};
+function setupIcons() {
+  document.querySelectorAll("[data-icon]").forEach((el2) => {
+    const node = ICONS[el2.dataset.icon];
+    if (!node)
+      return;
+    const svg = createElement(node);
+    svg.classList.add("lucide");
+    if (el2.tagName === "ARTICLE") {
+      const box = document.createElement("span");
+      box.className = "icon";
+      box.append(svg);
+      el2.prepend(box);
+    } else
+      el2.prepend(svg);
+  });
+}
+function heroIntro() {
+  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add("ready")));
+}
+function setupSpotlight() {
+  document.querySelectorAll(".bento article, .download, .controls").forEach((card) => {
+    card.addEventListener("pointermove", (e) => {
+      const box = card.getBoundingClientRect();
+      card.style.setProperty("--mx", `${e.clientX - box.left}px`);
+      card.style.setProperty("--my", `${e.clientY - box.top}px`);
+    });
+  });
+}
+function setupApp() {
+  const stage = $("stage"), win = $("stageWindow"), reopen = $("reopen");
+  let frame = null;
+  const load = () => {
+    if (frame)
+      return;
+    frame = document.createElement("iframe");
+    frame.title = "Ashlight, running live";
+    frame.src = "demo/index.html";
+    frame.allow = "clipboard-write";
+    win.replaceChildren(frame);
+  };
+  win.innerHTML = '<div class="stage-load">Loading Ashlight</div>';
+  new IntersectionObserver(([e]) => e?.isIntersecting && load(), { rootMargin: "400px" }).observe(stage);
+  let pending = null;
+  addEventListener("message", (e) => {
+    if (e.origin !== location.origin || !e.data?.ttool)
+      return;
+    const d = e.data;
+    if (typeof d.filter === "string") {
+      const first = pending === null;
+      pending = d.filter;
+      if (first)
+        requestAnimationFrame(() => {
+          stage.style.filter = pending === "none" ? "" : pending;
+          pending = null;
+        });
+    }
+    if (d.compare === true)
+      stage.style.filter = "";
+    if (typeof d.glass === "boolean")
+      stage.classList.toggle("glass", d.glass);
+    if (d.window === "closed" || d.window === "minimized") {
+      stage.classList.add("closed");
+      reopen.hidden = false;
+    }
+    if (d.window === "maximize")
+      stage.classList.toggle("maxed");
+  });
+  reopen.addEventListener("click", () => {
+    stage.classList.remove("closed");
+    reopen.hidden = true;
+    frame?.contentWindow?.postMessage({ ttool: true, show: true }, location.origin);
+  });
+}
+function setupTabs() {
+  const tabs = [...$("tabs").querySelectorAll("button")];
+  const pill = $("tabPill");
+  const place = () => {
+    const on = tabs.find((t) => t.getAttribute("aria-selected") === "true");
+    if (!on)
+      return;
+    pill.style.width = `${on.offsetWidth}px`;
+    pill.style.transform = `translateX(${on.offsetLeft}px)`;
+  };
+  for (const tab of tabs) {
+    tab.addEventListener("click", () => {
+      tabs.forEach((t) => {
+        const on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        $(t.dataset.panel).hidden = !on;
+        $(t.dataset.panel).classList.add("in");
+      });
+      place();
+      if (tab.dataset.panel === "p-cross")
+        paintCross();
+    });
+  }
+  place();
+  addEventListener("resize", place);
+  document.fonts?.ready.then(place);
+}
+function paintCross() {
+  const canvas = $("crossCanvas");
+  const box = canvas.getBoundingClientRect();
+  if (box.width === 0)
+    return;
+  const scale = devicePixelRatio || 1;
+  canvas.width = box.width * scale;
+  canvas.height = box.height * scale;
+  const value = (id) => $(id).value;
+  drawReticle(canvas.getContext("2d"), canvas.width / 2, canvas.height / 2, {
+    style: value("crossStyle"),
+    color: value("crossColor"),
+    size: Number(value("crossSize")),
+    thickness: Number(value("crossThick")),
+    gap: Number(value("crossGap")),
+    opacity: 100,
+    glow: Number(value("crossGlow")),
+    outline: false,
+    cover: 0,
+    coverColor: "#000000"
+  }, scale);
+}
+function setupCross() {
+  for (const id of ["crossStyle", "crossColor", "crossSize", "crossThick", "crossGap", "crossGlow"]) {
+    $(id).addEventListener("input", paintCross);
+    $(id).addEventListener("change", paintCross);
+  }
+  new ResizeObserver(paintCross).observe($("crossCanvas"));
+}
+function setupColor() {
+  const scene = $("landscape");
+  const value = (id) => $(id).value;
+  let queued = false;
+  const apply = () => {
+    if (queued)
+      return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      scene.style.filter = `saturate(${value("fSat")}%) contrast(${value("fCon")}%) brightness(${value("fBri")}%) hue-rotate(${value("fHue")}deg)`;
+    });
+  };
+  for (const id of ["fSat", "fCon", "fBri", "fHue"])
+    $(id).addEventListener("input", apply);
+}
+function setupControls() {
+  document.querySelectorAll(".controls select").forEach((s) => {
+    const parent = s.parentElement;
+    parent.append(dropdown(s));
+  });
+  document.querySelectorAll('.controls input[type="color"]').forEach((c) => c.parentElement.append(colorPicker(c)));
+}
+async function setupDownload(latest) {
+  const button = $("dlButton");
+  const meta = $("dlMeta");
+  const file = latest?.file ?? "Ashlight-Setup.exe";
+  const url = `updates/${file}`;
+  button.href = url;
+  button.setAttribute("download", file);
+  let size = 0;
+  try {
+    size = Number((await fetch(url, { method: "HEAD", cache: "no-store" })).headers.get("content-length")) || 0;
+  } catch {}
+  meta.textContent = [latest ? `Version ${latest.version}` : "", size ? `${(size / 1048576).toFixed(1)} MB` : "", "Windows 10 and 11"].filter(Boolean).join("  ·  ");
+  if (!latest)
+    return;
+  $("dlHash").textContent = latest.sha256;
+  $("copyHash").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(latest.sha256);
+    } catch {
+      const area = document.createElement("textarea");
+      area.value = latest.sha256;
+      document.body.append(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    $("copyHash").textContent = "Copied";
+    setTimeout(() => $("copyHash").textContent = "Copy", 1600);
+  });
+  if (!/Windows/i.test(navigator.userAgent) || /Phone|Android/i.test(navigator.userAgent))
+    $("dlElsewhere").hidden = false;
+}
+function setupLog() {
+  const el2 = (tag, cls, text = "") => Object.assign(document.createElement(tag), { className: cls, textContent: text });
+  const points = (notes) => notes.split(/(?<=[.!])\s+(?=[A-Z0-9])/).map((x) => x.trim()).filter(Boolean);
+  const list = (notes) => {
+    const ul = el2("ul", "points");
+    for (const p of points(notes))
+      ul.append(el2("li", "", p));
+    return ul;
+  };
+  const date = (iso) => {
+    const d = new Date(`${iso}T12:00:00`);
+    return isNaN(d.getTime()) ? iso : d.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+  };
+  fetch("changelog.json", { cache: "no-store" }).then((r) => r.json()).then((entries) => {
+    const log = $("log");
+    const older = el2("div", "older");
+    entries.forEach((entry, i) => {
+      const row = el2("details", i === 0 ? "release latest" : "release");
+      row.open = i === 0;
+      const summary = el2("summary", "");
+      const head = el2("span", "head");
+      head.append(el2("b", "badge", `v${entry.version}`), el2("time", "date", date(entry.date)));
+      if (i === 0)
+        head.append(el2("i", "tag", "Latest"));
+      summary.append(el2("span", "node"), head, el2("span", "gist", points(entry.notes)[0] ?? ""), el2("span", "chev"));
+      const body = el2("div", "body");
+      body.append(list(entry.notes));
+      row.append(summary, body);
+      (i <= 4 ? log : older).append(row);
+    });
+    if (older.childElementCount) {
+      const more = el2("button", "more", `Show ${older.childElementCount} older releases`);
+      more.type = "button";
+      more.addEventListener("click", () => {
+        more.replaceWith(older);
+      });
+      log.append(more);
+    }
+  }).catch(() => {});
+}
+function setupAnnouncement() {
+  fetch("announce.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((a) => {
+    if (!a?.site || !a.title)
+      return;
+    const bar = $("announce");
+    const title = document.createElement("b");
+    title.textContent = a.title;
+    bar.append(title);
+    if (a.text)
+      bar.append(document.createTextNode(a.text));
+    if (a.url && /^https:\/\//.test(a.url)) {
+      const link = document.createElement("a");
+      link.href = a.url;
+      link.rel = "noopener";
+      link.textContent = "Open";
+      bar.append(link);
+    }
+    bar.hidden = false;
+  }).catch(() => {});
+}
+function setupNav() {
+  const nav = $("nav"), pill = $("navPill"), button = $("menuButton");
+  const links = [...nav.querySelectorAll("a")];
+  const mark = (link) => {
+    links.forEach((l) => l.classList.toggle("on", l === link));
+    if (!link || innerWidth <= 760) {
+      pill.style.opacity = "0";
+      return;
+    }
+    pill.style.opacity = "1";
+    pill.style.width = `${link.offsetWidth}px`;
+    pill.style.transform = `translateX(${link.offsetLeft}px)`;
+  };
+  const sections = links.map((l) => document.querySelector(l.hash));
+  const spy = () => {
+    document.body.classList.toggle("scrolled", scrollY > 12);
+    let current = null;
+    sections.forEach((s, i) => {
+      if (s && s.getBoundingClientRect().top < innerHeight * 0.4)
+        current = links[i];
+    });
+    mark(current);
+  };
+  addEventListener("scroll", spy, { passive: true });
+  addEventListener("resize", spy);
+  spy();
+  const close = () => {
+    document.body.classList.remove("menu-open");
+    button.setAttribute("aria-expanded", "false");
+  };
+  button.addEventListener("click", () => {
+    const open = !document.body.classList.contains("menu-open");
+    document.body.classList.toggle("menu-open", open);
+    button.setAttribute("aria-expanded", String(open));
+  });
+  links.forEach((l) => l.addEventListener("click", close));
+}
+function setupReveal() {
+  const items = [...document.querySelectorAll(".reveal")];
+  items.forEach((el2) => {
+    if (el2.parentElement?.classList.contains("bento"))
+      el2.style.setProperty("--d", `${[...el2.parentElement.children].indexOf(el2) % 4 * 70}ms`);
+  });
+  if (reduced || !("IntersectionObserver" in window)) {
+    items.forEach((el2) => el2.classList.add("in"));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    for (const e of entries)
+      if (e.isIntersecting) {
+        e.target.classList.add("in");
+        observer.unobserve(e.target);
+      }
+  }, { threshold: 0.08, rootMargin: "0px 0px -6% 0px" });
+  items.forEach((el2) => observer.observe(el2));
+}
+setupIcons();
+startSmoke($("smoke"), { tint: () => [0.86, 0.88, 0.92], strength: 0.42 });
+heroIntro();
+setupApp();
+setupTabs();
+setupControls();
+setupCross();
+setupSpotlight();
+setupColor();
+setupLog();
+setupAnnouncement();
+setupReveal();
+setupNav();
+fetch("updates/latest.json", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).catch(() => null).then((latest) => {
+  if (latest)
+    $("version").textContent = `v${latest.version}`;
+  setupDownload(latest);
+});

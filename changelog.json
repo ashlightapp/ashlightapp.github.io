@@ -1,5 +1,15 @@
 [
   {
+    "version": "0.15.0",
+    "date": "2026-11-25",
+    "notes": "Removed the decompiler and RAT checker, dropped Dark Boost, Screen Zoom and the screenshot tool, fixed the default theme, redesigned the sidebar, and added a developer plugin system with a marketplace."
+  },
+  {
+    "version": "0.14.0",
+    "date": "2026-11-13",
+    "notes": "RAT Checker: a read-only look for files that match known remote-access-trojan/stealer names or behave like them. Reports only (no quarantine or delete) and says plainly when a match could be a coincidence."
+  },
+  {
     "version": "0.13.0",
     "date": "2026-11-12",
     "notes": "Decompiler reads native DLLs and programs, with no descriptions and a faster scan. Tilting 3D tiles and depth. Program details added so Windows and antivirus tools can see who made Ashlight."

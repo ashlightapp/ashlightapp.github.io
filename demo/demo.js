@@ -1,4 +1,1075 @@
-var o6=[],i6=($)=>setTimeout(()=>o6.forEach((J)=>J({data:$})),0),R0=($,...J)=>i6({e:$,p:J}),A0=($)=>parent.postMessage({ttool:!0,...$},location.origin);window.ttoolDemo=!0;var H0=new URLSearchParams(location.search);if(H0.has("livechat"))window.ttoolLiveChat=!0;var z2=[{title:"Example Song",artist:"Example Artist",album:"Demo",duration:214000},{title:"Second Track",artist:"Another Artist",album:"Demo",duration:187000},{title:"Third Track",artist:"Example Artist",album:"Demo",duration:241000}],E2=0,p0=!0,U2=42000,T1=Date.now(),o5=new URL("../assets/logo.png",location.href).href,p6=()=>{let $=z2[E2];R0("media",{...$,playing:p0,position:U2,updated:T1,art:o5,source:"Spotify"})},c0=null,r6=()=>R0("monitor",{cpu:14+Math.random()*18,ramUsed:12025908428.8+Math.random()*200000000,ramTotal:34359738368,ping:Math.round(14+Math.random()*8),gpu:{load:62+Math.random()*30,temp:58+Math.random()*6,vramUsed:5400+Math.random()*300,vramTotal:12288,power:180+Math.random()*60,name:"Example GPU"}});function i5($){try{let J=JSON.parse($).color,Z=[`saturate(${J.saturation/100*(1+J.vibrance/200)})`,`contrast(${J.contrast/100})`,`brightness(${1+J.brightness/100+(J.gamma-1)*0.25+J.shadows/400})`];if(J.hue)Z.push(`hue-rotate(${J.hue}deg)`);if(J.filter==="gray")Z.push("grayscale(1)");if(J.filter==="sepia")Z.push("sepia(0.8)");if(J.filter==="invert")Z.push("invert(1)");if(J.temperature>0)Z.push(`sepia(${J.temperature/250})`);return Z.join(" ")}catch{return"none"}}var n6=[["252490","Rust",Math.floor(Date.now()/1000)-3600],["730","Counter-Strike 2",Math.floor(Date.now()/1000)-86400],["1172470","Apex Legends",Math.floor(Date.now()/1000)-259200],["578080","PUBG: BATTLEGROUNDS",0],["1085660","Destiny 2",0],["322170","Geometry Dash",0]],a5=[[3840,2160],[2560,1440],[1920,1080],[1680,1050],[1600,900],[1440,1080],[1280,1024],[1280,960],[1280,720],[1024,768]].flatMap(([$,J])=>[240,144,60].map((Q)=>({width:$,height:J,hz:Q}))),M1=new Map;function s5(){try{return JSON.parse(sessionStorage.getItem("livechat:"+H0.get("name"))??"{}")}catch{return{}}}async function t5($){let J=$.p;switch($.a){case"boot":return setTimeout(()=>R0("engineReady",{recovered:!1,mouseSpeed:10,vibrancePercent:0}),30),{settings:JSON.stringify({app:{welcomed:!0,lastVersion:"demo"},hud:{lyricsOnline:!1},...H0.has("livechat")?{share:{server:H0.get("server")??""},profile:{name:H0.get("name")??"Tester",avatar:"",source:"local"},social:s5()}:{}}),version:"demo",primary:{width:1920,height:1080,scale:1},hidden:!1};case"engine":{let Q=String(J[0]);if(Q.startsWith("settings:"))A0({filter:i5(Q.slice(9))});if(Q==="compare:1")A0({filter:"none",compare:!0});if(Q==="compare:0")A0({compare:!1});return null}case"media":if(J[0])p6();return null;case"mediaCommand":if(J[0]==="play")U2+=p0?Date.now()-T1:0,T1=Date.now(),p0=!p0;else E2=(E2+(J[0]==="next"?1:z2.length-1))%z2.length,U2=0,T1=Date.now(),p0=!0;return p6(),null;case"monitor":if(J[0]&&!c0)r6(),c0=setInterval(r6,1200);else if(!J[0]&&c0)clearInterval(c0),c0=null;return null;case"discord":if(setTimeout(()=>R0("discord",J[0]?"connected":"off"),300),J[0])setTimeout(()=>R0("discordReady",{evt:"READY",data:{user:{id:"100000000000000000",username:"gamer",global_name:"Gamer",avatar:null}}}),350);return null;case"devices":return["\\\\.\\DISPLAY1"];case"modes":return{modes:a5,current:{width:2560,height:1440,hz:144}};case"applyMode":return!0;case"fetchText":{let Q=String(J[0]),Z=Q.endsWith("/announce.json")?"../announce.json":Q.endsWith("/latest.json")?"../updates/latest.json":"";if(!Z)return null;try{let V=await fetch(Z,{cache:"no-store"});return V.ok?await V.text():null}catch{return null}}case"pickBackground":return J[0]==="video"?null:"clouds.jpg";case"windowGlass":return A0({glass:!!J[0]}),null;case"selfHash":return null;case"scanTemp":case"cleanTemp":return{bytes:769654784,files:1203};case"flushDns":return!0;case"pingNow":return Math.round(12+Math.random()*14);case"screenshot":return"demo";case"openUrl":if(/^https:\/\//.test(String(J[0])))window.open(String(J[0]),"_blank","noopener");return null;case"hide":case"quit":return A0({window:"closed"}),null;case"minimize":return A0({window:"minimized"}),null;case"maximize":return A0({window:"maximize"}),null;case"steamPath":return"C:\\Steam";case"listDir":return String(J[0]).endsWith("steamapps")?n6.map(([Q])=>`appmanifest_${Q}.acf`):[];case"readFile":{let Q=String(J[0]).match(/appmanifest_(\d+)\.acf$/)?.[1],Z=n6.find(([V])=>V===Q);return Z?`"AppState" { "appid" "${Z[0]}" "name" "${Z[1]}" "LastPlayed" "${Z[2]}" }`:""}case"launch":return!0;case"pickExe":return null;case"backups":return[...M1.keys()];case"backupRead":return M1.get(String(J[0]))??null;case"backupWrite":return M1.set(String(J[0]),String(J[1])),!0;case"backupDelete":return M1.delete(String(J[0]));case"exportFile":{let Q=document.createElement("a");return Q.href=URL.createObjectURL(new Blob([String(J[0])],{type:"application/json"})),Q.download=String(J[1]),Q.click(),setTimeout(()=>URL.revokeObjectURL(Q.href),1000),!0}case"importFile":return new Promise((Q)=>{let Z=Object.assign(document.createElement("input"),{type:"file",accept:".json,.txt"});Z.addEventListener("change",async()=>Q(Z.files?.[0]?await Z.files[0].text():null)),Z.addEventListener("cancel",()=>Q(null)),Z.click()});case"save":if(H0.has("livechat"))try{let Q=JSON.parse(String(J[0])).social;if(Q?.secret)sessionStorage.setItem("livechat:"+H0.get("name"),JSON.stringify(Q))}catch{}return null;case"decompile":return{ok:!1,error:"The decompiler works in the installed app, right on your PC."};case"dcList":return[];case"dcStatus":return{java:"21",android:!1};default:return null}}window.chrome={webview:{addEventListener:($,J)=>o6.push(J),postMessage:($)=>{let J=JSON.parse($);t5(J).then((Q)=>i6({id:J.id,r:Q}))}}};addEventListener("message",($)=>{if($.origin===location.origin&&$.data?.ttool&&$.data.show)R0("windowShown",!0)});var a6={xmlns:"http://www.w3.org/2000/svg",width:24,height:24,viewBox:"0 0 24 24",fill:"none",stroke:"currentColor","stroke-width":2,"stroke-linecap":"round","stroke-linejoin":"round"};var s6=([$,J,Q])=>{let Z=document.createElementNS("http://www.w3.org/2000/svg",$);if(Object.keys(J).forEach((V)=>{Z.setAttribute(V,String(J[V]))}),Q?.length)Q.forEach((V)=>{let W=s6(V);Z.appendChild(W)});return Z},P2=($,J={})=>{let Z={...a6,...J};return s6(["svg",Z,$])};var C1=[["rect",{width:"20",height:"5",x:"2",y:"3",rx:"1"}],["path",{d:"M4 8v11a2 2 0 0 0 2 2h2"}],["path",{d:"M20 8v11a2 2 0 0 1-2 2h-2"}],["path",{d:"m9 15 3-3 3 3"}],["path",{d:"M12 12v9"}]];var L1=[["path",{d:"M5 12h14"}],["path",{d:"m12 5 7 7-7 7"}]];var M2=[["path",{d:"M10.268 21a2 2 0 0 0 3.464 0"}],["path",{d:"M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"}]];var T2=[["path",{d:"m11 10 3 3"}],["path",{d:"M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z"}],["path",{d:"M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031"}]];var j0=[["path",{d:"M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"}],["circle",{cx:"12",cy:"13",r:"3"}]];var O1=[["path",{d:"M20 6 9 17l-5-5"}]];var N0=[["rect",{width:"14",height:"14",x:"8",y:"8",rx:"2",ry:"2"}],["path",{d:"M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"}]];var r0=[["circle",{cx:"12",cy:"12",r:"10"}],["line",{x1:"22",x2:"18",y1:"12",y2:"12"}],["line",{x1:"6",x2:"2",y1:"12",y2:"12"}],["line",{x1:"12",x2:"12",y1:"6",y2:"2"}],["line",{x1:"12",x2:"12",y1:"22",y2:"18"}]];var Q0=[["path",{d:"M12 15V3"}],["path",{d:"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"}],["path",{d:"m7 10 5 5 5-5"}]];var R1=[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5"}],["path",{d:"M10 12.5 8 15l2 2.5"}],["path",{d:"m14 12.5 2 2.5-2 2.5"}]];var C2=[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5"}],["path",{d:"M12 18v-6"}],["path",{d:"m9 15 3 3 3-3"}]];var L2=[["path",{d:"M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"}],["path",{d:"M14 2v5a1 1 0 0 0 1 1h5"}],["path",{d:"M12 12v6"}],["path",{d:"m15 15-3-3-3 3"}]];var j1=[["path",{d:"m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"}]];var n0=[["line",{x1:"6",x2:"10",y1:"11",y2:"11"}],["line",{x1:"8",x2:"8",y1:"9",y2:"13"}],["line",{x1:"15",x2:"15.01",y1:"12",y2:"12"}],["line",{x1:"18",x2:"18.01",y1:"10",y2:"10"}],["path",{d:"M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"}]];var O2=[["path",{d:"m12 14 4-4"}],["path",{d:"M3.34 19a10 10 0 1 1 17.32 0"}]];var S1=[["circle",{cx:"12",cy:"12",r:"10"}],["path",{d:"M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"}],["path",{d:"M2 12h20"}]];var f1=[["path",{d:"M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"}],["path",{d:"M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"}]];var b1=[["path",{d:"M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"}],["path",{d:"m14 19.5 3-3 3 3"}],["path",{d:"M17 22v-5.5"}],["circle",{cx:"9",cy:"9",r:"2"}]];var R2=[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2",ry:"2"}],["circle",{cx:"9",cy:"9",r:"2"}],["path",{d:"m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"}]];var S0=[["circle",{cx:"12",cy:"12",r:"10"}],["path",{d:"M12 16v-4"}],["path",{d:"M12 8h.01"}]];var v1=[["path",{d:"M10 8h.01"}],["path",{d:"M12 12h.01"}],["path",{d:"M14 8h.01"}],["path",{d:"M16 12h.01"}],["path",{d:"M18 8h.01"}],["path",{d:"M6 8h.01"}],["path",{d:"M7 16h10"}],["path",{d:"M8 12h.01"}],["rect",{width:"20",height:"16",x:"2",y:"4",rx:"2"}]];var o0=[["path",{d:"M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"}],["path",{d:"M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"}],["path",{d:"M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"}]];var j2=[["path",{d:"M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"}],["path",{d:"M9 18h6"}],["path",{d:"M10 22h4"}]];var S2=[["path",{d:"m16 17 5-5-5-5"}],["path",{d:"M21 12H9"}],["path",{d:"M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"}]];var f2=[["path",{d:"M15 3h6v6"}],["path",{d:"m21 3-7 7"}],["path",{d:"m3 21 7-7"}],["path",{d:"M9 21H3v-6"}]];var b2=[["path",{d:"M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"}],["path",{d:"M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14"}],["path",{d:"M8 6v8"}]];var k1=[["path",{d:"M5 12h14"}]];var v2=[["rect",{width:"20",height:"14",x:"2",y:"3",rx:"2"}],["line",{x1:"8",x2:"16",y1:"21",y2:"21"}],["line",{x1:"12",x2:"12",y1:"17",y2:"21"}]];var i0=[["path",{d:"M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"}]];var y1=[["path",{d:"M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"}]];var k2=[["path",{d:"M12 2v20"}],["path",{d:"m15 19-3 3-3-3"}],["path",{d:"m19 9 3 3-3 3"}],["path",{d:"M2 12h20"}],["path",{d:"m5 9-3 3 3 3"}],["path",{d:"m9 5 3-3 3 3"}]];var a0=[["path",{d:"M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"}],["circle",{cx:"13.5",cy:"6.5",r:".5",fill:"currentColor"}],["circle",{cx:"17.5",cy:"10.5",r:".5",fill:"currentColor"}],["circle",{cx:"6.5",cy:"12.5",r:".5",fill:"currentColor"}],["circle",{cx:"8.5",cy:"7.5",r:".5",fill:"currentColor"}]];var y2=[["rect",{x:"14",y:"3",width:"5",height:"18",rx:"1"}],["rect",{x:"5",y:"3",width:"5",height:"18",rx:"1"}]];var x2=[["path",{d:"m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"}],["path",{d:"m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z"}],["path",{d:"m2 22 .414-.414"}]];var w2=[["path",{d:"M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"}]];var u2=[["path",{d:"M5 12h14"}],["path",{d:"M12 5v14"}]];var g2=[["path",{d:"M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"}],["path",{d:"M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"}],["path",{d:"M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"}],["path",{d:"M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05"}]];var x1=[["path",{d:"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"}],["path",{d:"M3 3v5h5"}],["path",{d:"M12 7v5l4 2"}]];var s0=[["path",{d:"M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"}],["path",{d:"M3 3v5h5"}]];var m2=[["path",{d:"M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"}],["path",{d:"m21.854 2.147-10.94 10.939"}]];var t0=[["path",{d:"M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"}],["circle",{cx:"12",cy:"12",r:"3"}]];var d2=[["path",{d:"M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"}],["path",{d:"m9 12 2 2 4-4"}]];var h2=[["path",{d:"M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"}],["path",{d:"M3 20V4"}]];var l2=[["path",{d:"M21 4v16"}],["path",{d:"M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z"}]];var w1=[["path",{d:"M10 8h4"}],["path",{d:"M12 21v-9"}],["path",{d:"M12 8V3"}],["path",{d:"M17 16h4"}],["path",{d:"M19 12V3"}],["path",{d:"M19 21v-5"}],["path",{d:"M3 14h4"}],["path",{d:"M5 10V3"}],["path",{d:"M5 21v-7"}]];var I0=[["path",{d:"M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"}],["path",{d:"M20 2v4"}],["path",{d:"M22 4h-4"}],["circle",{cx:"4",cy:"20",r:"2"}]];var c2=[["rect",{width:"18",height:"18",x:"3",y:"3",rx:"2"}]];var e0=[["circle",{cx:"12",cy:"12",r:"4"}],["path",{d:"M12 3v1"}],["path",{d:"M12 20v1"}],["path",{d:"M3 12h1"}],["path",{d:"M20 12h1"}],["path",{d:"m18.364 5.636-.707.707"}],["path",{d:"m6.343 17.657-.707.707"}],["path",{d:"m5.636 5.636.707.707"}],["path",{d:"m17.657 17.657.707.707"}]];var $1=[["path",{d:"M10 11v6"}],["path",{d:"M14 11v6"}],["path",{d:"M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"}],["path",{d:"M3 6h18"}],["path",{d:"M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"}]];var J1=[["circle",{cx:"12",cy:"8",r:"5"}],["path",{d:"M20 21a8 8 0 0 0-16 0"}]];var u1=[["path",{d:"M12 20h.01"}],["path",{d:"M2 8.82a15 15 0 0 1 20 0"}],["path",{d:"M5 12.859a10 10 0 0 1 14 0"}],["path",{d:"M8.5 16.429a5 5 0 0 1 7 0"}]];var g1=[["path",{d:"M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"}]];var B0=[["path",{d:"M18 6 6 18"}],["path",{d:"m6 6 12 12"}]];var m1=[["circle",{cx:"11",cy:"11",r:"8"}],["line",{x1:"21",x2:"16.65",y1:"21",y2:"16.65"}],["line",{x1:"11",x2:"11",y1:"8",y2:"14"}],["line",{x1:"8",x2:"14",y1:"11",y2:"11"}]];var h=($,J="")=>{let Q=document.createElement($);if(J)Q.className=J;return Q};function e5($,J,Q){let Z=Object.getOwnPropertyDescriptor(J,"value");Object.defineProperty($,"value",{configurable:!0,get:()=>Z.get.call($),set:(V)=>{Z.set.call($,V),Q()}})}function $4($,J,Q){let Z=J.getBoundingClientRect();if(Q)$.style.minWidth=`${Z.width}px`;let V=$.getBoundingClientRect(),W=Z.bottom+6+V.height<=innerHeight-8;$.style.left=`${Math.max(8,Math.min(innerWidth-V.width-8,Z.left))}px`,$.style.top=`${W?Z.bottom+6:Math.max(8,Z.top-V.height-6)}px`,$.style.transformOrigin=W?"top left":"bottom left"}var l1=null;function J4($,J,Q,Z){l1?.(),document.body.append($),$4($,J,Q),requestAnimationFrame(()=>$.classList.add("show"));let V=(q)=>{if(!$.contains(q.target)&&!J.contains(q.target))Y()},W=(q)=>{if(!$.contains(q.target))Y()},F=(q)=>{if(q.key==="Escape")q.stopPropagation(),Y(),J.focus()};function Y(){l1=null,removeEventListener("pointerdown",V,!0),removeEventListener("scroll",W,!0),removeEventListener("resize",Y),removeEventListener("keydown",F,!0),$.remove(),$.classList.remove("show"),Z?.()}return addEventListener("pointerdown",V,!0),addEventListener("scroll",W,!0),addEventListener("resize",Y),addEventListener("keydown",F,!0),l1=Y,Y}var t6=($)=>Math.min(1,Math.max(0,$)),p2=([$,J,Q])=>`#${[$,J,Q].map((Z)=>Math.round(Z).toString(16).padStart(2,"0")).join("")}`,d1=($)=>{let J=$.trim().replace(/^#/,"");if(/^[0-9a-f]{3}$/i.test(J))J=J.replace(/./g,"$&$&");if(!/^[0-9a-f]{6}$/i.test(J))return null;let Q=parseInt(J,16);return[Q>>16&255,Q>>8&255,Q&255]};function Q4($,J,Q){let Z=(V)=>{let W=(V+$/60)%6;return 255*Q*(1-J*Math.max(0,Math.min(W,4-W,1)))};return[Z(5),Z(3),Z(1)]}function Q1([$,J,Q]){let Z=$/255,V=J/255,W=Q/255,F=Math.max(Z,V,W),Y=F-Math.min(Z,V,W),q=0;if(Y)q=F===Z?((V-W)/Y+6)%6:F===V?(W-Z)/Y+2:(Z-V)/Y+4;return[q*60,F?Y/F:0,F]}var Z4=["#ffffff","#c9cdd4","#ff3b3b","#ff8a3b","#ffe23b","#3bff6f","#3be8ff","#3b7bff","#a56bff","#ff4fd8","#1a1c1f","#000000"],$5="ttool.recentColours",J5=()=>{try{return JSON.parse(localStorage.getItem($5)??"[]")}catch{return[]}};function h1($){try{localStorage.setItem($5,JSON.stringify([$,...J5().filter((J)=>J!==$)].slice(0,12)))}catch{}}function e6($,J,Q){let Z=null,V=()=>{if(!Z)return;let F=$.getBoundingClientRect();J(t6((Z.clientX-F.left)/F.width),t6((Z.clientY-F.top)/F.height)),Z=null};$.addEventListener("pointerdown",(F)=>{$.setPointerCapture(F.pointerId),$.classList.add("dragging"),Z=F,V()}),$.addEventListener("pointermove",(F)=>{if(!$.hasPointerCapture(F.pointerId))return;let Y=!Z;if(Z=F,Y)requestAnimationFrame(V)});let W=(F)=>{if(!$.classList.contains("dragging"))return;$.classList.remove("dragging"),Z=F,V(),Q()};$.addEventListener("pointerup",W),$.addEventListener("pointercancel",W)}function r2($){let J=h("span","cp-wrap"),Q=h("button","cp-btn");if(Q.type="button",Q.setAttribute("aria-label",$.getAttribute("aria-label")??"Pick a colour"),$.dataset.tip)Q.dataset.tip=$.dataset.tip,delete $.dataset.tip;let Z=h("i");Q.append(Z),$.style.display="none",J.append($,Q);let V=()=>Q.style.setProperty("--c",$.value);return e5($,HTMLInputElement.prototype,V),V(),Q.addEventListener("click",()=>{if(Q.classList.contains("open"))return l1?.();let[W,F,Y]=Q1(d1($.value)??[255,255,255]),q=h("div","cp-pop"),G=h("div","cp-sv"),_=h("i","cp-thumb");G.append(_);let H=h("div","cp-hue"),I=h("i","cp-thumb");H.append(I);let U=h("i","cp-preview"),D=h("input","cp-field cp-hex");D.spellcheck=!1,D.maxLength=7,D.setAttribute("aria-label","Hex colour");let N=["R","G","B"].map((j)=>{let S=h("input","cp-field");S.inputMode="numeric",S.maxLength=3,S.setAttribute("aria-label",j);let v=h("label","cp-rgb"),p=h("span");return p.textContent=j,v.append(S,p),{field:S,box:v}}),K=h("div","cp-row");if(K.append(U,D),"EyeDropper"in window){let j=h("button","cp-drop");j.type="button",j.innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>',j.setAttribute("aria-label","Pick a colour from your screen"),j.addEventListener("click",async()=>{try{let{sRGBHex:S}=await new window.EyeDropper().open(),v=d1(S);if(v)[W,F,Y]=Q1(v),w(!0),h1(p2(v))}catch{}}),K.append(j)}let E=h("div","cp-row cp-rgbs");E.append(...N.map((j)=>j.box));let M=(j)=>{let S=h("div","cp-swatches");for(let v of j){let p=h("button","cp-swatch");p.type="button",p.style.setProperty("--c",v),p.setAttribute("aria-label",v),p.addEventListener("click",()=>{[W,F,Y]=Q1(d1(v)),w(!0)}),S.append(p)}return S};q.append(G,H,K,E,M(Z4));let R=J5();if(R.length)q.append(M(R));let g=(j)=>{let S=Q4(W,F,Y),v=p2(S);if(G.style.setProperty("--hue",`hsl(${W} 100% 50%)`),_.style.left=`${F*100}%`,_.style.top=`${(1-Y)*100}%`,_.style.setProperty("--c",v),I.style.left=`${W/360*100}%`,I.style.setProperty("--c",`hsl(${W} 100% 50%)`),U.style.setProperty("--c",v),j)D.value=v,N.forEach((p,d0)=>p.field.value=String(Math.round(S[d0])));return v},w=(j)=>{let S=g(j);if(S===$.value.toLowerCase())return;$.value=S,$.dispatchEvent(new Event("input",{bubbles:!0}))};e6(G,(j,S)=>{F=j,Y=1-S,w(!0)},()=>h1($.value)),e6(H,(j)=>{W=j*360,w(!0)},()=>h1($.value)),D.addEventListener("input",()=>{let j=d1(D.value);if(!j)return;[W,F,Y]=Q1(j),w(!1),N.forEach((v,p)=>v.field.value=String(j[p]))}),D.addEventListener("blur",()=>g(!0)),N.forEach((j)=>{j.field.addEventListener("input",()=>{let S=N.map((v)=>Math.min(255,Number(v.field.value.replace(/\D/g,""))||0));[W,F,Y]=Q1(S),w(!1),D.value=p2(S)}),j.field.addEventListener("blur",()=>g(!0))}),g(!0),Q.classList.add("open"),J4(q,Q,!1,()=>{Q.classList.remove("open"),h1($.value)})}),J}function Q5($,J){let Q=$.getContext("webgl",{antialias:!1,alpha:!0,premultipliedAlpha:!0});if(!Q)return()=>{};let Z=(M,R)=>{let g=Q.createShader(M);return Q.shaderSource(g,R),Q.compileShader(g),g},V=Q.createProgram();if(Q.attachShader(V,Z(Q.VERTEX_SHADER,"attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}")),Q.attachShader(V,Z(Q.FRAGMENT_SHADER,`precision mediump float;
+// src/demo/mock.ts
+var handlers = [];
+var deliver = (data) => setTimeout(() => handlers.forEach((fn) => fn({ data })), 0);
+var event = (name, ...args) => deliver({ e: name, p: args });
+var toParent = (message) => parent.postMessage({ ttool: true, ...message }, location.origin);
+window.ttoolDemo = true;
+var query = new URLSearchParams(location.search);
+if (query.has("livechat"))
+  window.ttoolLiveChat = true;
+var SONGS = [
+  { title: "Example Song", artist: "Example Artist", album: "Demo", duration: 214000 },
+  { title: "Second Track", artist: "Another Artist", album: "Demo", duration: 187000 },
+  { title: "Third Track", artist: "Example Artist", album: "Demo", duration: 241000 }
+];
+var song = 0;
+var playing = true;
+var position = 42000;
+var positionAt = Date.now();
+var art = new URL("../assets/logo.png", location.href).href;
+var sendMedia = () => {
+  const s = SONGS[song];
+  event("media", { ...s, playing, position, updated: positionAt, art, source: "Spotify" });
+};
+var monitorTimer = null;
+var monitor = () => event("monitor", {
+  cpu: 14 + Math.random() * 18,
+  ramUsed: 11.2 * 1024 ** 3 + Math.random() * 200000000,
+  ramTotal: 32 * 1024 ** 3,
+  ping: Math.round(14 + Math.random() * 8),
+  gpu: { load: 62 + Math.random() * 30, temp: 58 + Math.random() * 6, vramUsed: 5400 + Math.random() * 300, vramTotal: 12288, power: 180 + Math.random() * 60, name: "Example GPU" }
+});
+function colourFilter(settingsJson) {
+  try {
+    const c = JSON.parse(settingsJson).color;
+    const sat = c.saturation / 100 * (1 + c.vibrance / 200);
+    const parts = [`saturate(${sat})`, `contrast(${c.contrast / 100})`, `brightness(${1 + c.brightness / 100 + (c.gamma - 1) * 0.25 + c.shadows / 400})`];
+    if (c.hue)
+      parts.push(`hue-rotate(${c.hue}deg)`);
+    if (c.filter === "gray")
+      parts.push("grayscale(1)");
+    if (c.filter === "sepia")
+      parts.push("sepia(0.8)");
+    if (c.filter === "invert")
+      parts.push("invert(1)");
+    if (c.temperature > 0)
+      parts.push(`sepia(${c.temperature / 250})`);
+    return parts.join(" ");
+  } catch {
+    return "none";
+  }
+}
+var DEMO_GAMES = [
+  ["252490", "Rust", Math.floor(Date.now() / 1000) - 3600],
+  ["730", "Counter-Strike 2", Math.floor(Date.now() / 1000) - 86400],
+  ["1172470", "Apex Legends", Math.floor(Date.now() / 1000) - 3 * 86400],
+  ["578080", "PUBG: BATTLEGROUNDS", 0],
+  ["1085660", "Destiny 2", 0],
+  ["322170", "Geometry Dash", 0]
+];
+var MODES = [[3840, 2160], [2560, 1440], [1920, 1080], [1680, 1050], [1600, 900], [1440, 1080], [1280, 1024], [1280, 960], [1280, 720], [1024, 768]].flatMap(([width, height]) => [240, 144, 60].map((hz) => ({ width, height, hz })));
+var demoBackups = new Map;
+function liveLogin() {
+  try {
+    return JSON.parse(sessionStorage.getItem("livechat:" + query.get("name")) ?? "{}");
+  } catch {
+    return {};
+  }
+}
+async function answer(m) {
+  const p = m.p;
+  switch (m.a) {
+    case "boot":
+      setTimeout(() => event("engineReady", { recovered: false, mouseSpeed: 10, vibrancePercent: 0 }), 30);
+      return { settings: JSON.stringify({ app: { welcomed: true, lastVersion: "demo" }, hud: { lyricsOnline: false }, ...query.has("livechat") ? { share: { server: query.get("server") ?? "" }, profile: { name: query.get("name") ?? "Tester", avatar: "", source: "local" }, social: liveLogin() } : {} }), version: "demo", primary: { width: 1920, height: 1080, scale: 1 }, hidden: false };
+    case "engine": {
+      const text = String(p[0]);
+      if (text.startsWith("settings:"))
+        toParent({ filter: colourFilter(text.slice(9)) });
+      if (text === "compare:1")
+        toParent({ filter: "none", compare: true });
+      if (text === "compare:0")
+        toParent({ compare: false });
+      return null;
+    }
+    case "media":
+      if (p[0])
+        sendMedia();
+      return null;
+    case "mediaCommand":
+      if (p[0] === "play") {
+        position += playing ? Date.now() - positionAt : 0;
+        positionAt = Date.now();
+        playing = !playing;
+      } else {
+        song = (song + (p[0] === "next" ? 1 : SONGS.length - 1)) % SONGS.length;
+        position = 0;
+        positionAt = Date.now();
+        playing = true;
+      }
+      sendMedia();
+      return null;
+    case "monitor":
+      if (p[0] && !monitorTimer) {
+        monitor();
+        monitorTimer = setInterval(monitor, 1200);
+      } else if (!p[0] && monitorTimer) {
+        clearInterval(monitorTimer);
+        monitorTimer = null;
+      }
+      return null;
+    case "discord":
+      setTimeout(() => event("discord", p[0] ? "connected" : "off"), 300);
+      if (p[0])
+        setTimeout(() => event("discordReady", { evt: "READY", data: { user: { id: "100000000000000000", username: "gamer", global_name: "Gamer", avatar: null } } }), 350);
+      return null;
+    case "devices":
+      return ["\\\\.\\DISPLAY1"];
+    case "modes":
+      return { modes: MODES, current: { width: 2560, height: 1440, hz: 144 } };
+    case "applyMode":
+      return true;
+    case "fetchText": {
+      const url = String(p[0]);
+      const local = url.endsWith("/announce.json") ? "../announce.json" : url.endsWith("/latest.json") ? "../updates/latest.json" : "";
+      if (!local)
+        return null;
+      try {
+        const r = await fetch(local, { cache: "no-store" });
+        return r.ok ? await r.text() : null;
+      } catch {
+        return null;
+      }
+    }
+    case "pickBackground":
+      return p[0] === "video" ? null : "clouds.jpg";
+    case "windowGlass":
+      toParent({ glass: !!p[0] });
+      return null;
+    case "selfHash":
+      return null;
+    case "scanTemp":
+    case "cleanTemp":
+      return { bytes: 734 * 1024 * 1024, files: 1203 };
+    case "flushDns":
+      return true;
+    case "pingNow":
+      return Math.round(12 + Math.random() * 14);
+    case "openUrl":
+      if (/^https:\/\//.test(String(p[0])))
+        window.open(String(p[0]), "_blank", "noopener");
+      return null;
+    case "hide":
+    case "quit":
+      toParent({ window: "closed" });
+      return null;
+    case "minimize":
+      toParent({ window: "minimized" });
+      return null;
+    case "maximize":
+      toParent({ window: "maximize" });
+      return null;
+    case "steamPath":
+      return "C:\\Steam";
+    case "listDir":
+      return String(p[0]).endsWith("steamapps") ? DEMO_GAMES.map(([id]) => `appmanifest_${id}.acf`) : [];
+    case "readFile": {
+      const id = String(p[0]).match(/appmanifest_(\d+)\.acf$/)?.[1];
+      const game = DEMO_GAMES.find(([g]) => g === id);
+      return game ? `"AppState" { "appid" "${game[0]}" "name" "${game[1]}" "LastPlayed" "${game[2]}" }` : "";
+    }
+    case "launch":
+      return true;
+    case "pickExe":
+      return null;
+    case "backups":
+      return [...demoBackups.keys()];
+    case "backupRead":
+      return demoBackups.get(String(p[0])) ?? null;
+    case "backupWrite":
+      demoBackups.set(String(p[0]), String(p[1]));
+      return true;
+    case "backupDelete":
+      return demoBackups.delete(String(p[0]));
+    case "exportFile": {
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(new Blob([String(p[0])], { type: "application/json" }));
+      link.download = String(p[1]);
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+      return true;
+    }
+    case "importFile":
+      return new Promise((done) => {
+        const input = Object.assign(document.createElement("input"), { type: "file", accept: ".json,.txt" });
+        input.addEventListener("change", async () => done(input.files?.[0] ? await input.files[0].text() : null));
+        input.addEventListener("cancel", () => done(null));
+        input.click();
+      });
+    case "save":
+      if (query.has("livechat"))
+        try {
+          const social = JSON.parse(String(p[0])).social;
+          if (social?.secret)
+            sessionStorage.setItem("livechat:" + query.get("name"), JSON.stringify(social));
+        } catch {}
+      return null;
+    case "pickPluginManifest":
+      return null;
+    case "pluginsDir":
+      return "C:\\Plugins";
+    case "pluginInstall":
+    case "pluginInstallLocal":
+    case "pluginUninstall":
+      return { ok: false, error: "Plugins work in the installed app, right on your PC." };
+    case "pluginOpenFolder":
+      return null;
+    default:
+      return null;
+  }
+}
+window.chrome = {
+  webview: {
+    addEventListener: (_, fn) => handlers.push(fn),
+    postMessage: (text) => {
+      const m = JSON.parse(text);
+      answer(m).then((r) => deliver({ id: m.id, r }));
+    }
+  }
+};
+addEventListener("message", (e) => {
+  if (e.origin === location.origin && e.data?.ttool && e.data.show)
+    event("windowShown", true);
+});
+
+// node_modules/lucide/dist/esm/defaultAttributes.mjs
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  "stroke-width": 2,
+  "stroke-linecap": "round",
+  "stroke-linejoin": "round"
+};
+
+// node_modules/lucide/dist/esm/createElement.mjs
+var createSVGElement = ([tag, attrs, children]) => {
+  const element = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  Object.keys(attrs).forEach((name) => {
+    element.setAttribute(name, String(attrs[name]));
+  });
+  if (children?.length) {
+    children.forEach((child) => {
+      const childElement = createSVGElement(child);
+      element.appendChild(childElement);
+    });
+  }
+  return element;
+};
+var createElement = (iconNode, customAttrs = {}) => {
+  const tag = "svg";
+  const attrs = {
+    ...defaultAttributes,
+    ...customAttrs
+  };
+  return createSVGElement([tag, attrs, iconNode]);
+};
+
+// node_modules/lucide/dist/esm/icons/archive-arrow-up.mjs
+var ArchiveArrowUp = [
+  ["rect", { width: "20", height: "5", x: "2", y: "3", rx: "1" }],
+  ["path", { d: "M4 8v11a2 2 0 0 0 2 2h2" }],
+  ["path", { d: "M20 8v11a2 2 0 0 1-2 2h-2" }],
+  ["path", { d: "m9 15 3-3 3 3" }],
+  ["path", { d: "M12 12v9" }]
+];
+
+// node_modules/lucide/dist/esm/icons/arrow-right.mjs
+var ArrowRight = [
+  ["path", { d: "M5 12h14" }],
+  ["path", { d: "m12 5 7 7-7 7" }]
+];
+
+// node_modules/lucide/dist/esm/icons/bell.mjs
+var Bell = [
+  ["path", { d: "M10.268 21a2 2 0 0 0 3.464 0" }],
+  [
+    "path",
+    {
+      d: "M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/brush.mjs
+var Brush = [
+  ["path", { d: "m11 10 3 3" }],
+  ["path", { d: "M6.5 21A3.5 3.5 0 1 0 3 17.5a2.62 2.62 0 0 1-.708 1.792A1 1 0 0 0 3 21z" }],
+  ["path", { d: "M9.969 17.031 21.378 5.624a1 1 0 0 0-3.002-3.002L6.967 14.031" }]
+];
+
+// node_modules/lucide/dist/esm/icons/camera.mjs
+var Camera = [
+  [
+    "path",
+    {
+      d: "M13.997 4a2 2 0 0 1 1.76 1.05l.486.9A2 2 0 0 0 18.003 7H20a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1.997a2 2 0 0 0 1.759-1.048l.489-.904A2 2 0 0 1 10.004 4z"
+    }
+  ],
+  ["circle", { cx: "12", cy: "13", r: "3" }]
+];
+
+// node_modules/lucide/dist/esm/icons/check.mjs
+var Check = [["path", { d: "M20 6 9 17l-5-5" }]];
+
+// node_modules/lucide/dist/esm/icons/copy.mjs
+var Copy = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/crosshair.mjs
+var Crosshair = [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["line", { x1: "22", x2: "18", y1: "12", y2: "12" }],
+  ["line", { x1: "6", x2: "2", y1: "12", y2: "12" }],
+  ["line", { x1: "12", x2: "12", y1: "6", y2: "2" }],
+  ["line", { x1: "12", x2: "12", y1: "22", y2: "18" }]
+];
+
+// node_modules/lucide/dist/esm/icons/download.mjs
+var Download = [
+  ["path", { d: "M12 15V3" }],
+  ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" }],
+  ["path", { d: "m7 10 5 5 5-5" }]
+];
+
+// node_modules/lucide/dist/esm/icons/file-down.mjs
+var FileDown = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+  ["path", { d: "M12 18v-6" }],
+  ["path", { d: "m9 15 3 3 3-3" }]
+];
+
+// node_modules/lucide/dist/esm/icons/file-up.mjs
+var FileUp = [
+  [
+    "path",
+    {
+      d: "M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+    }
+  ],
+  ["path", { d: "M14 2v5a1 1 0 0 0 1 1h5" }],
+  ["path", { d: "M12 12v6" }],
+  ["path", { d: "m15 15-3-3-3 3" }]
+];
+
+// node_modules/lucide/dist/esm/icons/folder-open.mjs
+var FolderOpen = [
+  [
+    "path",
+    {
+      d: "m6 14 1.5-2.9A2 2 0 0 1 9.24 10H20a2 2 0 0 1 1.94 2.5l-1.54 6a2 2 0 0 1-1.95 1.5H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H18a2 2 0 0 1 2 2v2"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/gamepad-2.mjs
+var Gamepad2 = [
+  ["line", { x1: "6", x2: "10", y1: "11", y2: "11" }],
+  ["line", { x1: "8", x2: "8", y1: "9", y2: "13" }],
+  ["line", { x1: "15", x2: "15.01", y1: "12", y2: "12" }],
+  ["line", { x1: "18", x2: "18.01", y1: "10", y2: "10" }],
+  [
+    "path",
+    {
+      d: "M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/gauge.mjs
+var Gauge = [
+  ["path", { d: "m12 14 4-4" }],
+  ["path", { d: "M3.34 19a10 10 0 1 1 17.32 0" }]
+];
+
+// node_modules/lucide/dist/esm/icons/globe.mjs
+var Globe = [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["path", { d: "M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" }],
+  ["path", { d: "M2 12h20" }]
+];
+
+// node_modules/lucide/dist/esm/icons/house.mjs
+var House = [
+  ["path", { d: "M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" }],
+  [
+    "path",
+    {
+      d: "M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/image-up.mjs
+var ImageUp = [
+  [
+    "path",
+    {
+      d: "M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10l-3.1-3.1a2 2 0 0 0-2.814.014L6 21"
+    }
+  ],
+  ["path", { d: "m14 19.5 3-3 3 3" }],
+  ["path", { d: "M17 22v-5.5" }],
+  ["circle", { cx: "9", cy: "9", r: "2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/image.mjs
+var Image2 = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2" }],
+  ["circle", { cx: "9", cy: "9", r: "2" }],
+  ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" }]
+];
+
+// node_modules/lucide/dist/esm/icons/info.mjs
+var Info = [
+  ["circle", { cx: "12", cy: "12", r: "10" }],
+  ["path", { d: "M12 16v-4" }],
+  ["path", { d: "M12 8h.01" }]
+];
+
+// node_modules/lucide/dist/esm/icons/keyboard.mjs
+var Keyboard = [
+  ["path", { d: "M10 8h.01" }],
+  ["path", { d: "M12 12h.01" }],
+  ["path", { d: "M14 8h.01" }],
+  ["path", { d: "M16 12h.01" }],
+  ["path", { d: "M18 8h.01" }],
+  ["path", { d: "M6 8h.01" }],
+  ["path", { d: "M7 16h10" }],
+  ["path", { d: "M8 12h.01" }],
+  ["rect", { width: "20", height: "16", x: "2", y: "4", rx: "2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/layers.mjs
+var Layers = [
+  [
+    "path",
+    {
+      d: "M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"
+    }
+  ],
+  ["path", { d: "M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" }],
+  ["path", { d: "M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17" }]
+];
+
+// node_modules/lucide/dist/esm/icons/lightbulb.mjs
+var Lightbulb = [
+  [
+    "path",
+    {
+      d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
+    }
+  ],
+  ["path", { d: "M9 18h6" }],
+  ["path", { d: "M10 22h4" }]
+];
+
+// node_modules/lucide/dist/esm/icons/log-out.mjs
+var LogOut = [
+  ["path", { d: "m16 17 5-5-5-5" }],
+  ["path", { d: "M21 12H9" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" }]
+];
+
+// node_modules/lucide/dist/esm/icons/maximize-2.mjs
+var Maximize2 = [
+  ["path", { d: "M15 3h6v6" }],
+  ["path", { d: "m21 3-7 7" }],
+  ["path", { d: "m3 21 7-7" }],
+  ["path", { d: "M9 21H3v-6" }]
+];
+
+// node_modules/lucide/dist/esm/icons/megaphone.mjs
+var Megaphone = [
+  [
+    "path",
+    {
+      d: "M11 6a13 13 0 0 0 8.4-2.8A1 1 0 0 1 21 4v12a1 1 0 0 1-1.6.8A13 13 0 0 0 11 14H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"
+    }
+  ],
+  ["path", { d: "M6 14a12 12 0 0 0 2.4 7.2 2 2 0 0 0 3.2-2.4A8 8 0 0 1 10 14" }],
+  ["path", { d: "M8 6v8" }]
+];
+
+// node_modules/lucide/dist/esm/icons/minus.mjs
+var Minus = [["path", { d: "M5 12h14" }]];
+
+// node_modules/lucide/dist/esm/icons/monitor.mjs
+var Monitor = [
+  ["rect", { width: "20", height: "14", x: "2", y: "3", rx: "2" }],
+  ["line", { x1: "8", x2: "16", y1: "21", y2: "21" }],
+  ["line", { x1: "12", x2: "12", y1: "17", y2: "21" }]
+];
+
+// node_modules/lucide/dist/esm/icons/moon.mjs
+var Moon = [
+  [
+    "path",
+    {
+      d: "M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/mouse-pointer-2.mjs
+var MousePointer2 = [
+  [
+    "path",
+    {
+      d: "M4.037 4.688a.495.495 0 0 1 .651-.651l16 6.5a.5.5 0 0 1-.063.947l-6.124 1.58a2 2 0 0 0-1.438 1.435l-1.579 6.126a.5.5 0 0 1-.947.063z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/move.mjs
+var Move = [
+  ["path", { d: "M12 2v20" }],
+  ["path", { d: "m15 19-3 3-3-3" }],
+  ["path", { d: "m19 9 3 3-3 3" }],
+  ["path", { d: "M2 12h20" }],
+  ["path", { d: "m5 9-3 3 3 3" }],
+  ["path", { d: "m9 5 3-3 3 3" }]
+];
+
+// node_modules/lucide/dist/esm/icons/palette.mjs
+var Palette = [
+  [
+    "path",
+    {
+      d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"
+    }
+  ],
+  ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor" }],
+  ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor" }]
+];
+
+// node_modules/lucide/dist/esm/icons/pause.mjs
+var Pause = [
+  ["rect", { x: "14", y: "3", width: "5", height: "18", rx: "1" }],
+  ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1" }]
+];
+
+// node_modules/lucide/dist/esm/icons/pipette.mjs
+var Pipette = [
+  [
+    "path",
+    {
+      d: "m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"
+    }
+  ],
+  ["path", { d: "m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z" }],
+  ["path", { d: "m2 22 .414-.414" }]
+];
+
+// node_modules/lucide/dist/esm/icons/play.mjs
+var Play = [
+  [
+    "path",
+    { d: "M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z" }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/plus.mjs
+var Plus = [
+  ["path", { d: "M5 12h14" }],
+  ["path", { d: "M12 5v14" }]
+];
+
+// node_modules/lucide/dist/esm/icons/puzzle.mjs
+var Puzzle = [
+  [
+    "path",
+    {
+      d: "M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/refresh-cw.mjs
+var RefreshCw = [
+  ["path", { d: "M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" }],
+  ["path", { d: "M21 3v5h-5" }],
+  ["path", { d: "M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" }],
+  ["path", { d: "M8 16H3v5" }]
+];
+
+// node_modules/lucide/dist/esm/icons/rocket.mjs
+var Rocket = [
+  ["path", { d: "M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" }],
+  [
+    "path",
+    {
+      d: "M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09"
+    }
+  ],
+  [
+    "path",
+    {
+      d: "M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z"
+    }
+  ],
+  ["path", { d: "M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" }]
+];
+
+// node_modules/lucide/dist/esm/icons/rotate-ccw-clock.mjs
+var RotateCcwClock = [
+  ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" }],
+  ["path", { d: "M3 3v5h5" }],
+  ["path", { d: "M12 7v5l4 2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/rotate-ccw.mjs
+var RotateCcw = [
+  ["path", { d: "M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" }],
+  ["path", { d: "M3 3v5h5" }]
+];
+
+// node_modules/lucide/dist/esm/icons/send.mjs
+var Send = [
+  [
+    "path",
+    {
+      d: "M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+    }
+  ],
+  ["path", { d: "m21.854 2.147-10.94 10.939" }]
+];
+
+// node_modules/lucide/dist/esm/icons/settings.mjs
+var Settings = [
+  [
+    "path",
+    {
+      d: "M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+    }
+  ],
+  ["circle", { cx: "12", cy: "12", r: "3" }]
+];
+
+// node_modules/lucide/dist/esm/icons/shield-check.mjs
+var ShieldCheck = [
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"
+    }
+  ],
+  ["path", { d: "m9 12 2 2 4-4" }]
+];
+
+// node_modules/lucide/dist/esm/icons/skip-back.mjs
+var SkipBack = [
+  [
+    "path",
+    {
+      d: "M17.971 4.285A2 2 0 0 1 21 6v12a2 2 0 0 1-3.029 1.715l-9.997-5.998a2 2 0 0 1-.003-3.432z"
+    }
+  ],
+  ["path", { d: "M3 20V4" }]
+];
+
+// node_modules/lucide/dist/esm/icons/skip-forward.mjs
+var SkipForward = [
+  ["path", { d: "M21 4v16" }],
+  [
+    "path",
+    { d: "M6.029 4.285A2 2 0 0 0 3 6v12a2 2 0 0 0 3.029 1.715l9.997-5.998a2 2 0 0 0 .003-3.432z" }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/sliders-vertical.mjs
+var SlidersVertical = [
+  ["path", { d: "M10 8h4" }],
+  ["path", { d: "M12 21v-9" }],
+  ["path", { d: "M12 8V3" }],
+  ["path", { d: "M17 16h4" }],
+  ["path", { d: "M19 12V3" }],
+  ["path", { d: "M19 21v-5" }],
+  ["path", { d: "M3 14h4" }],
+  ["path", { d: "M5 10V3" }],
+  ["path", { d: "M5 21v-7" }]
+];
+
+// node_modules/lucide/dist/esm/icons/sparkles.mjs
+var Sparkles = [
+  [
+    "path",
+    {
+      d: "M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+    }
+  ],
+  ["path", { d: "M20 2v4" }],
+  ["path", { d: "M22 4h-4" }],
+  ["circle", { cx: "4", cy: "20", r: "2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/square.mjs
+var Square = [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2" }]];
+
+// node_modules/lucide/dist/esm/icons/store.mjs
+var Store = [
+  ["path", { d: "M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" }],
+  [
+    "path",
+    {
+      d: "M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"
+    }
+  ],
+  ["path", { d: "M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" }]
+];
+
+// node_modules/lucide/dist/esm/icons/sun-medium.mjs
+var SunMedium = [
+  ["circle", { cx: "12", cy: "12", r: "4" }],
+  ["path", { d: "M12 3v1" }],
+  ["path", { d: "M12 20v1" }],
+  ["path", { d: "M3 12h1" }],
+  ["path", { d: "M20 12h1" }],
+  ["path", { d: "m18.364 5.636-.707.707" }],
+  ["path", { d: "m6.343 17.657-.707.707" }],
+  ["path", { d: "m5.636 5.636.707.707" }],
+  ["path", { d: "m17.657 17.657.707.707" }]
+];
+
+// node_modules/lucide/dist/esm/icons/trash.mjs
+var Trash = [
+  ["path", { d: "M10 11v6" }],
+  ["path", { d: "M14 11v6" }],
+  ["path", { d: "M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6" }],
+  ["path", { d: "M3 6h18" }],
+  ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" }]
+];
+
+// node_modules/lucide/dist/esm/icons/user-round.mjs
+var UserRound = [
+  ["circle", { cx: "12", cy: "8", r: "5" }],
+  ["path", { d: "M20 21a8 8 0 0 0-16 0" }]
+];
+
+// node_modules/lucide/dist/esm/icons/wifi.mjs
+var Wifi = [
+  ["path", { d: "M12 20h.01" }],
+  ["path", { d: "M2 8.82a15 15 0 0 1 20 0" }],
+  ["path", { d: "M5 12.859a10 10 0 0 1 14 0" }],
+  ["path", { d: "M8.5 16.429a5 5 0 0 1 7 0" }]
+];
+
+// node_modules/lucide/dist/esm/icons/wrench.mjs
+var Wrench = [
+  [
+    "path",
+    {
+      d: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"
+    }
+  ]
+];
+
+// node_modules/lucide/dist/esm/icons/x.mjs
+var X = [
+  ["path", { d: "M18 6 6 18" }],
+  ["path", { d: "m6 6 12 12" }]
+];
+// src/shared/controls.ts
+var DROPPER = `<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>`;
+var el = (tag, className = "") => {
+  const node = document.createElement(tag);
+  if (className)
+    node.className = className;
+  return node;
+};
+function watchValue(input, proto, changed) {
+  const native = Object.getOwnPropertyDescriptor(proto, "value");
+  Object.defineProperty(input, "value", {
+    configurable: true,
+    get: () => native.get.call(input),
+    set: (v) => {
+      native.set.call(input, v);
+      changed();
+    }
+  });
+}
+function placeNear(pop, anchor, matchWidth) {
+  const a = anchor.getBoundingClientRect();
+  if (matchWidth)
+    pop.style.minWidth = `${a.width}px`;
+  const b = pop.getBoundingClientRect();
+  const below = a.bottom + 6 + b.height <= innerHeight - 8;
+  pop.style.left = `${Math.max(8, Math.min(innerWidth - b.width - 8, a.left))}px`;
+  pop.style.top = `${below ? a.bottom + 6 : Math.max(8, a.top - b.height - 6)}px`;
+  pop.style.transformOrigin = below ? "top left" : "bottom left";
+}
+var closeOpen = null;
+function openPopup(pop, anchor, matchWidth, onClose) {
+  closeOpen?.();
+  document.body.append(pop);
+  placeNear(pop, anchor, matchWidth);
+  requestAnimationFrame(() => pop.classList.add("show"));
+  const outside = (e) => {
+    if (!pop.contains(e.target) && !anchor.contains(e.target))
+      close();
+  };
+  const scrolled = (e) => {
+    if (!pop.contains(e.target))
+      close();
+  };
+  const keys = (e) => {
+    if (e.key === "Escape") {
+      e.stopPropagation();
+      close();
+      anchor.focus();
+    }
+  };
+  function close() {
+    closeOpen = null;
+    removeEventListener("pointerdown", outside, true);
+    removeEventListener("scroll", scrolled, true);
+    removeEventListener("resize", close);
+    removeEventListener("keydown", keys, true);
+    pop.remove();
+    pop.classList.remove("show");
+    onClose?.();
+  }
+  addEventListener("pointerdown", outside, true);
+  addEventListener("scroll", scrolled, true);
+  addEventListener("resize", close);
+  addEventListener("keydown", keys, true);
+  closeOpen = close;
+  return close;
+}
+var clamp01 = (v) => Math.min(1, Math.max(0, v));
+var toHex = ([r, g, b]) => `#${[r, g, b].map((n) => Math.round(n).toString(16).padStart(2, "0")).join("")}`;
+var fromHex = (hex) => {
+  let t = hex.trim().replace(/^#/, "");
+  if (/^[0-9a-f]{3}$/i.test(t))
+    t = t.replace(/./g, "$&$&");
+  if (!/^[0-9a-f]{6}$/i.test(t))
+    return null;
+  const n = parseInt(t, 16);
+  return [n >> 16 & 255, n >> 8 & 255, n & 255];
+};
+function hsvToRgb(h, s, v) {
+  const f = (n) => {
+    const k = (n + h / 60) % 6;
+    return 255 * v * (1 - s * Math.max(0, Math.min(k, 4 - k, 1)));
+  };
+  return [f(5), f(3), f(1)];
+}
+function rgbToHsv([r, g, b]) {
+  const R = r / 255, G = g / 255, B = b / 255;
+  const max = Math.max(R, G, B), d = max - Math.min(R, G, B);
+  let h = 0;
+  if (d)
+    h = max === R ? ((G - B) / d + 6) % 6 : max === G ? (B - R) / d + 2 : (R - G) / d + 4;
+  return [h * 60, max ? d / max : 0, max];
+}
+var PRESETS = ["#ffffff", "#c9cdd4", "#ff3b3b", "#ff8a3b", "#ffe23b", "#3bff6f", "#3be8ff", "#3b7bff", "#a56bff", "#ff4fd8", "#1a1c1f", "#000000"];
+var RECENT_KEY = "ttool.recentColours";
+var readRecent = () => {
+  try {
+    return JSON.parse(localStorage.getItem(RECENT_KEY) ?? "[]");
+  } catch {
+    return [];
+  }
+};
+function remember(color) {
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify([color, ...readRecent().filter((c) => c !== color)].slice(0, 12)));
+  } catch {}
+}
+function dragArea(area, moved, done) {
+  let pending = null;
+  const flush = () => {
+    if (!pending)
+      return;
+    const r = area.getBoundingClientRect();
+    moved(clamp01((pending.clientX - r.left) / r.width), clamp01((pending.clientY - r.top) / r.height));
+    pending = null;
+  };
+  area.addEventListener("pointerdown", (e) => {
+    area.setPointerCapture(e.pointerId);
+    area.classList.add("dragging");
+    pending = e;
+    flush();
+  });
+  area.addEventListener("pointermove", (e) => {
+    if (!area.hasPointerCapture(e.pointerId))
+      return;
+    const first = !pending;
+    pending = e;
+    if (first)
+      requestAnimationFrame(flush);
+  });
+  const end = (e) => {
+    if (!area.classList.contains("dragging"))
+      return;
+    area.classList.remove("dragging");
+    pending = e;
+    flush();
+    done();
+  };
+  area.addEventListener("pointerup", end);
+  area.addEventListener("pointercancel", end);
+}
+function colorPicker(input) {
+  const root = el("span", "cp-wrap");
+  const button = el("button", "cp-btn");
+  button.type = "button";
+  button.setAttribute("aria-label", input.getAttribute("aria-label") ?? "Pick a colour");
+  if (input.dataset.tip) {
+    button.dataset.tip = input.dataset.tip;
+    delete input.dataset.tip;
+  }
+  const dot = el("i");
+  button.append(dot);
+  input.style.display = "none";
+  root.append(input, button);
+  const paintButton = () => button.style.setProperty("--c", input.value);
+  watchValue(input, HTMLInputElement.prototype, paintButton);
+  paintButton();
+  button.addEventListener("click", () => {
+    if (button.classList.contains("open"))
+      return closeOpen?.();
+    let [hue, sat, val] = rgbToHsv(fromHex(input.value) ?? [255, 255, 255]);
+    const pop = el("div", "cp-pop");
+    const sv = el("div", "cp-sv");
+    const svThumb = el("i", "cp-thumb");
+    sv.append(svThumb);
+    const hueBar = el("div", "cp-hue");
+    const hueThumb = el("i", "cp-thumb");
+    hueBar.append(hueThumb);
+    const preview = el("i", "cp-preview");
+    const hexField = el("input", "cp-field cp-hex");
+    hexField.spellcheck = false;
+    hexField.maxLength = 7;
+    hexField.setAttribute("aria-label", "Hex colour");
+    const rgbFields = ["R", "G", "B"].map((name) => {
+      const field = el("input", "cp-field");
+      field.inputMode = "numeric";
+      field.maxLength = 3;
+      field.setAttribute("aria-label", name);
+      const box = el("label", "cp-rgb");
+      const caption = el("span");
+      caption.textContent = name;
+      box.append(field, caption);
+      return { field, box };
+    });
+    const top = el("div", "cp-row");
+    top.append(preview, hexField);
+    if ("EyeDropper" in window) {
+      const pick = el("button", "cp-drop");
+      pick.type = "button";
+      pick.innerHTML = DROPPER;
+      pick.setAttribute("aria-label", "Pick a colour from your screen");
+      pick.addEventListener("click", async () => {
+        try {
+          const { sRGBHex } = await new window.EyeDropper().open();
+          const rgb = fromHex(sRGBHex);
+          if (rgb) {
+            [hue, sat, val] = rgbToHsv(rgb);
+            commit(true);
+            remember(toHex(rgb));
+          }
+        } catch {}
+      });
+      top.append(pick);
+    }
+    const rgbRow = el("div", "cp-row cp-rgbs");
+    rgbRow.append(...rgbFields.map((f) => f.box));
+    const row = (colors) => {
+      const list = el("div", "cp-swatches");
+      for (const color of colors) {
+        const s = el("button", "cp-swatch");
+        s.type = "button";
+        s.style.setProperty("--c", color);
+        s.setAttribute("aria-label", color);
+        s.addEventListener("click", () => {
+          [hue, sat, val] = rgbToHsv(fromHex(color));
+          commit(true);
+        });
+        list.append(s);
+      }
+      return list;
+    };
+    pop.append(sv, hueBar, top, rgbRow, row(PRESETS));
+    const recent = readRecent();
+    if (recent.length)
+      pop.append(row(recent));
+    const paint = (fields) => {
+      const rgb = hsvToRgb(hue, sat, val);
+      const hex = toHex(rgb);
+      sv.style.setProperty("--hue", `hsl(${hue} 100% 50%)`);
+      svThumb.style.left = `${sat * 100}%`;
+      svThumb.style.top = `${(1 - val) * 100}%`;
+      svThumb.style.setProperty("--c", hex);
+      hueThumb.style.left = `${hue / 360 * 100}%`;
+      hueThumb.style.setProperty("--c", `hsl(${hue} 100% 50%)`);
+      preview.style.setProperty("--c", hex);
+      if (fields) {
+        hexField.value = hex;
+        rgbFields.forEach((f, i) => f.field.value = String(Math.round(rgb[i])));
+      }
+      return hex;
+    };
+    const commit = (fields) => {
+      const hex = paint(fields);
+      if (hex === input.value.toLowerCase())
+        return;
+      input.value = hex;
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+    dragArea(sv, (x, y) => {
+      sat = x;
+      val = 1 - y;
+      commit(true);
+    }, () => remember(input.value));
+    dragArea(hueBar, (x) => {
+      hue = x * 360;
+      commit(true);
+    }, () => remember(input.value));
+    hexField.addEventListener("input", () => {
+      const rgb = fromHex(hexField.value);
+      if (!rgb)
+        return;
+      [hue, sat, val] = rgbToHsv(rgb);
+      const hex = commit;
+      hex(false);
+      rgbFields.forEach((f, i) => f.field.value = String(rgb[i]));
+    });
+    hexField.addEventListener("blur", () => paint(true));
+    rgbFields.forEach((f) => {
+      f.field.addEventListener("input", () => {
+        const values = rgbFields.map((x) => Math.min(255, Number(x.field.value.replace(/\D/g, "")) || 0));
+        [hue, sat, val] = rgbToHsv(values);
+        commit(false);
+        hexField.value = toHex(values);
+      });
+      f.field.addEventListener("blur", () => paint(true));
+    });
+    paint(true);
+    button.classList.add("open");
+    openPopup(pop, button, false, () => {
+      button.classList.remove("open");
+      remember(input.value);
+    });
+  });
+  return root;
+}
+
+// src/shared/smoke.ts
+var FRAG = `precision mediump float;
 uniform vec2 res; uniform float t; uniform vec3 tint; uniform float strength;
 float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
 float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
@@ -10,7 +1081,3480 @@ void main(){
   float f=fbm(p+1.6*q+vec2(t*.015,0.));
   float a=smoothstep(.35,.95,f*1.1)*strength;
   gl_FragColor=vec4(tint*a,a);
-}`)),Q.linkProgram(V),!Q.getProgramParameter(V,Q.LINK_STATUS))return()=>{};Q.useProgram(V),Q.bindBuffer(Q.ARRAY_BUFFER,Q.createBuffer()),Q.bufferData(Q.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),Q.STATIC_DRAW),Q.enableVertexAttribArray(0),Q.vertexAttribPointer(Q.getAttribLocation(V,"a"),2,Q.FLOAT,!1,0,0);let W=(M)=>Q.getUniformLocation(V,M),F=W("res"),Y=W("t"),q=W("tint"),G=W("strength");Q.uniform1f(G,J.strength);let _=()=>{let M=$.getBoundingClientRect();$.width=Math.max(160,Math.round(M.width/4)),$.height=Math.max(100,Math.round(M.height/4)),Q.viewport(0,0,$.width,$.height),Q.uniform2f(F,$.width,$.height)};_(),addEventListener("resize",_);let H=matchMedia("(prefers-reduced-motion: reduce)").matches,I=(M)=>{let[R,g,w]=J.tint();Q.uniform3f(q,R,g,w),Q.uniform1f(Y,H?20:M/1000),Q.clear(Q.COLOR_BUFFER_BIT),Q.drawArrays(Q.TRIANGLES,0,3)},U=!0,D=new IntersectionObserver(([M])=>U=!!M?.isIntersecting);D.observe($);let N=!0,K=0,E=(M)=>{if(!N)return;if(U&&!document.hidden&&M-K>33)K=M,I(M);if(!H)requestAnimationFrame(E)};return requestAnimationFrame(E),()=>{N=!1,D.disconnect(),removeEventListener("resize",_)}}var z0={updateUrl:"https://ashlightapp.github.io/updates",repo:"ashlightapp/ashlightapp.github.io"};var E0={vk:0,name:"None"},c1=($,J)=>({vk:$,name:J}),X5=10,V4=()=>({vibrance:0,saturation:100,hue:0,contrast:100,brightness:0,gamma:1,highlights:0,shadows:0,blacks:0,whites:0,shadowTint:0,highlightTint:0,temperature:0,tint:0,red:100,green:100,blue:100,filter:"none",nvidia:!1}),Z0=()=>({color:V4(),darken:{enabled:!1,color:"#00ff00",amount:45,complement:0},boost:{enabled:!1,key:c1(117,"F6"),mode:"hold",strength:50,tint:"#ffffff"},aspect:{enabled:!1,mode:"stretch",w:4,h:3,key:{...E0},onlyGames:!0},zoom:{enabled:!1,key:c1(118,"F7"),mode:"hold",level:2,speed:180,shape:"full",radius:28,sharpness:45},crosshair:{enabled:!1,show:"aim",aimKey:c1(2,"Right mouse"),toggleKey:c1(119,"F8"),aimDelay:200,onlyRust:!1,style:"rustholo",color:"#ff3b3b",size:14,thickness:2,gap:3,opacity:100,glow:40,outline:!1,offsetX:0,offsetY:0,cover:0,coverColor:"#1a1c1f",image:"",fitScreen:!0,dynamic:!1},hud:{enabled:!1,corner:"tr",x:-1,y:-1,scale:100,opacity:100,layout:"card",lyricAnim:"slide",gradientText:!0,textColor:"#ffffff",background:100,artBlur:28,radius:20,lyricSize:17,lyricGlow:!1,showProgress:!0,showArt:!0,showLyrics:!0,lines:3,lyricsOnline:!0,lyricOffset:0,hideWhenPaused:!1,artColor:!0,toggleKey:{...E0},playKey:{...E0},nextKey:{...E0},prevKey:{...E0}},stats:{enabled:!1,corner:"tl",scale:100,opacity:100,background:100,layout:"bar",color:"#ffffff",meters:!0,cpu:!0,gpu:!0,temp:!0,ram:!0,vram:!1,power:!1,ping:!1,session:!1,clock:!0,pingHost:"1.1.1.1"},tools:{noMouseAccel:!1,highPerformance:!1,keepAwake:!1,mouseSpeed:10,gameMode:!1,noGameCapture:!1,screenshotKey:{...E0}},discord:{enabled:!0},app:{closeToTray:!0,startWithWindows:!1,autoUpdate:!0,theme:"graphite",accent:"#ffffff",welcomed:!0,windowButtons:"mac",buttonsSide:"right",intro:!0,lastVersion:"",seenAnnouncement:"",startMinimized:!1,hideFromCapture:!1,quickKey:{...E0},updateEveryHours:2},profile:{name:"",avatar:"",source:"none"},library:{custom:[],hidden:[],played:{}},games:{auto:!0,profiles:[],seen:[],active:{exe:"",base:{}}},suggest:{sent:[],withName:!1},social:{id:"",secret:""},share:{server:n2,quality:"1080p60",audio:!0},ui:{background:"none",file:"",dim:40,blur:0,glassPanels:!1,panelOpacity:22,mode:"dark",scale:100,font:"mono",motion:!0,pauseVideo:!0,smoke:!1,navFolded:[]},decompiler:{libs:!1,hide:[]}}),p1={color:{label:"Colour",keys:["color","darken"]},boost:{label:"Dark Boost",keys:["boost"]},zoom:{label:"Screen Zoom",keys:["zoom"]},aspect:{label:"Aspect ratio",keys:["aspect"]},crosshair:{label:"Crosshair",keys:["crosshair"]}},Z1="1554975548944420904",n2="https://app-804a9dc99f9869a8.up.railway.app",f0=[{id:"graphite",name:"Graphite",a:"58, 62, 72",b:"34, 37, 45",glow1:"190, 200, 220",glow2:"130, 140, 165"},{id:"sky",name:"Sky",a:"52, 92, 140",b:"26, 44, 86",glow1:"140, 205, 255",glow2:"90, 130, 235"},{id:"aurora",name:"Aurora",a:"34, 96, 104",b:"52, 40, 110",glow1:"110, 255, 205",glow2:"170, 120, 255"},{id:"sunset",name:"Sunset",a:"134, 66, 92",b:"62, 38, 96",glow1:"255, 180, 110",glow2:"245, 100, 150"},{id:"ocean",name:"Ocean",a:"28, 104, 128",b:"18, 52, 92",glow1:"100, 230, 245",glow2:"50, 150, 215"},{id:"lavender",name:"Lavender",a:"98, 82, 150",b:"52, 44, 96",glow1:"225, 205, 255",glow2:"160, 140, 235"},{id:"rose",name:"Rose",a:"140, 74, 104",b:"78, 40, 70",glow1:"255, 185, 210",glow2:"225, 120, 165"},{id:"forest",name:"Forest",a:"46, 100, 82",b:"22, 56, 56",glow1:"130, 230, 180",glow2:"70, 170, 140"},{id:"ember",name:"Ember",a:"140, 76, 52",b:"84, 40, 38",glow1:"255, 175, 110",glow2:"235, 105, 70"},{id:"midnight",name:"Midnight",a:"44, 52, 112",b:"22, 24, 64",glow1:"135, 150, 255",glow2:"100, 90, 220"},{id:"mint",name:"Mint",a:"52, 120, 112",b:"30, 72, 86",glow1:"160, 255, 225",glow2:"90, 210, 190"},{id:"slate",name:"Slate",a:"70, 78, 92",b:"40, 46, 60",glow1:"170, 190, 220",glow2:"120, 140, 175"}],o2={"color.vibrance":[0,200,1],"color.highlights":[-100,100,1],"color.shadows":[-100,100,1],"color.blacks":[-100,100,1],"color.whites":[-100,100,1],"color.shadowTint":[-100,100,1],"color.highlightTint":[-100,100,1],"darken.amount":[0,100,1],"darken.complement":[0,100,1],"ui.dim":[0,90,1],"ui.blur":[0,40,1],"ui.panelOpacity":[0,100,1],"ui.scale":[85,115,5],"app.updateEveryHours":[1,24,1],"color.saturation":[0,300,1],"color.hue":[-180,180,1],"color.contrast":[50,150,1],"color.brightness":[-40,40,1],"color.gamma":[0.5,2.5,0.01],"color.temperature":[-100,100,1],"color.tint":[-100,100,1],"color.red":[50,150,1],"color.green":[50,150,1],"color.blue":[50,150,1],"boost.strength":[5,100,1],"zoom.level":[1.1,4,0.1],"zoom.speed":[60,500,10],"zoom.radius":[10,50,1],"zoom.sharpness":[0,100,1],"crosshair.aimDelay":[0,600,10],"crosshair.size":[1,60,1],"crosshair.thickness":[1,10,1],"crosshair.gap":[0,40,1],"crosshair.opacity":[10,100,1],"crosshair.glow":[0,100,1],"crosshair.offsetX":[-40,40,1],"crosshair.offsetY":[-40,40,1],"crosshair.cover":[0,40,1],"hud.scale":[60,180,5],"hud.opacity":[20,100,1],"hud.background":[0,100,1],"hud.artBlur":[0,60,1],"hud.radius":[0,32,1],"hud.lyricSize":[12,28,1],"hud.lines":[1,5,1],"hud.lyricOffset":[-2000,2000,50],"stats.scale":[60,180,5],"stats.opacity":[20,100,1],"stats.background":[0,100,1],"tools.mouseSpeed":[1,20,1],"aspect.w":[1,8192,1],"aspect.h":[1,8192,1]};function r($,J){return J.split(".").reduce((Q,Z)=>Q?.[Z],$)}function r1($,J,Q){let Z=J.split("."),V=Z.pop(),W=Z.reduce((F,Y)=>F?.[Y],$);if(W&&typeof W==="object")W[V]=Q}var W4=($,J,Q)=>Math.min(Q,Math.max(J,$));function n1($,J){let Q=o2[$];return Q?W4(J,Q[0],Q[1]):J}var X1=2;function i2($){if(!$||typeof $!=="object"||Array.isArray($))return $;if((typeof $.v==="number"?$.v:1)<2){if($.ui?.background==="desktop")$.ui.background="none"}return $.v=X1,$}function V5($){if(!$||typeof $!=="object"||Array.isArray($))return!1;let J=Object.keys(Z0());return Object.keys($).filter((Q)=>J.includes(Q)&&$[Q]&&typeof $[Q]==="object").length>=3}var Z5=/^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;function b0($){let J=Z0(),Q=(Z,V,W)=>{if(!V||typeof V!=="object")return;for(let F of Object.keys(Z)){let Y=W?`${W}.${F}`:F,q=V[F];if(q===void 0||q===null||typeof q!==typeof Z[F])continue;if(Array.isArray(Z[F])){if(Array.isArray(q))Z[F]=q;continue}if(typeof q==="object"&&Object.keys(Z[F]).length===0)Z[F]=q;else if(typeof q==="object")Q(Z[F],q,Y);else if(typeof q==="number"){if(Number.isFinite(q))Z[F]=n1(Y,q)}else if(typeof q==="string"&&Z5.test(Z[F])&&!Z5.test(q));else Z[F]=q}};return Q(J,$,""),J}var q5=window.chrome.webview,Y4=z0.updateUrl.replace(/\/updates$/,""),q4=400,F5=24,F4=1,J6=new Map,K5=new Map,i1=new Map;function B($,...J){return new Promise((Q)=>{let Z=F4++;J6.set(Z,Q),q5.postMessage(JSON.stringify({id:Z,a:$,p:J}))})}var t=($,J)=>K5.set($,J),l=($,...J)=>i1.get($)?.forEach((Q)=>Q(...J));q5.addEventListener("message",($)=>{let J=$.data;if(J.id!==void 0)J6.get(J.id)?.(J.r),J6.delete(J.id);else if(J.e)K5.get(J.e)?.(...J.p??[])});var A=Z0(),a={nvidia:!1,colorOk:!0,gammaOk:!0,gammaAccepted:1,boostOn:!1,aspectOn:!1,lensError:!1,firing:!1,zoomOn:!1,crosshairVisible:!1,rust:!1,game:!1,front:"",powerError:""},X0=null,k0=[],a1="",q6="off",K0={status:"idle"},U0=null,e1=null,Q6=null,s="",F6=!1,n={width:1920,height:1080,scale:1},T0=!1,s1=!1,Z6="",X6=X5,V6=!1,J2=!1,G5,D5=new Promise(($)=>G5=$),W0=new Set,a2=null,_5=()=>JSON.stringify({v:X1,...A},null,2),V0=()=>void B("save",_5()),K4=20,A5=/^(\d{4})-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)-(\d{3})_([a-z-]+)\.json$/,V1=($)=>String($).padStart(2,"0"),K6=()=>{let $=new Date;return`${$.getFullYear()}-${V1($.getMonth()+1)}-${V1($.getDate())}`};async function G6(){return(await B("backups")??[]).filter((J)=>A5.test(J)).sort().reverse()}async function v0($,J=_5()){let Q=new Date,Z=`${K6()}_${V1(Q.getHours())}-${V1(Q.getMinutes())}-${V1(Q.getSeconds())}-${String(Q.getMilliseconds()).padStart(3,"0")}_${$}.json`,V=await B("backupWrite",Z,J);for(let W of(await G6()).slice(K4))await B("backupDelete",W);return V?Z:null}async function s2($,J){if(!V5($))return"This doesn't look like Ashlight settings.";if(!await v0(J))return"Couldn't make a backup first, so nothing was changed.";let Q=A.app.startWithWindows,Z=A.social;if(A=b0(i2($)),A=B6(),A.social=Z,A.app.welcomed=!0,A.app.lastVersion=s,A.app.startWithWindows!==Q)B("startup",A.app.startWithWindows);return V0(),x0(),Y1(),Z2(),X2(),B("discord",A.discord.enabled,Z1),null}function t1($){if(typeof $!=="string"||!$.trim()||$.length>1048576)return null;try{return JSON.parse($)}catch{return null}}function y0(){if(a2)clearTimeout(a2);a2=setTimeout(V0,400)}function x0(){let{image:$,...J}=A.crosshair;B("engine",`settings:${JSON.stringify({...A,crosshair:J})}`)}var P0=($)=>Math.round($*n.scale);function H5($,J,Q){let Z=P0(F5);return{x:$.endsWith("l")?Z:n.width-J-Z,y:$.startsWith("t")?Z:n.height-Q-Z}}function D6($,J){if(W0.has($))return;W0.add($),B("overlayCreate",$,J)}function Q2($){if(!W0.delete($))return;B("overlayDestroy",$)}var M0=($,J,...Q)=>{if(W0.has($))B("overlaySend",$,JSON.stringify({c:J,a:Q}))};function _6(){let $=P0(q4),J=A.crosshair;B("overlayPlace","crosshair",Math.round((n.width-$)/2+P0(J.offsetX)),Math.round((n.height-$)/2+P0(J.offsetY)),$,$)}var A6=()=>M0("crosshair","crosshair",A.crosshair,a.crosshairVisible,a.firing);function Y1(){if(A.crosshair.enabled){let $=!W0.has("crosshair");if(D6("crosshair","overlay/overlay.html"),!$)_6(),A6()}else Q2("crosshair")}function G4(){let $=A.hud,J=$.scale/100*n.scale,Q=$.lyricSize*2,Z=$.showLyrics||$.layout==="lyrics"?$.lines:0,V=Z?Z*Q+14:0;if($.layout==="line")return{width:Math.round(620*J),height:Math.round(64*J)};return{width:Math.round(400*J),height:Math.round((($.layout==="lyrics"?16:104)+V)*J)}}function H6(){let $=G4(),J=A.hud,Q=J.x>=0&&J.y>=0?{x:J.x,y:J.y}:H5(J.corner,$.width,$.height);B("overlayPlace","hud",Q.x,Q.y,$.width,$.height)}var q1=()=>M0("hud","hud",A.hud,X0,V6,J2),W5=()=>{M0("hud","lyrics",k0),l("lyrics",k0)};function Z2(){if(A.hud.enabled){let $=!W0.has("hud");if(D6("hud","hud/hud.html"),!$)H6(),q1()}else Q2("hud"),J2=!1;V2()}function N5(){let $=A.stats,J=[$.cpu,$.gpu,$.temp,$.ram,$.vram,$.power,$.ping,$.session,$.clock].filter(Boolean).length,Q=$.scale/100*n.scale,Z=Math.max(1,J),V,W;if($.layout==="list")V=Math.round(190*Q),W=Math.round((Z*($.meters?30:22)+22)*Q);else if($.layout==="mini")V=Math.round(Z*72*Q+16),W=Math.round(34*Q);else V=Math.round(Z*74*Q+20),W=Math.round(($.meters?66:58)*Q);let F=H5($.corner,V,W);B("overlayPlace","stats",F.x,F.y,V,W)}function X2(){Q2("stats"),W2()}var t2=!1,Y5={width:320,height:268};function D4(){if(t2=!t2,t2)D6("quick","quick/quick.html");else Q2("quick")}t("quickSet",($)=>{if(!$.path?.startsWith("color.")||typeof $.value!=="number")return;U5($.path,$.value),l("changed",$.path)});t("overlayReady",($)=>{if($==="quick"){let J=P0(Y5.width),Q=P0(Y5.height);B("overlayPlace","quick",n.width-J-P0(F5),Math.round((n.height-Q)/2),J,Q),B("overlayInteractive","quick",!0),M0("quick","quick",A.color)}if($==="crosshair")_6(),A6();else if($==="hud")H6(),q1(),M0("hud","lyrics",k0);else if($==="stats")N5(),M0("stats","stats",A.stats)});t("overlayMoved",($,J)=>{if(!J2)return;A.hud.x=Math.max(0,$),A.hud.y=Math.max(0,J),y0()});function V2(){let $=A.hud.playKey.vk||A.hud.nextKey.vk||A.hud.prevKey.vk;B("media",!!(A.hud.enabled||T0||$))}function _4($){let J=[];for(let Q of $.split(/\r?\n/)){let Z=[...Q.matchAll(/\[(\d+):(\d+(?:\.\d+)?)\]/g)];if(Z.length===0)continue;let V=Q.replace(/\[[^\]]*\]/g,"").trim();for(let W of Z)J.push({time:(Number(W[1])*60+Number(W[2]))*1000,text:V})}return J.sort((Q,Z)=>Q.time-Z.time)}var o1=new Map;async function A4($){if(o1.size>60)o1.clear();let J=`${$.artist}|${$.title}`,Q=o1.get(J);if(Q)return Q;let Z=new URLSearchParams({track_name:$.title,artist_name:$.artist}),V="";try{let F=new URLSearchParams(Z);if($.album)F.set("album_name",$.album);if($.duration)F.set("duration",String(Math.round($.duration/1000)));let Y=await fetch(`https://lrclib.net/api/get?${F}`,{signal:AbortSignal.timeout(8000)});if(Y.ok)V=(await Y.json()).syncedLyrics??"";if(!V){let q=await fetch(`https://lrclib.net/api/search?${Z}`,{signal:AbortSignal.timeout(8000)});if(q.ok)V=(await q.json()).find((G)=>G.syncedLyrics)?.syncedLyrics??""}}catch{return[]}let W=_4(V);return o1.set(J,W),W}function I5(){let $=X0?`${X0.artist}|${X0.title}`:"";if($===a1)return;if(a1=$,k0=[],W5(),X0&&A.hud.lyricsOnline){let J=$;A4(X0).then((Q)=>{if(a1!==J)return;k0=Q,W5()})}}t("media",($)=>{if($.none||!$.title||/\.localhost$|^https?:/i.test($.title))X0=null;else{let J=Date.now(),Q=$.playing&&$.updated?$.position+Math.max(0,J-$.updated):$.position;X0={title:$.title,artist:$.artist??"",album:$.album??"",playing:!!$.playing,position:Q,duration:$.duration??0,at:J,art:$.art??"",source:$.source??""}}l("media",X0),q1(),I5()});var W2=()=>void B("monitor",!1,"",!1);t("monitor",($)=>{l("monitor",$),M0("stats","monitor",$)});function F0($){K0=$,l("update",K0)}var c=null,W6="",H4=($,J)=>{let Q=$.split(".").map(Number),Z=J.split(".").map(Number);for(let V=0;V<3;V++)if((Q[V]??0)!==(Z[V]??0))return(Q[V]??0)>(Z[V]??0);return!1};async function N6(){F0({status:"checking"});try{let $=await B("fetchText",`${z0.updateUrl}/latest.json`);if(!$)throw Error("unreachable");if(c=JSON.parse($),!c)return F0({status:"latest"});if(c.version===s&&A.app.lastVersion&&A.app.lastVersion!==s&&c.notes)e1={version:s,notes:c.notes},l("whatsNew",e1);if(A.app.lastVersion!==s)A.app.lastVersion=s,y0();if(!H4(c.version,s))return F0({status:"latest"});if(F0({status:"available",version:c.version,notes:c.notes}),!T0)B("notify",`Ashlight ${c.version} is out`,c.notes||"Open Ashlight to update.");if(A.app.autoUpdate)await B5()}catch{F0({status:"error"})}}async function B5(){if(!c)return;F0({status:"downloading",version:c.version,percent:0});let $=await B("downloadUpdate",`${z0.updateUrl}/${c.file}`,c.sha256);if(!$)return F0({status:"error"});W6=$,F0({status:"ready",version:c.version,notes:c.notes})}var z5=0;async function I6(){if(z0.updateUrl.includes("localhost"))return;z5=Date.now();let $=await B("fetchText",`${Y4}/announce.json`),J=null;try{let Z=$?JSON.parse($):null;if(Z&&typeof Z.id==="string"&&Z.id&&typeof Z.title==="string"){let V=["info","update","important"].includes(Z.level)?Z.level:"info";if(J={id:Z.id.slice(0,64),title:Z.title.slice(0,80),text:String(Z.text??"").slice(0,600),level:V},typeof Z.url==="string"&&/^https:\/\/[^\s]+$/.test(Z.url))J.url=Z.url;if(typeof Z.expires==="string"&&Date.parse(Z.expires)<Date.now())J=null}}catch{J=null}if(J&&J.id===A.app.seenAnnouncement)J=null;let Q=!!J&&J.id!==U0?.id;if(U0=J,l("announce",U0),Q&&!T0&&J)B("notify",J.title,J.text)}setInterval(()=>void I6(),1800000);var e2=null;function E5(){if(e2)clearInterval(e2);e2=setInterval(()=>{if(A.app.autoUpdate&&K0.status!=="ready"&&K0.status!=="downloading")N6()},A.app.updateEveryHours*3600*1000)}function U5($,J){let Q=typeof J==="number"?n1($,J):J;if(r1(A,$,Q),$==="color.vibrance"&&!A.color.nvidia)A.color.nvidia=!0,l("changed","color.nvidia");if($==="hud.corner")A.hud.x=-1,A.hud.y=-1;if(y0(),!/^(ui|discord|stats|library|profile|share|social|games|suggest|decompiler)\./.test($)&&!($.startsWith("app.")&&$!=="app.quickKey")&&!($.startsWith("hud.")&&!$.endsWith("Key")))x0();if($==="app.startWithWindows")B("startup",!!Q);if($==="app.hideFromCapture")B("overlayHidden",!!Q);if($==="app.updateEveryHours")E5();if($.startsWith("crosshair."))Y1();if($.startsWith("hud.")){if(Z2(),$==="hud.lyricsOnline"&&Q)a1="",I5()}if($.startsWith("stats."))X2();if($.startsWith("discord."))B("discord",A.discord.enabled,Z1)}function N4(){return new Promise(($)=>{let J=document.createElement("input");J.type="file",J.accept="image/png,image/webp,image/jpeg,image/gif",J.addEventListener("cancel",()=>$(null)),J.addEventListener("change",()=>{let Q=J.files?.[0];if(!Q)return $(null);if(Q.size>2097152)return $({error:"Use an image under 2 MB."});let Z=new FileReader;Z.onload=()=>$({image:String(Z.result)}),Z.onerror=()=>$({error:"Could not read that image."}),Z.readAsDataURL(Q)}),J.click()})}var P5={windowAction:($)=>{if($==="minimize")B("minimize");if($==="maximize")B("maximize");if($==="close")M5()},openFolder:()=>B("openFolder"),openUrl:($)=>B("openUrl",$),resetColor:()=>{A.color=Z0().color,y0(),x0()},resetAll:async()=>{if(await v0("before-reset"),A.app.startWithWindows)B("startup",!1);let $=A.social;return A=Z0(),A.social=$,A.app.lastVersion=s,A.tools.mouseSpeed=X6,V0(),x0(),Y1(),Z2(),X2(),B("discord",A.discord.enabled,Z1),B("windowGlass",!1),A},compare:($)=>B("engine",$?"compare:1":"compare:0"),capture:($)=>B("engine",$?"capture:1":"capture:0"),devices:()=>B("devices"),modes:($)=>B("modes",$),applyMode:($,J,Q)=>B("applyMode",$,J,Q),resetMode:($)=>B("resetMode",$),mediaCommand:($)=>B("mediaCommand",$),hudMove:($)=>{J2=$,B("overlayInteractive","hud",$),q1()},pickReticleImage:N4,flushDns:()=>B("flushDns"),pingNow:($)=>B("pingNow",$),listDir:($)=>B("listDir",$),readFile:($)=>B("readFile",$),steamPath:()=>B("steamPath"),pickExe:()=>B("pickExe"),pickDecompile:()=>B("pickDecompile"),decompile:($,J="",Q=!1)=>B("decompile",String($),String(J),!!Q),showZip:($)=>B("showZip",String($)),audioPeak:()=>B("audioPeak"),dcList:()=>B("dcList"),dcStatus:()=>B("dcStatus"),dcAndroid:()=>B("dcAndroid"),dcDelete:($)=>B("dcDelete",String($)),dcFiles:($)=>B("dcFiles",String($)),dcRead:($,J)=>B("dcRead",String($),String(J)),dcMeta:($)=>B("dcMeta",String($)),dcFolder:($)=>B("dcFolder",String($)),launch:($)=>B("launch",$),notify:($,J)=>!T0&&B("notify",String($).slice(0,60),String(J).slice(0,200)),officialBuild:async()=>{let $=await B("fetchText",`${z0.updateUrl}/latest.json`);try{let J=$?JSON.parse($):null;return J?{version:String(J.version),appSha256:String(J.appSha256??"")}:null}catch{return null}},openSettings:($)=>B("openSettings",$),dismissAnnouncement:()=>{if(!U0)return;A.app.seenAnnouncement=U0.id,y0(),U0=null,l("announce",null)},dismissWhatsNew:()=>{e1=null,l("whatsNew",null)},scanTemp:()=>B("scanTemp"),cleanTemp:()=>B("cleanTemp"),screenshot:()=>B("screenshot"),checkUpdate:()=>N6(),pickBackground:($)=>B("pickBackground",$),selfHash:()=>B("selfHash"),diagnostics:async()=>{return[`Ashlight ${s}`,navigator.userAgent,`Main screen: ${n.width} x ${n.height} at ${Math.round(n.scale*100)}%`,`NVIDIA vibrance: ${a.nvidia?"yes":"no"}`,`Colour layer: ${a.colorOk?"ok":"unavailable"}`,`Gamma: ${a.gammaOk?`ok, ${Math.round(a.gammaAccepted*100)}% accepted`:"unavailable"}`,`Discord: ${q6}`,`Update check: ${K0.status}`,`Overlays open: ${[...W0].join(", ")||"none"}`,`Recovered from a crash: ${F6}`].join(`
-`)},exportSettings:()=>{let $=B6();return JSON.stringify({ttool:!0,v:X1,...$,crosshair:{...$.crosshair,image:""},social:{id:"",secret:""}},null,2)},importSettings:async($)=>{let J=t1($);return J?s2(J,"before-import"):"Your clipboard doesn't hold Ashlight settings."},importFromFile:async()=>{let $=await B("importFile");if($===null)return"cancelled";if($==="too big")return"That file is too big to be Ashlight settings.";let J=t1($);return J?s2(J,"before-import"):"That file isn't Ashlight settings."},exportToFile:async()=>B("exportFile",P5.exportSettings(),`Ashlight settings ${K6()}.json`),backups:async()=>(await G6()).map(($)=>{let J=A5.exec($);return{name:$,time:new Date(+J[1],+J[2]-1,+J[3],+J[4],+J[5],+J[6],+J[7]).getTime(),reason:J[8]}}),backupNow:()=>v0("manual"),saveProfile:($,J)=>{if($=$2($),J=J.filter((V)=>(V in p1)),!/^[\w .()+-]{1,60}\.exe$/.test($)||!J.length)return!1;if(A.games.active.exe)Y6("");let Q=A,Z={};for(let V of T5(J))Z[V]=W1(Q[V]);return A.games.profiles=[...A.games.profiles.filter((V)=>V.exe!==$),{exe:$,parts:J,values:Z}],V0(),l("games"),!0},deleteProfile:($)=>{if(A.games.active.exe===$)Y6("");A.games.profiles=A.games.profiles.filter((J)=>J.exe!==$),V0(),l("games")},pickGame:async()=>{let $=await B("pickExe");return $?$2($):null},restoreBackup:async($)=>{let J=t1(await B("backupRead",$));return J?s2(J,"before-restore"):"That backup can't be read."},deleteBackup:($)=>B("backupDelete",$),installUpdate:()=>{if(K0.status==="available")B5();else if(K0.status==="ready"&&W6)V0(),B("runUpdate",W6)}};function I4(){if(!(A.ui.motion&&!matchMedia("(prefers-reduced-motion: reduce)").matches))return!1;return document.body.classList.add("closing"),setTimeout(()=>document.body.classList.remove("closing"),400),!0}function M5(){let $=I4();if(A.app.closeToTray)T0=!1,B("hide",$),V2(),W2();else V0(),B("quit",$)}t("live",($)=>{let J=a.crosshairVisible!==$.crosshairVisible||a.firing!==$.firing,Q=a.front!==$.front||a.game!==$.game;if(a=$,l("live",a),J)A6();if(Q)B4($.front??"",!!$.game)});var W1=($)=>JSON.parse(JSON.stringify($)),T5=($)=>$.flatMap((J)=>[...p1[J]?.keys??[]]),$2=($)=>$.trim().toLowerCase().replace(/^.*[\\/]/,""),$6=null;function B4($,J){if($=$2($),J&&$&&$!=="ashlight.exe"&&$!=="explorer.exe"&&!A.games.seen.includes($))A.games.seen=[$,...A.games.seen].slice(0,8),y0(),l("games");if($6)clearTimeout($6);$6=setTimeout(()=>{let Q=A.games.auto&&A.games.profiles.some((Z)=>Z.exe===$)?$:"";if(Q!==A.games.active.exe)Y6(Q)},700)}function Y6($){let J=A.games.active,Q=A;if(J.exe){for(let[V,W]of Object.entries(J.base))if(V in Q)Q[V]=W1(W);A.games.active={exe:"",base:{}}}let Z=A.games.profiles.find((V)=>V.exe===$);if(Z){let V={},W=b0(W1(Z.values));for(let F of T5(Z.parts))V[F]=W1(Q[F]),Q[F]=W[F];A.games.active={exe:$,base:V}}V0(),x0(),Y1(),l("profile",A.games.active.exe)}function z4(){if(!A.games.active.exe)return;A=B6(),V0()}function B6(){let $=W1(A),J=$;for(let[Q,Z]of Object.entries($.games.active.base))if(Q in J&&Q!=="games")J[Q]=Z;return $.games.active={exe:"",base:{}},$}t("hotkey",($)=>{if($==="hudToggle")V6=!V6,q1();else if($==="quick")D4();else if($==="screenshot")B("screenshot");else B("mediaCommand",$)});t("discordReady",($)=>{let J=$?.data?.user;if(!J||!/^\d{5,22}$/.test(String(J.id)))return;let Q=typeof J.avatar==="string"&&/^[a-z0-9_]{6,64}$/i.test(J.avatar)?`https://cdn.discordapp.com/avatars/${J.id}/${J.avatar}.png?size=128`:"";Q6={name:String(J.global_name||J.username||"").slice(0,40),avatar:Q},l("discordUser",Q6)});t("discord",($)=>{q6=$,l("discord",$)});t("closeRequested",M5);t("windowShown",()=>{if(T0=!0,Date.now()-z5>300000)I6();V2(),W2()});t("displayChanged",($)=>{if(n=$,W0.has("crosshair"))_6();if(W0.has("hud"))H6();if(W0.has("stats"))N5()});t("engineReady",($)=>{if(F6=$.recovered,X6=n1("tools.mouseSpeed",$.mouseSpeed),s1)A.color.vibrance=$.vibrancePercent,A.tools.mouseSpeed=X6;x0(),Y1(),Z2(),X2(),B("discord",A.discord.enabled,Z1),G5()});var E4={get:async()=>{await D5;let $=Z6;return Z6="",{settings:A,live:a,version:s,recovered:F6,media:X0,lyrics:k0,discord:q6,update:K0,announcement:U0,whatsNew:e1,discordUser:Q6,notice:$}},set:U5,call:async($,...J)=>P5[$]?.(...J),on:($,J)=>{if(!i1.has($))i1.set($,[]);i1.get($).push(J)}};window.ttool=E4;addEventListener("mousedown",($)=>{if($.button!==0)return;let J=$.target;if(J.closest("button, a, input, select, label, nav")||!J.closest(".titlebar, .side"))return;B("drag")});async function C5(){let $=await B("boot");s=$.version,n=$.primary,s1=$.settings===null;let J=!1;if(!s1){let Q=t1($.settings);if(Q&&typeof Q==="object")J=Q.v!==X1||Q.app?.lastVersion!==s,A=b0(i2(Q));else A=Z0(),A.app.welcomed=!0,Z6="Your settings file couldn't be read, so Ashlight started fresh. The old file is saved in Settings, Backups.",v0("unreadable",String($.settings))}else A.app.welcomed=!1,A.app.lastVersion=s;if(A.games.profiles=(Array.isArray(A.games.profiles)?A.games.profiles:[]).filter((Q)=>Q&&typeof Q.exe==="string"&&Array.isArray(Q.parts)&&Q.values&&typeof Q.values==="object").map((Q)=>({exe:$2(Q.exe),parts:Q.parts.filter((Z)=>(Z in p1)),values:Q.values})).slice(0,50),A.games.seen=A.games.seen.filter((Q)=>typeof Q==="string").slice(0,8),A.hud.enabled=!1,A.aspect.enabled=!1,z4(),await D5,!s1)(async()=>{if(J)await v0("before-update",String($.settings)),V0();else if(!(await G6()).some((Q)=>Q.startsWith(K6())))await v0("daily")})();if(B("overlayHidden",A.app.hideFromCapture),!A.share.server)A.share.server=n2;if(E5(),!$.hidden&&!A.app.startMinimized)T0=!0,B("show");if(V2(),W2(),!z0.updateUrl.includes("localhost"))N6(),I6()}function z6($,J,Q,Z,V,W,F=0){let Y=Z.size*V*(1+0.18*F),q=Math.max(1,Math.round(Z.thickness*V)),G=Z.gap*V+F*(Z.size*0.55+3)*V,_=new Path2D,H=new Path2D,I=(K,E,M,R)=>H.rect(Math.round(K),Math.round(E),Math.round(M),Math.round(R)),U=(K,E=Y,M=G)=>{if(I(J-M-E,Q-q/2,E,q),I(J+M,Q-q/2,E,q),I(J-q/2,Q+M,q,E),K)I(J-q/2,Q-M-E,q,E)},D=(K)=>{H.moveTo(J+K,Q),H.arc(J,Q,K,0,Math.PI*2)},N=(K)=>{_.moveTo(J+K,Q),_.arc(J,Q,K,0,Math.PI*2)};switch(Z.style){case"rustholo":N(Y),D(Math.max(1.2*V,q*0.8));for(let[K,E]of[[1,0],[-1,0],[0,1],[0,-1]])_.moveTo(J+K*Y,Q+E*Y),_.lineTo(J+K*Y*0.72,Q+E*Y*0.72);break;case"rustdot":D(Math.max(1,Y/6));break;case"rustcross":U(!0,Y*0.45,Math.max(G,2*V));break;case"holo":N(Y),D(Math.max(1.2*V,q*0.9));break;case"dot":D(Math.max(1,Y/4));break;case"cross":U(!0);break;case"crossdot":U(!0),D(q*0.75);break;case"tee":U(!1);break;case"ring":N(Y);break;case"chevron":_.moveTo(J-Y,Q+Y*0.8),_.lineTo(J,Q+G*0.25),_.lineTo(J+Y,Q+Y*0.8);break;case"triangle":_.moveTo(J,Q-Y),_.lineTo(J+Y*0.87,Q+Y*0.5),_.lineTo(J-Y*0.87,Q+Y*0.5),_.closePath();break;case"x":for(let[K,E]of[[1,1],[-1,1],[1,-1],[-1,-1]]){let M=Math.SQRT1_2;_.moveTo(J+K*G*M,Q+E*G*M),_.lineTo(J+K*(G+Y)*M,Q+E*(G+Y)*M)}break;case"square":_.rect(J-Y*0.7,Q-Y*0.7,Y*1.4,Y*1.4),D(Math.max(1,q*0.8));break;case"diamond":_.moveTo(J,Q-Y),_.lineTo(J+Y,Q),_.lineTo(J,Q+Y),_.lineTo(J-Y,Q),_.closePath(),D(Math.max(1,q*0.8));break;case"brackets":{let K=Y*0.9,E=Y*0.45;for(let[M,R]of[[1,1],[-1,1],[1,-1],[-1,-1]])_.moveTo(J+M*K,Q+R*(K-E)),_.lineTo(J+M*K,Q+R*K),_.lineTo(J+M*(K-E),Q+R*K);D(Math.max(1,q*0.7));break}case"ringcross":N(Y),U(!0,Y*0.55,Math.max(G,Y*0.35));break;case"sniper":{let K=Y*2.6,E=Math.max(1,Math.round(q*0.6));H.rect(Math.round(J-K),Math.round(Q-E/2),Math.round(K*2),E),H.rect(Math.round(J-E/2),Math.round(Q-K),E,Math.round(K*2));for(let M=1;M<=3;M++)for(let[R,g]of[[1,0],[-1,0],[0,1],[0,-1]]){let w=J+R*M*Y*0.7,j=Q+g*M*Y*0.7;H.moveTo(w+q*0.9,j),H.arc(w,j,Math.max(1.2,q*0.9),0,Math.PI*2)}break}case"image":break}if($.save(),Z.cover>0)$.fillStyle=Z.coverColor,$.beginPath(),$.arc(J,Q,Z.cover*V,0,Math.PI*2),$.fill();if($.globalAlpha=Z.opacity/100,Z.style==="image"){if(W?.complete&&W.naturalWidth>0){let K=Y*2,E=W.naturalWidth/W.naturalHeight,M=E>=1?K:K*E,R=E>=1?K/E:K;$.imageSmoothingQuality="high",$.drawImage(W,J-M/2,Q-R/2,M,R)}$.restore();return}if($.lineWidth=q,$.lineCap="round",$.lineJoin="round",Z.outline)$.strokeStyle="rgba(0,0,0,0.85)",$.lineWidth=q+2*V,$.stroke(_),$.lineWidth=2*V,$.stroke(H),$.lineWidth=q;if($.strokeStyle=Z.color,$.fillStyle=Z.color,Z.glow>0)$.shadowColor=Z.color,$.shadowBlur=Z.glow/100*14*V;$.stroke(_),$.fill(H),$.restore()}var P=window.ttool,z,q2,e=null,F2=[],O6="off",Y0={status:"idle"},R6="",j6=null,G1=null,O0=null;function X($,J={},...Q){let Z=document.createElement($);for(let[V,W]of Object.entries(J))if(V==="class")Z.className=String(W);else if(V==="tip")Z.dataset.tip=String(W);else if(V.startsWith("on"))Z.addEventListener(V.slice(2),W);else if(V.startsWith("aria-")||V==="role")Z.setAttribute(V,String(W));else Z[V]=W;for(let V of Q)if(V)Z.append(V);return Z}var T=($)=>{let J=P2($);return J.classList.add("lucide"),J},y=($,J,...Q)=>X("section",{class:"card"},$?X("h2",{class:"card-title"},J&&T(J),$):null,...Q),D0=($,...J)=>X("div",{class:"page-head"},X("h1",{},$),J.length?X("div",{class:"spread"},...J):null),A1=(...$)=>X("div",{class:"grid"},...$),q0=(...$)=>X("div",{class:"stack"},...$),D1=new Map,i=($,J)=>{if(!D1.has($))D1.set($,new Set);D1.get($).add(J)},k6=($)=>D1.get($)?.forEach((J)=>J()),E6=new Map,U6=!1;function L($,J){if(r1(z,$,J),k6($),E6.set($,J),!U6)U6=!0,requestAnimationFrame(()=>{U6=!1,E6.forEach((Q,Z)=>P.set(Z,Q)),E6.clear()})}function b($){let J=document.getElementById("toast");J.textContent=$,J.classList.add("show"),clearTimeout(J.timer),J.timer=setTimeout(()=>J.classList.remove("show"),2600)}function O($,J,Q={}){let[Z,V,W]=o2[$],F=r(Z0(),$),Y=(I)=>I.toFixed(Q.decimals??0)+(Q.unit??""),q=X("span",{class:"value"}),G=X("input",{type:"range",min:Z,max:V,step:W,"aria-label":J}),_=()=>{let I=Number(G.value);q.textContent=(Z<0&&I>0?"+":"")+Y(I);let U=(I-Z)/(V-Z)*100,D=Z<0?(0-Z)/(V-Z)*100:0;G.style.setProperty("--a",`${Math.min(U,D)}%`),G.style.setProperty("--b",`${Math.max(U,D)}%`)},H=()=>{G.value=String(r(z,$)),_()};return H(),i($,H),G.addEventListener("input",()=>{_(),L($,Number(G.value)),Q.onChange?.()}),G.addEventListener("dblclick",()=>{L($,F),Q.onChange?.()}),q.addEventListener("click",(I)=>{if(I.preventDefault(),I.stopPropagation(),q.querySelector("input"))return;let U=!1,D=X("input",{class:"value-edit",value:String(Number(G.value)),inputMode:"decimal","aria-label":`${J} value`}),N=(K)=>{if(U)return;U=!0;let E=Number(D.value.replace(",",".").replace(/[^\d.+-]/g,""));if(K&&D.value.trim()!==""&&Number.isFinite(E)){let M=Math.min(V,Math.max(Z,Math.round(E/W)*W));L($,Number(M.toFixed(6))),Q.onChange?.()}_()};D.addEventListener("keydown",(K)=>{if(K.stopPropagation(),K.key==="Enter")N(!0);if(K.key==="Escape")N(!1)}),D.addEventListener("blur",()=>N(!0)),D.addEventListener("click",(K)=>K.preventDefault()),q.replaceChildren(D),D.focus(),D.select()}),X("label",{class:`slider${Q.hero?" hero":""}`,tip:`${Q.tip?`${Q.tip} `:""}Click the number to type one. Double-click the slider to reset.`},X("div",{class:"top"},X("span",{},J),Q.hero?Q.marks?X("small",{},Q.marks):null:q),Q.hero?X("div",{class:"hero-value"},q):null,G)}function y6($,J,Q){let Z=X("button",{class:"switch",role:"switch","aria-label":J}),V=()=>Z.setAttribute("aria-checked",String(r(z,$)));return V(),i($,V),Z.addEventListener("click",()=>{L($,!r(z,$)),Q?.()}),Z}var U4=($,J)=>X("span",{class:"inline-toggle"},y6($,J),X("span",{},J)),o=($,J,Q,Z)=>X("div",{class:`row${J?" tipped":""}`,...J?{tip:J}:{}},X("div",{class:"row-label"},Z&&T(Z),X("span",{},$)),Q),d=($,J,Q,Z,V)=>o(J,Q,y6($,J,Z),V);function m0($,J,Q){let Z=X("span",{class:"thumb"}),V=X("div",{class:"seg",role:"radiogroup"},Z),W=J.map(([Y,q])=>{let G=X("button",{role:"radio",onclick:()=>{L($,Y),Q?.()}},q);return V.append(G),G}),F=()=>{let Y=J.findIndex(([q])=>q===r(z,$));W.forEach((q,G)=>{q.classList.toggle("on",G===Y),q.setAttribute("aria-checked",String(G===Y))}),Z.style.width=`calc((100% - 6px) / ${J.length})`,Z.style.transform=`translateX(${Y*100}%)`};return F(),i($,F),V}function P4($,J){let Q=X("div",{class:"chips"}),Z=J.map(([W,F,Y])=>{let q=X("button",{class:"chip",tip:Y,onclick:()=>L($,W)},F);return q.dataset.v=W,Q.append(q),q}),V=()=>Z.forEach((W)=>W.classList.toggle("on",W.dataset.v===r(z,$)));return V(),i($,V),Q}var L5={ShiftLeft:"Left Shift",ShiftRight:"Right Shift",ControlLeft:"Left Ctrl",ControlRight:"Right Ctrl",AltLeft:"Left Alt",AltRight:"Right Alt",Space:"Space",Backquote:"`",Minus:"-",Equal:"=",BracketLeft:"[",BracketRight:"]",Backslash:"\\",Semicolon:";",Quote:"'",Comma:",",Period:".",Slash:"/",ArrowUp:"Up",ArrowDown:"Down",ArrowLeft:"Left",ArrowRight:"Right",CapsLock:"Caps Lock",Enter:"Enter",Tab:"Tab",Insert:"Insert",Home:"Home",End:"End",PageUp:"Page Up",PageDown:"Page Down"},M4=($)=>{let J=$.code;if(L5[J])return L5[J];if(J.startsWith("Key"))return J.slice(3);if(J.startsWith("Digit"))return J.slice(5);if(J.startsWith("Numpad"))return`Num ${J.slice(6).replace("Decimal",".").replace("Add","+").replace("Subtract","-").replace("Multiply","*").replace("Divide","/")}`;return J.replace(/([a-z])([A-Z])/g,"$1 $2")||$.key},T4={1:{vk:4,name:"Middle mouse"},2:{vk:2,name:"Right mouse"},3:{vk:5,name:"Mouse 4"},4:{vk:6,name:"Mouse 5"}},b5=[["zoom.key","Screen Zoom"],["boost.key","Dark Boost"],["crosshair.aimKey","Crosshair aim"],["crosshair.toggleKey","Crosshair toggle"],["hud.playKey","Play or pause"],["hud.nextKey","Next track"],["hud.prevKey","Previous track"],["tools.screenshotKey","Screenshot"],["app.quickKey","Quick panel"]],O5={vk:0,name:"None"};function _1($){let J=X("span",{class:"keycap"}),Q=X("span",{class:"key-hint"}),Z=X("button",{class:"btn key",tip:"Click, then press a key or mouse button. Esc clears it so you can press a new one."},T(v1),J,Q),V=!1,W=!1,F=null,Y=()=>{let N=r(z,$);J.textContent=N.vk?N.name:V?"None":"Not set",Z.classList.toggle("unset",!N.vk),Q.textContent=V?"Press a key":""},q=()=>{if(!V)return;if(V=!1,F)clearTimeout(F);Z.classList.remove("listening"),removeEventListener("keydown",I,!0),removeEventListener("keyup",U,!0),removeEventListener("mousedown",D,!0),removeEventListener("mouseup",H,!0),removeEventListener("auxclick",H,!0),removeEventListener("blur",q),P.call("capture",!1),Y()},G=()=>{if(F)clearTimeout(F);F=setTimeout(q,1e4)},_=(N)=>{for(let[K,E]of b5)if(K!==$&&r(z,K).vk===N.vk)L(K,{...O5}),b(`${N.name} was on ${E}, so that one is now unset.`);L($,N),q()},H=(N)=>{N.preventDefault(),N.stopPropagation()},I=(N)=>{if(H(N),N.repeat||N.code==="PrintScreen")return;if(N.code==="Escape"||N.code==="Backspace"||N.code==="Delete"){L($,{...O5}),Y(),G();return}_({vk:N.keyCode,name:M4(N)})},U=(N)=>{if(N.code!=="PrintScreen")return;H(N),_({vk:44,name:"Print Screen"})},D=(N)=>{if(N.button===0){if(Z.contains(N.target))H(N),W=!0;q();return}H(N);let K=T4[N.button];if(K)_(K)};return Z.addEventListener("contextmenu",(N)=>N.preventDefault()),Z.addEventListener("click",()=>{if(W){W=!1;return}if(V)return;V=!0,Z.classList.add("listening"),Y(),P.call("capture",!0),addEventListener("keydown",I,!0),addEventListener("keyup",U,!0),addEventListener("mousedown",D,!0),addEventListener("mouseup",H,!0),addEventListener("auxclick",H,!0),addEventListener("blur",q),G()}),Y(),i($,Y),Z}function K2($,J,Q){let Z=X("div",{class:"swatches"}),V=X("input",{type:"color",class:"color-input",tip:"Pick any colour","aria-label":"Custom colour"}),W=()=>{let Y=String(r(z,$)).toLowerCase();Z.querySelectorAll(".swatch").forEach((q)=>q.classList.toggle("on",q.dataset.c===Y)),V.value=Y},F=(Y)=>{L($,Y),Q?.()};for(let Y of J){let q=X("button",{class:"swatch","aria-label":`Colour ${Y}`,onclick:()=>F(Y)});q.dataset.c=Y,q.style.setProperty("--c",Y),Z.append(q)}return V.addEventListener("input",()=>F(V.value)),Z.append(r2(V)),W(),i($,W),Z}var C4=()=>{if(!e)return 0;return e.position+(e.playing?Date.now()-e.at:0)};function K1($,J,Q,Z){let V=X("small",{}),W=X("button",{class:"tile",tip:Z,onclick:()=>L($,!r(z,$))},X("span",{class:"tile-icon"},T(Q)),X("span",{class:"tile-text"},X("b",{},J),V)),F=()=>{let Y=!!r(z,$);W.setAttribute("aria-pressed",String(Y)),V.textContent=Y?"On":"Off"};return F(),i($,F),W}var P6=($,J,Q,Z,V="")=>X("section",{class:`card notice ${V}`},X("span",{class:"notice-icon"},T($)),X("div",{class:"notice-text"},X("b",{},J),Q?X("p",{},Q):null),Z);function L4(){let $=X("div",{class:"notices"}),J=()=>{let Q=[],Z=Y0;if(Z.status==="available"||Z.status==="downloading"||Z.status==="ready"){let W=X("button",{class:"btn primary",onclick:()=>void P.call("installUpdate")},Z.status==="ready"?"Restart and update":Z.status==="available"?"Update":"Downloading");W.disabled=Z.status==="downloading",Q.push(P6(Q0,`Ashlight ${Z.version} ${Z.status==="ready"?"is ready to install":"is out"}`,Z.notes??"",W))}if(G1)Q.push(P6(I0,`New in ${G1.version}`,G1.notes,X("button",{class:"btn icon","aria-label":"Dismiss",onclick:()=>void P.call("dismissWhatsNew")},T(B0))));let V=j6;if(V)Q.push(P6(V.level==="update"?Q0:V.level==="important"?S0:b2,V.title,V.text,X("div",{class:"spread"},V.url?X("button",{class:"btn",onclick:()=>void P.call("openUrl",V.url)},"Open",T(L1)):null,X("button",{class:"btn icon","aria-label":"Dismiss",onclick:()=>void P.call("dismissAnnouncement")},T(B0))),V.level));$.replaceChildren(...Q)};return J(),H2.add(J),D2.add(J),$}function O4(){let $=X("img",{class:"player-bg",alt:""}),J=X("img",{class:"player-art",alt:""}),Q=X("div",{class:"player-title"}),Z=X("div",{class:"player-sub"}),V=X("div",{class:"player-lyric"}),W=X("span",{style:"display:contents"}),F=()=>{if(Q.textContent=e?.title||"Nothing playing",Z.textContent=e?e.artist:"Play something in Spotify or any music app",e?.art)J.src=$.src=e.art,$.classList.add("on"),J.style.display="";else $.classList.remove("on"),J.style.display="none";W.replaceChildren(T(e?.playing?y2:w2))};F(),w6.add(F),f6=setInterval(()=>{if(!e||F2.length===0){V.textContent="";return}let _=C4()+z.hud.lyricOffset,H="";for(let I of F2)if(I.time<=_)H=I.text;else break;if(V.textContent!==H)V.textContent=H},250);let Y=X("div",{class:"spread"},X("button",{class:"btn icon","aria-label":"Previous",onclick:()=>void P.call("mediaCommand","prev")},T(h2)),X("button",{class:"btn icon primary","aria-label":"Play or pause",onclick:()=>void P.call("mediaCommand","play")},W),X("button",{class:"btn icon","aria-label":"Next",onclick:()=>void P.call("mediaCommand","next")},T(l2))),q=X("h1",{}),G=()=>{let _=new Date().getHours(),H=_<5?"Good night":_<12?"Good morning":_<18?"Good afternoon":"Good evening";q.textContent=z.profile.name?`${H}, ${z.profile.name}`:"Home"};return G(),i("profile.name",G),[X("div",{class:"page-head"},q),q0(L4(),X("section",{class:"card player"},$,J,X("div",{class:"player-meta"},Q,Z,V),Y),X("div",{class:"tiles"},K1("crosshair.enabled","Crosshair",r0,"Your reticle on top of the game."),K1("zoom.enabled","Screen Zoom",m1,"Hold a key for a smooth full-screen zoom."),K1("boost.enabled","Dark Boost",i0,"Hold a key to lift dark areas. Some games ban for this."),K1("tools.keepAwake","Keep Awake",e0,"No sleep or screen-off while Ashlight runs.")))]}function R4(){return[D0("Colour",(()=>{let $=X("button",{class:"btn",tip:"Hold to see your picture without Ashlight."},T(o0),"Compare");$.addEventListener("pointerdown",(J)=>{$.setPointerCapture(J.pointerId),P.call("compare",!0)});for(let J of["pointerup","pointercancel","lostpointercapture"])$.addEventListener(J,()=>void P.call("compare",!1));return $})(),X("button",{class:"btn",onclick:()=>{z.color=Z0().color,P.call("resetColor");for(let $ of Object.keys(z.color))k6(`color.${$}`)}},T(s0),"Reset")),X("div",{class:"grid hero-row"},X("section",{class:"card"},O("color.saturation","Saturation",{unit:"%",hero:!0,marks:"100 is normal",tip:"100 is the picture as it is. 0 is black and white."})),X("section",{class:"card"},O("color.vibrance","Vibrance",{unit:"%",hero:!0,marks:"Past 100 adds software boost",tip:"Uses NVIDIA's own control up to 100. Past that, it continues as extra saturation.",onChange:()=>!z.color.nvidia&&L("color.nvidia",!0)}),d("color.nvidia","Control NVIDIA vibrance","Off leaves your NVIDIA setting exactly as it is. Moving the slider turns this on."))),X("div",{class:"grid gap"},q0(y("Light",e0,X("div",{class:"pair"},O("color.brightness","Brightness"),O("color.contrast","Contrast",{unit:"%"}),O("color.gamma","Gamma",{decimals:2,tip:"Above 1 lifts mid-tones, below 1 deepens them."}),O("color.shadows","Shadows",{tip:"Plus lifts dark areas, minus deepens them."}),O("color.highlights","Highlights",{tip:"Minus brings back bright areas, plus makes them brighter."}),O("color.blacks","Blacks",{tip:"Plus raises the darkest parts, minus crushes them."}),O("color.whites","Whites",{tip:"Plus pushes the brightest parts up, minus pulls them down."}))),y("Colour",a0,X("div",{class:"pair"},O("color.temperature","Temperature",{tip:"Minus is cooler and bluer, plus is warmer and more orange."}),O("color.tint","Tint",{tip:"Minus is greener, plus is more magenta."}),O("color.shadowTint","Shadow tint",{tip:"Colours only the dark areas. Minus is cool, plus is warm."}),O("color.highlightTint","Highlight tint",{tip:"Colours only the bright areas. Minus is cool, plus is warm."}),O("color.hue","Hue",{unit:"°",tip:"Rotates every colour around the wheel."})))),q0(y("Red, green, blue",w1,O("color.red","Red",{unit:"%"}),O("color.green","Green",{unit:"%"}),O("color.blue","Blue",{unit:"%"})),y("Filter",I0,P4("color.filter",[["none","None","No filter."],["protan","Protan","Helps red-weak colour vision."],["deutan","Deutan","Helps green-weak colour vision."],["tritan","Tritan","Helps blue-weak colour vision."],["gray","Mono","Black and white."],["sepia","Sepia","Warm vintage tone."],["invert","Invert","Flips all colours."]]),X("div",{class:"gap"}),X("div",{class:"strip rainbow"}),X("div",{class:"strip steps",tip:"Every step should be visible without the black looking washed out."},...["#000","#050505","#0a0a0a","#101010","#181818","#202020","#2c2c2c","#3a3a3a","#505050","#707070","#a0a0a0","#fff"].map(($)=>{let J=X("i");return J.style.setProperty("--c",$),J})))))]}var v5=($,J)=>o("Key",void 0,X("div",{class:"spread"},m0(J,[["hold","Hold"],["toggle","Toggle"]]),_1($)));function j4(){return[D0("Dark Boost"),A1(y(null,null,d("boost.enabled","Enable","Lifts shadows while the key is active, then eases back."),v5("boost.key","boost.mode"),X("div",{class:"gap"}),O("boost.strength","Strength",{unit:"%"}),o("Shadow colour","Tints what the boost reveals.",K2("boost.tint",["#ffffff","#7dffa0","#7fdcff","#ffd27a","#d0b0ff"]))),X("div",{class:"note warn"},"Some games and servers ban for seeing in the dark. Check their rules before using it online."))]}function S4(){return[D0("Screen Zoom"),A1(y(null,null,d("zoom.enabled","Enable","Zooms your main screen only, in step with your refresh rate. Your other screens stay as they are."),v5("zoom.key","zoom.mode"),X("div",{class:"gap"}),O("zoom.level","Zoom level",{unit:"x",decimals:1}),O("zoom.speed","Animation time",{unit:" ms",tip:"Lower is snappier."}),X("div",{class:"gap"}),o("Shape",void 0,m0("zoom.shape",[["full","Full screen"],["lens","Round lens"]])),O("zoom.radius","Lens size",{unit:"%",tip:"Round lens only. The edge fades softly into the normal picture."}),O("zoom.sharpness","Sharpness",{unit:"%",tip:"Crisper edges when zoomed. 0 is plain smooth scaling."})),X("div",{class:"note"},"Needs borderless window in games."))]}var f4=[["rustholo","Rust holo"],["rustdot","Rust dot"],["rustcross","Rust cross"],["holo","Holo ring"],["dot","Dot"],["cross","Cross"],["crossdot","Cross and dot"],["tee","T"],["ring","Ring"],["chevron","Chevron"],["triangle","Triangle"],["x","X"],["square","Square"],["diamond","Diamond"],["brackets","Brackets"],["ringcross","Ring and cross"],["sniper","Sniper"],["image","Your image"]],k5=["style","color","size","thickness","gap","opacity","glow","outline","offsetX","offsetY","cover","coverColor","fitScreen","dynamic"],b4=()=>`TTX1-${btoa(JSON.stringify(Object.fromEntries(k5.map(($)=>[$,z.crosshair[$]]))))}`;function v4($){let J=/TTX1-([A-Za-z0-9+/=]{8,2000})/.exec($);if(!J)return!1;let Q;try{Q=JSON.parse(atob(J[1]))}catch{return!1}if(!Q||typeof Q!=="object")return!1;let Z=b0({crosshair:Q}).crosshair,V=k5.filter((W)=>(W in Q)&&typeof Q[W]===typeof Z[W]&&(typeof Q[W]!=="string"||Q[W]===Z[W]));if(!V.length)return!1;for(let W of V)L(`crosshair.${W}`,Z[W]);return!0}function k4(){let $=new Image,J=X("canvas"),Q=()=>{let D=devicePixelRatio,N=J.parentElement?.clientWidth||300;J.width=N*D,J.height=260*D;let K=J.getContext("2d");K.clearRect(0,0,J.width,J.height),z6(K,J.width/2,J.height/2,z.crosshair,D,$)};if($.onload=()=>Q(),z.crosshair.image)$.src=z.crosshair.image;let Z=X("div",{class:"styles"}),V=()=>{Z.querySelectorAll(".style").forEach((D)=>{let N=D.dataset.s===z.crosshair.style;D.classList.toggle("on",N);let K=D.querySelector("canvas");if(!K)return;K.width=K.height=64*devicePixelRatio;let E=K.width/2;z6(K.getContext("2d"),E,E,{style:D.dataset.s,color:"#ffffff",size:11,thickness:2,gap:3,opacity:N?100:75,glow:0,outline:!1,cover:0,coverColor:"#000000"},devicePixelRatio)})},W=()=>{Q(),V(),I()},F=async()=>{let D=await P.call("pickReticleImage");if(D?.error)return b(D.error);if(!D?.image)return;$.src=D.image,L("crosshair.image",D.image),L("crosshair.style","image"),W()};for(let[D,N]of f4){let K=X("button",{class:"style",tip:N,"aria-label":N,onclick:()=>{if(D==="image"&&!z.crosshair.image)return void F();L("crosshair.style",D),W()}},D==="image"?T(b1):X("canvas"));K.dataset.s=D,Z.append(K)}let q=X("div",{class:"presets"},...[["Clean dot",{style:"dot",color:"#ffffff",size:4,thickness:2,gap:0,glow:0,outline:!0}],["Classic cross",{style:"cross",color:"#00ff88",size:10,thickness:2,gap:4,glow:20,outline:!0}],["Tight cross",{style:"crossdot",color:"#00e5ff",size:7,thickness:1.5,gap:3,glow:30,outline:!1}],["Red holo",{style:"holo",color:"#ff3b3b",size:14,thickness:2,gap:3,glow:50,outline:!1}],["Ring",{style:"ringcross",color:"#ffd84a",size:12,thickness:1.5,gap:4,glow:25,outline:!1}],["Sniper",{style:"sniper",color:"#ffffff",size:20,thickness:1,gap:6,glow:0,outline:!0}]].map(([D,N])=>X("button",{class:"preset",onclick:()=>{for(let[K,E]of Object.entries(N))L(`crosshair.${K}`,E);W(),b(`${D} applied.`)}},D))),G=o("Aim key","Hold this to show the reticle.",_1("crosshair.aimKey")),_=X("div",{class:"gap"},O("crosshair.aimDelay","Aim delay",{unit:" ms",tip:"Waits for the sight to come up. Rust's holosight takes about 200 ms."})),H=o("Toggle key",void 0,_1("crosshair.toggleKey")),I=()=>{let D=z.crosshair.show==="aim";G.style.display=_.style.display=D?"":"none",H.style.display=z.crosshair.show==="toggle"?"":"none"};requestAnimationFrame(W);let U={onChange:W};return m6.set("crosshair",W),[D0("Crosshair",X("button",{class:"btn",tip:"Copies a short code for this crosshair's look, to share or keep.",onclick:async()=>{try{await navigator.clipboard.writeText(b4()),b("Crosshair code copied.")}catch{b("Couldn't reach the clipboard.")}}},T(N0),"Copy code"),X("button",{class:"btn",tip:"Uses a crosshair code from your clipboard. Your keys and image stay as they are.",onclick:async()=>{let D="";try{D=await navigator.clipboard.readText()}catch{}b(v4(D)?"Crosshair loaded.":"Your clipboard doesn't hold a crosshair code.")}},T(Q0),"Paste code"),X("button",{class:"btn",tip:"Use a PNG with a transparent background as your reticle.",onclick:()=>void F()},T(b1),"Image")),A1(q0(y(null,null,d("crosshair.enabled","Show crosshair","Rust's own reticle can't be changed without modifying the game, which risks a ban, so yours is drawn on top. Run the game in borderless window."),o("When",void 0,m0("crosshair.show",[["aim","Aiming"],["always","Always"],["toggle","Toggle"]],W)),G,_,H,d("crosshair.onlyRust","Only in Rust","Shows only while Rust is the window in front.")),c4(),y("Hide Rust's reticle",o0,O("crosshair.cover","Cover size",{tip:"A solid disc under your reticle that covers the game's dot. Keep it small, because it also hides what's behind it.",...U}),o("Cover colour",void 0,K2("crosshair.coverColor",["#1a1c1f","#000000","#3a3f36","#5a5f66"],W))),y("Position",k2,O("crosshair.offsetX","Left and right",{tip:"Nudges the reticle if it isn't perfectly on the sight."}),O("crosshair.offsetY","Up and down"))),q0(X("section",{class:"card preview"},X("div",{class:"scene"}),J),y("Reticle",r0,q,Z,O("crosshair.size","Size",U),O("crosshair.thickness","Thickness",U),O("crosshair.gap","Gap",U),O("crosshair.opacity","Opacity",{unit:"%",...U}),O("crosshair.glow","Glow",{unit:"%",...U}),d("crosshair.outline","Black outline",void 0,W),d("crosshair.fitScreen","Fit to screen","Same size on screen at 1080p, 1440p or 4K."),d("crosshair.dynamic","Dynamic","Opens up while you hold left mouse, then settles back."),o("Colour",void 0,K2("crosshair.color",["#ff3b3b","#ffffff","#3bff6f","#3be8ff","#ffe23b","#ff4fd8"],W)))))]}var C0=[["tools.highPerformance","Top power plan",O2,"Stops Windows lowering CPU speed to save power."],["tools.gameMode","Game Mode",n0,"Turns on Windows Game Mode."],["tools.noGameCapture","Xbox capture off",j0,"Stops Game Bar's background recording, which can cost FPS."],["tools.noMouseAccel","Raw mouse",y1,"Turns off Enhance Pointer Precision, so aim depends only on distance moved."],["tools.keepAwake","Keep awake",e0,"No sleep or screen-off while Ashlight runs."]],w0=($,J,Q,...Z)=>X("section",{class:"card tool"},X("div",{class:"tool-head"},X("span",{class:"tool-icon"},T($)),X("b",{},J)),X("div",{class:"tool-text"},Q),X("div",{class:"spread tool-actions"},...Z));function y4(){let $=X("div",{class:"note warn"}),J=()=>{$.textContent=q2.powerError,$.style.display=q2.powerError?"":"none"};J(),u6.add(J);let Q=X("p",{}),Z=X("button",{class:"btn primary big",onclick:()=>{let D=C0.every(([N])=>r(z,N));for(let[N]of C0)L(N,!D);b(D?"Everything is back to how Windows had it.":"Boost is on. It all goes back when Ashlight closes.")}}),V=X("section",{class:"card boost-hero"},X("span",{class:"boost-icon"},T(g2)),X("div",{class:"boost-text"},X("h2",{},"Game boost"),Q),Z),W=()=>{let D=C0.filter(([K])=>r(z,K)).length,N=D===C0.length;Z.textContent=N?"Turn off":"Boost now",Q.textContent=N?"All on":`${D} of ${C0.length} on`,V.classList.toggle("on",N)};for(let[D]of C0)i(D,W);W();let F=X("span",{},""),Y=X("input",{class:"text",value:z.stats.pingHost,"aria-label":"Server to test"});Y.addEventListener("change",()=>L("stats.pingHost",Y.value.trim()||"1.1.1.1"));let q=X("button",{class:"btn",onclick:async()=>{q.disabled=!0,F.textContent="Testing";let D=[];for(let N=0;N<3;N++){let K=Number(await P.call("pingNow",Y.value.trim()||"1.1.1.1"));if(K>=0)D.push(K)}F.textContent=D.length?`${Math.min(...D)} ms best, ${Math.round(D.reduce((N,K)=>N+K,0)/D.length)} ms average`:"No answer from that server.",q.disabled=!1}},T(u1),"Test"),G=X("span",{},""),_=!1,H=X("button",{class:"btn"},T($1),X("span",{},"Scan")),I=H.querySelector("span");H.addEventListener("click",async()=>{if(H.disabled=!0,!_){let D=await P.call("scanTemp");G.textContent=`${(D.bytes/1048576).toFixed(0)} MB in ${D.files} files can go.`,I.textContent="Delete",_=D.files>0,H.classList.toggle("primary",_)}else{let D=await P.call("cleanTemp");b(`Freed ${(D.bytes/1048576).toFixed(0)} MB.`),G.textContent="",I.textContent="Scan",H.classList.remove("primary"),_=!1}H.disabled=!1});let U=(D,N)=>X("button",{class:"chip",onclick:()=>void P.call("openSettings",N)},D);return[D0("Utilities"),q0(V,X("div",{class:"tiles five"},...C0.map(([D,N,K,E])=>K1(D,N,K,`${E} Back to normal when Ashlight closes.`))),$,X("div",{class:"tools"},w0(u1,"Ping test",X("div",{},Y,X("div",{class:"gap"},F)),q),w0(S1,"Flush DNS","",X("button",{class:"btn",onclick:async()=>b(await P.call("flushDns")?"DNS cache cleared.":"Could not clear the DNS cache.")},T(S1),"Flush")),w0($1,"Clean temp files",G,H),w0(j0,"Screenshot","",X("button",{class:"btn",onclick:async()=>b(await P.call("screenshot")?"Saved to Pictures\\Ashlight.":"Could not take a screenshot.")},T(j0),"Capture"),_1("tools.screenshotKey")),w0(y1,"Pointer speed",O("tools.mouseSpeed","Speed",{tip:"10 is one-to-one with your mouse."})),w0(t0,"Windows settings","",U("Graphics","ms-settings:display-advancedgraphics"),U("Game Mode","ms-settings:gaming-gamemode"),U("Display","ms-settings:display"),U("Sound","ms-settings:sound"))))]}var x4=314572800,y5=[["code","Code",["java","kt","kts","cs","vb","fs","js","mjs","cjs","ts","jsx","tsx","smali","py","lua","groovy","scala","il"]],["config","Settings and text",["json","toml","yml","yaml","xml","properties","cfg","ini","mf","txt","md","lang","mcmeta","csproj","sln","gradle","conf","html","css","resx","baml","accesswidener"]],["images","Images",["png","jpg","jpeg","gif","webp","bmp","ico","svg"]],["other","Other files",[]]],S6=($)=>$.includes(".")?$.slice($.lastIndexOf(".")+1).toLowerCase():"",L0=($)=>y5.find(([,,J])=>J.includes(S6($)))?.[0]??"other",M6=($)=>$<1024?`${$} B`:$<1048576?`${($/1024).toFixed(0)} KB`:`${($/1048576).toFixed(1)} MB`,G0=($)=>$.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"),w4=new Set("abstract assert boolean break byte case catch char class const continue default do double else enum extends final finally float for goto if implements import instanceof int interface long native new package private protected public return short static strictfp super switch synchronized this throw throws transient try void volatile while var record yield sealed permits non-sealed true false null fun val when is in object companion data open override internal lateinit by init suspend inline reified typealias using namespace struct readonly ref out params base virtual sealed unsafe fixed checked unchecked delegate event operator implicit explicit async await get set value nameof typeof sizeof stackalloc lock foreach decimal sbyte uint ulong ushort string object dynamic let function export from of undefined".split(" "));function u4($,J){if($.length>600000)return G0($);if(["xml","html","csproj","resx"].includes(J))return G0($).replace(/(&lt;!--[\s\S]*?--&gt;)|(&lt;\/?)([\w:.-]+)|([\w:.-]+)(=)("[^"]*")/g,(F,Y,q,G,_,H,I)=>Y?`<i class="hc">${Y}</i>`:q?`${q}<i class="hk">${G}</i>`:`<i class="ha">${_}</i>${H}<i class="hs">${I}</i>`);let Q=["yml","yaml","properties","toml","cfg","ini","py","mf"].includes(J),Z=Q?/(#[^\n]*)|("(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*')|(\b\d[\d_.]*\b)|(^[\t ]*[\w.-]+(?=\s*[:=]))/gm:/(\/\/[^\n]*|\/\*[\s\S]*?\*\/)|("""[\s\S]*?"""|"(?:[^"\\\n]|\\.)*"|'(?:[^'\\\n]|\\.)*'|`(?:[^`\\]|\\.)*`)|(\b0x[\da-fA-F]+\b|\b\d[\d_]*(?:\.\d+)?[fFdDlL]?\b)|(@[A-Za-z_]\w*|\b[A-Za-z_]\w*\b)/g,V="",W=0;for(let F;F=Z.exec($);){V+=G0($.slice(W,F.index));let[Y,q,G,_,H]=F;if(q)V+=`<i class="hc">${G0(q)}</i>`;else if(G)V+=`<i class="hs">${G0(G)}</i>`;else if(_)V+=`<i class="hn">${_}</i>`;else if(H)if(Q)V+=`<i class="hk">${G0(H)}</i>`;else if(H.startsWith("@"))V+=`<i class="ha">${H}</i>`;else if(w4.has(H))V+=`<i class="hk">${H}</i>`;else if(/^[A-Z][A-Za-z0-9_]*[a-z][A-Za-z0-9_]*$/.test(H))V+=`<i class="ht">${H}</i>`;else V+=H;else V+=G0(Y);if(W=F.index+Y.length,Y.length===0)Z.lastIndex++}return V+G0($.slice(W))}function g4(){let $=X("div",{class:"dc"}),J=!1,Q=null,Z=X("b",{},"Drop a file to open it"),V=X("span",{},""),W=X("div",{class:"dc-drop",role:"button",tabindex:"0","aria-label":"Choose a file to decompile"},X("span",{class:"dc-icon"},T(R1)),Z,V),F=X("div",{class:"dc-problem"}),Y=X("div",{class:"stack"},W,F,X("span",{class:"inline-toggle dc-options",tip:"Programs often carry well-known libraries inside them. Off, you only get the program's own code."},y6("decompiler.libs","Include libraries"),X("span",{},"Include libraries"))),q=(K)=>{let E=[];if(K.code==="needs-java")E.push(X("button",{class:"btn primary",onclick:()=>void P.call("openUrl","https://adoptium.net/")},T(Q0),"Get Java (free)"));if(K.code==="needs-android")E.push(X("button",{class:"btn primary",onclick:()=>void _(!0)},T(Q0),"Add Android support"));F.replaceChildren(X("span",{class:"tool-icon"},T(S0)),X("div",{class:"dc-text"},X("b",{},"Couldn't decompile that"),X("span",{},K.error??"Something went wrong.")),...E),F.classList.add("show")},G=(K,E="")=>{J=K,W.classList.toggle("busy",K),Z.textContent=K?E:"Drop a file to open it",V.textContent=K?"Working":""};async function _(K=!1){if(J)return;G(!0,"Downloading Android support");let E=await P.call("dcAndroid");if(G(!1),!E?.ok)return q(E??{});if(b("Android support is ready."),F.classList.remove("show"),K&&Q)H(Q)}async function H(K){if(J)return;Q=K,F.classList.remove("show"),G(!0,`Reading ${K.label}`);let E=null;try{E=K.path?await P.call("decompile",K.path,"",z.decompiler.libs):await P.call("decompile",K.name,K.base64,z.decompiler.libs)}catch{E=null}if(G(!1),!E||!E.ok)return q(E??{error:"The decompiler didn't answer."});b(`Done. Source saved to Downloads as ${E.zipName}.`),U(E)}let I=async()=>{if(J)return;let K=await P.call("pickDecompile");if(K)H({label:K.split("\\").pop()??K,path:K})};W.addEventListener("click",()=>void I()),W.addEventListener("keydown",(K)=>{if(K.key==="Enter"||K.key===" ")K.preventDefault(),I()}),W.addEventListener("dragover",(K)=>{K.preventDefault(),W.classList.add("over")}),W.addEventListener("dragleave",()=>W.classList.remove("over")),W.addEventListener("drop",(K)=>{K.preventDefault(),W.classList.remove("over");let E=K.dataTransfer?.files[0];if(!E||J)return;if(E.size>x4)return b("That file is over 300 MB. Click the area to choose it instead.");let M=new FileReader;M.onload=()=>void H({label:E.name,name:E.name,base64:String(M.result).replace(/^data:[^,]*,/,"")}),M.onerror=()=>q({error:"That file couldn't be read."}),M.readAsDataURL(E)});async function U(K,E){let M=E??await P.call("dcFiles",K.id)??[],R=K.findings.filter((C)=>C.level==="high").length,g=X("section",{class:"card dc-head"},X("div",{class:"dc-head-top"},X("div",{class:"dc-text"},X("h2",{},K.title||K.source)),X("div",{class:"dc-actions"},X("button",{class:"icon-btn","aria-label":"Show zip",tip:"Show the zip in Downloads",onclick:()=>void P.call("showZip",K.zip)},T(Q0)),X("button",{class:"icon-btn","aria-label":"Open folder",tip:"Open the source folder",onclick:()=>void P.call("dcFolder",K.id)},T(j1)),X("button",{class:"icon-btn","aria-label":"Close",tip:"Close",onclick:()=>N()},T(B0))))),w=K.findings.filter((C)=>C.level!=="info"),j=w.length?X("section",{class:"card dc-findings"},X("div",{class:"dc-label"},"Worth a look",X("span",{class:"note",tip:"A quick check of the code, not an antivirus. A clean result doesn't prove a file is safe."},R?`${R} serious`:"nothing serious")),...w.map((C)=>{let k=X("div",{class:"dc-hits"},...C.hits.map((f)=>X("button",{class:"dc-hit",onclick:()=>void U1(f.file,f.line)},X("b",{},`${f.file.split("/").pop()}:${f.line}`),X("code",{},f.text)))),u=X("div",{class:`dc-finding ${C.level}`},X("button",{class:"dc-finding-head",tip:C.why,onclick:()=>u.classList.toggle("open")},X("i",{class:"dc-dot"}),X("span",{},C.label),X("em",{},String(C.count))),k);if(C.level==="high")u.classList.add("open");return u})):null,S=new Set(z.decompiler.hide),v=new Map;for(let[C]of M)v.set(L0(C),(v.get(L0(C))??0)+1);let p=X("div",{class:"dc-chips"}),d0=X("div",{class:"dc-tree",role:"tree"}),d6=X("div",{class:"dc-crumbs"},X("span",{class:"note"},"Choose a file on the left")),H1=X("button",{class:"icon-btn","aria-label":"Copy",tip:"Copy this file",disabled:""},T(N0)),h0=X("pre",{class:"dc-gutter","aria-hidden":"true"}),_0=X("pre",{class:"dc-code"}),l0=X("div",{class:"dc-mark"}),N1=X("div",{class:"dc-scroll"},X("div",{class:"dc-lines"},h0,_0,l0)),I1=X("div",{class:"dc-viewer"},X("div",{class:"dc-bar"},d6,H1),N1),N2="";H1.addEventListener("click",()=>{navigator.clipboard.writeText(N2).then(()=>b("Copied."))});let I2=()=>p.replaceChildren(...y5.filter(([C])=>v.get(C)).map(([C,k])=>X("button",{class:`dc-chip${S.has(C)?"":" on"}`,"aria-pressed":String(!S.has(C)),tip:S.has(C)?`Show ${k.toLowerCase()}`:`Hide ${k.toLowerCase()}`,onclick:()=>{if(S.has(C))S.delete(C);else S.add(C);L("decompiler.hide",[...S]),I2(),E1()}},`${k} ${v.get(C)}`))),p5=()=>{let C={name:"",path:"",dirs:new Map,files:[]};for(let k of M){if(S.has(L0(k[0])))continue;let u=k[0].split("/"),f=C;for(let m=0;m<u.length-1;m++){let x=u[m];if(!f.dirs.has(x))f.dirs.set(x,{name:x,path:u.slice(0,m+1).join("/"),dirs:new Map,files:[]});f=f.dirs.get(x)}f.files.push(k)}return C},B1=new Set,z1=new Set,h6="",r5=(C,k,u=!1)=>{let f=X("button",{class:`dc-row file${C[0]===h6?" on":""}`,role:"treeitem",style:`--d:${k}`,onclick:()=>void U1(C[0])},X("i",{class:`dc-ext ${L0(C[0])}`},S6(C[0]).slice(0,4)||"file"),X("span",{},u?C[0]:C[0].split("/").pop()),X("em",{},M6(C[1])));return f.dataset.path=C[0],f},l6=(C,k)=>{let u=[],f=[...C.dirs.values()].sort((m,x)=>m.name.localeCompare(x.name));for(let m of f){let x=m.name;while(m.files.length===0&&m.dirs.size===1)m=[...m.dirs.values()][0],x+="/"+m.name;let $0=m.path,P1=!z1.has($0)&&(B1.has($0)||k===0&&f.length===1);if(u.push(X("button",{class:`dc-row dir${P1?" open":""}`,role:"treeitem","aria-expanded":String(P1),style:`--d:${k}`,onclick:()=>{if(P1)B1.delete($0),z1.add($0);else B1.add($0),z1.delete($0);E1()}},X("i",{class:"dc-chev"}),X("span",{},x))),P1)u.push(...l6(m,k+1))}for(let m of C.files.sort((x,$0)=>x[0].localeCompare($0[0])))u.push(r5(m,k));return u},E1=()=>{let k=l6(p5(),0);d0.replaceChildren(...k.length?k:[X("p",{class:"note dc-empty"},"Every category is switched off. Click one above to show it.")])};async function U1(C,k=0){h6=C;let u=C.split("/");for(let x=1;x<u.length;x++)B1.add(u.slice(0,x).join("/")),z1.delete(u.slice(0,x).join("/"));if(S.has(L0(C)))S.delete(L0(C)),I2();E1(),d0.querySelector(".dc-row.file.on")?.scrollIntoView({block:"nearest"}),d6.replaceChildren(...u.map((x,$0)=>X("span",{class:$0===u.length-1?"last":""},x)));let f=await P.call("dcRead",K.id,C);if(I1.classList.remove("image","binary"),l0.style.display="none",H1.setAttribute("disabled",""),!f){N2="",h0.textContent="",_0.textContent="This file couldn't be opened.";return}if(f.image){I1.classList.add("image"),h0.textContent="",_0.replaceChildren(X("img",{src:f.image,alt:C}));return}if(f.text===void 0){I1.classList.add("binary"),h0.textContent="",_0.textContent=f.big?`This file is ${M6(f.size)}, too big to show here. It's in the zip and the folder.`:`This isn't a text file (${M6(f.size)}). It's in the zip and the folder.`;return}N2=f.text,H1.removeAttribute("disabled");let m=f.text.split(`
-`).length;if(h0.textContent=Array.from({length:m},(x,$0)=>$0+1).join(`
-`),_0.innerHTML=u4(f.text,S6(C)),k>0){let x=parseFloat(getComputedStyle(_0).lineHeight)||19;l0.style.display="block",l0.style.top=`${(k-1)*x+parseFloat(getComputedStyle(_0).paddingTop||"0")}px`,l0.style.height=`${x}px`,N1.scrollTop=Math.max(0,(k-6)*x)}else N1.scrollTop=0;N1.scrollLeft=0}let n5=X("section",{class:"card dc-ide"},X("div",{class:"dc-side"},p,d0),I1);I2(),E1();let c6=X("div",{class:"stack dc-result"},g,j,n5);c6.style.setProperty("--dc-top",j?"330px":"190px"),$.replaceChildren(c6),D.replaceChildren(X("h1",{},"Decompiler"));let B2=K.findings.find((C)=>C.level==="high")?.hits[0];if(B2)U1(B2.file,B2.line);else{let C=M.find((k)=>L0(k[0])==="code"&&!/AssemblyInfo|package-info/.test(k[0]))??M[0];if(C)U1(C[0])}}let D=D0("Decompiler"),N=()=>{$.replaceChildren(Y),D.replaceChildren(X("h1",{},"Decompiler"))};return $.replaceChildren(Y),[D,$]}var m4={off:"Off","needs-id":"Not set up",connecting:"Looking for Discord",connected:"Showing on your Discord profile","no-discord":"Discord isn't running","bad-id":"Discord didn't accept Ashlight"},d4=($)=>({idle:"Not checked yet",dev:"Updates work in the installed app",checking:"Checking",latest:"You're on the latest version",available:`Version ${$.version} is available`,downloading:`Downloading ${Math.round($.percent??0)}%`,ready:`Version ${$.version} is ready to install`,error:"Couldn't reach the update server"})[$.status];function A2(){let $=document.documentElement.style,J=z.app.accent,Q=parseInt(J.slice(1),16),Z=(0.2126*(Q>>16&255)+0.7152*(Q>>8&255)+0.0722*(Q&255))/255;$.setProperty("--accent",J),$.setProperty("--on-accent",Z>0.55?"#17181b":"#ffffff");let V=f0.find((W)=>W.id===z.app.theme)??f0[0];$.setProperty("--bg-a",V.a),$.setProperty("--bg-b",V.b),$.setProperty("--glow-1",V.glow1),$.setProperty("--glow-2",V.glow2)}function x5(){let $=X("div",{class:"themes"}),J=f0.map((Z)=>{let V=X("button",{class:"theme",tip:Z.name,"aria-label":Z.name,onclick:()=>{L("app.theme",Z.id),A2()}});return V.style.setProperty("--c1",`rgb(${Z.a})`),V.style.setProperty("--c2",`rgb(${Z.b})`),V.style.setProperty("--c3",`rgb(${Z.glow1})`),V.dataset.v=Z.id,$.append(V),V}),Q=()=>J.forEach((Z)=>Z.classList.toggle("on",Z.dataset.v===z.app.theme));return Q(),i("app.theme",Q),$}function R5($){let J=(Q)=>{let Z=(Q+$/60)%6;return Math.round(255*(1-Math.max(0,Math.min(Z,4-Z,1)))).toString(16).padStart(2,"0")};return`#${J(5)}${J(3)}${J(1)}`}function j5($){let J=parseInt($.slice(1),16),Q=(J>>16&255)/255,Z=(J>>8&255)/255,V=(J&255)/255,W=Math.max(Q,Z,V),F=W-Math.min(Q,Z,V);if(F===0)return 0;return((W===Q?(Z-V)/F%6:W===Z?(V-Q)/F+2:(Q-Z)/F+4)*60+360)%360}var h4=[[0,"Red"],[30,"Orange"],[60,"Yellow"],[120,"Green"],[180,"Cyan"],[240,"Blue"],[300,"Magenta"],[360,"Red"]],l4=($)=>h4.reduce((J,Q)=>Math.abs(Q[0]-$)<Math.abs(J[0]-$)?Q:J)[1];function c4(){let $=X("i",{class:"wheel-thumb"}),J=X("i",{class:"wheel-swatch"}),Q=X("b",{}),Z=X("span",{}),V=X("div",{class:"wheel",role:"slider","aria-label":"Colour to darken",tabIndex:0},$,X("div",{class:"wheel-center"},J,Q,Z)),W=X("input",{type:"color",class:"color-input",tip:"Pick an exact colour","aria-label":"Exact colour"}),F=()=>{let I=z.darken,U=j5(I.color),D=(U-90)*Math.PI/180;$.style.left=`${50+43.5*Math.cos(D)}%`,$.style.top=`${50+43.5*Math.sin(D)}%`,$.style.setProperty("--c",I.color),J.style.setProperty("--c",I.color),Q.textContent=I.amount>=100?"Full":`${I.amount}%`,Z.textContent=`${l4(U)} darker`,W.value=I.color,V.classList.toggle("off",!I.enabled)},Y=(I)=>{if(!z.darken.enabled)L("darken.enabled",!0);L("darken.color",I),F()},q=(I)=>{let U=V.getBoundingClientRect(),D=Math.atan2(I.clientY-(U.top+U.height/2),I.clientX-(U.left+U.width/2))*180/Math.PI+90;Y(R5((D+360)%360))};V.addEventListener("pointerdown",(I)=>{V.setPointerCapture(I.pointerId),q(I)}),V.addEventListener("pointermove",(I)=>{if(V.hasPointerCapture(I.pointerId))q(I)}),V.addEventListener("keydown",(I)=>{let U=I.key==="ArrowRight"||I.key==="ArrowUp"?5:I.key==="ArrowLeft"||I.key==="ArrowDown"?-5:0;if(!U)return;I.preventDefault(),Y(R5((j5(z.darken.color)+U+360)%360))}),W.addEventListener("input",()=>Y(W.value));for(let I of["darken.amount","darken.enabled","darken.color"])i(I,F);F();let G=X("button",{class:"btn primary",onclick:async()=>{if(!("EyeDropper"in window))return b("Picking from the screen isn't available here.");P.call("compare",!0);try{let{sRGBHex:I}=await new window.EyeDropper().open();Y(String(I).toLowerCase()),b(`Darkening ${String(I).toLowerCase()}.`)}catch{}finally{P.call("compare",!1)}}},T(x2),"Pick from screen"),_=X("code",{class:"hex-tag"});i("darken.color",()=>_.textContent=z.darken.color),_.textContent=z.darken.color;let H=X("div",{class:"swatches"},...[["Red","#ff0000"],["Yellow","#ffff00"],["Green","#00ff00"],["Cyan","#00ffff"],["Blue","#0000ff"],["Magenta","#ff00ff"]].map(([I,U])=>{let D=X("button",{class:"swatch",tip:I,"aria-label":I,onclick:()=>Y(U)});return D.style.setProperty("--c",U),D}),r2(W));return y("Colour darkener",i0,d("darken.enabled","Darken a colour","Darkens the chosen colour across your whole screen, so a bright reticle or sight can be dimmed. Things nearby in that colour dim too."),X("div",{class:"spread"},G,_),X("div",{class:"wheel-box"},V),H,X("div",{class:"gap"}),O("darken.amount","How dark",{unit:"%",onChange:F,tip:"100 is full dark for the pure colour."}),O("darken.complement","Opposite colour",{unit:"%",tip:"Also darkens the colour across the wheel."}),X("div",{class:"spread gap"},X("button",{class:"btn",onclick:()=>{if(!z.darken.enabled)L("darken.enabled",!0);L("darken.amount",100),F()}},"Full dark"),X("button",{class:"btn",onclick:()=>{L("darken.amount",45),L("darken.complement",0),F()}},T(s0),"Reset")))}var p4=($)=>window.ttoolDemo?`../assets/${encodeURIComponent($)}`:`https://ttool-data.local/${encodeURIComponent($)}`,G2=null;function T6($){try{let J=document.createElement("canvas");J.width=J.height=48;let Q=J.getContext("2d");Q.drawImage($,0,0,48,48);let Z=Q.getImageData(0,0,48,48).data,V=0;for(let G=0;G<Z.length;G+=4){let _=0.2126*(Z[G]/255)**2.2+0.7152*(Z[G+1]/255)**2.2+0.0722*(Z[G+2]/255)**2.2;V=Math.max(V,_)}let W=z.ui,F=W.glassPanels?1-W.panelOpacity/100:0.06,q=1.05/(V*(1-W.dim/100)*F+0.01+0.05);G2?.(`${q>=4.5?"Readable":"Hard to read"} ${q.toFixed(1)} : 1`,q>=4.5)}catch{G2?.("Couldn't measure this file",!0)}}var F1=null,r4=()=>{let $=f0.find((V)=>V.id===z.app.theme)??f0[0],[J,Q,Z]=$.glow1.split(",").map((V)=>Number(V)/255);return[J,Q,Z]};function J0(){let $=z.ui,J=document.getElementById("bg"),Q=document.documentElement,Z=$.background==="desktop",V=Z||$.background!=="none"&&!!$.file;if(document.body.classList.toggle("has-bg",V),document.body.classList.toggle("see-desktop",Z),document.body.classList.toggle("glass-panels",Z),document.body.classList.toggle("mode-light",$.mode==="light"),document.body.classList.toggle("mode-win10",$.mode==="win10"),document.body.classList.toggle("refract",!1),document.body.classList.toggle("font-sans",$.font==="sans"),document.body.classList.toggle("no-motion",!$.motion),document.body.classList.toggle("smoky",$.smoke&&$.motion),$.smoke&&$.motion&&!F1)F1=Q5(document.getElementById("smoke"),{tint:r4,strength:0.55});if(!($.smoke&&$.motion)&&F1)F1(),F1=null;Q.style.setProperty("--bg-dim",String($.dim/100)),Q.style.setProperty("--bg-blur",`${$.blur}px`),Q.style.setProperty("--panel-o",String($.panelOpacity/100)),Q.style.zoom=String($.scale/100);let W=J.firstElementChild;if(!V||Z){J.replaceChildren(),G2?.(Z?"Depends on what's behind the window":"Solid window, nothing behind the text",!0);return}let F=p4($.file);if(W?.dataset.url===F){T6(W);return}if($.background==="video"){let Y=document.createElement("video");Y.crossOrigin="anonymous",Y.muted=!0,Y.loop=!0,Y.autoplay=!0,Y.playsInline=!0,Y.dataset.url=F,Y.src=F,Y.addEventListener("loadeddata",()=>T6(Y),{once:!0}),J.replaceChildren(Y)}else{let Y=new Image;Y.crossOrigin="anonymous",Y.alt="",Y.dataset.url=F,Y.addEventListener("load",()=>T6(Y),{once:!0}),Y.src=F,J.replaceChildren(Y)}}function n4(){let $=X("span",{}),J=X("span",{class:"read-icon"});G2=(G,_)=>{$.textContent=G,J.classList.toggle("bad",!_),J.replaceChildren(T(_?O1:S0))};let Q=X("div",{class:"chips"}),Z=X("div",{class:"note"}),V=()=>{let G=z.ui.background==="desktop"?"desktop":z.ui.file?z.ui.background:"none";Q.querySelectorAll(".chip").forEach((_)=>_.classList.toggle("on",_.dataset.v===G)),Z.textContent=G==="desktop"?"The app is see-through: whatever is behind the window shows, with no blur.":z.ui.file?`${z.ui.background==="video"?"Video":"Picture"} set. Only you see it, nothing is uploaded.`:"No background. The window stays plain."},W=async(G)=>{let _=await P.call("pickBackground",G);if(!_)return;L("ui.background",G),L("ui.file",_),V(),J0()};for(let[G,_]of[["none","None"],["image","Picture or GIF"],["video","Video"]]){let H=X("button",{class:"chip",onclick:()=>{if(G==="none")L("ui.background",G),L("ui.file",""),V(),J0();else W(G)}},_);H.dataset.v=G,Q.append(H)}V();let F={onChange:J0},Y=X("div",{class:"panel-modes"}),q=(G,_,H)=>{let I=X("i",{class:`panel-preview${G?" see":""}`},X("b"),X("b"),X("b")),U=X("button",{class:"panel-mode",tip:H,onclick:()=>{L("ui.glassPanels",G),D(),J0()}},I,X("span",{},_)),D=()=>Y.querySelectorAll(".panel-mode").forEach((N)=>N.classList.toggle("on",N.dataset.glass==="1"===z.ui.glassPanels));U.dataset.glass=G?"1":"0",Y.append(U),D()};return q(!1,"Solid","Solid panels. Your picture shows around them."),q(!0,"Liquid glass","Frosted glass panels with a light edge. The background shows through them."),requestAnimationFrame(J0),[D0("Customize"),A1(q0(y("Background",R2,Q,X("div",{class:"gap"},Z),X("div",{class:"gap"}),O("ui.dim","Dim",{unit:"%",...F,tip:"Darkens the background so text stays easy to read."}),O("ui.blur","Blur",{unit:"px",...F,tip:"Softens the picture itself. Panels never blur."}),d("ui.pauseVideo","Pause video when not in front","Saves your GPU while you are in another window."))),q0(y("Theme",I0,x5()),y("Style",a0,o("Accent","Colour of buttons, sliders and hovers.",K2("app.accent",["#ffffff","#c9cdd4","#ffb86b","#ff6b6b","#c9a6ff","#6fb7ff"],A2)),o("Mode",void 0,m0("ui.mode",[["dark","Dark"],["light","Light"],["win10","Windows 10"]],J0)),X("div",{class:"gap"}),O("ui.scale","Interface size",{unit:"%",...F}),d("ui.motion","Animations",void 0,J0),d("ui.smoke","Smoke","Soft moving smoke behind the app. It stops while Ashlight is hidden.",J0))))]}function w5($,J){let Q=0;return(Z)=>{let V=Z.currentTarget;if(Date.now()-Q<4000){Q=0,V.classList.remove("armed"),J();return}Q=Date.now();let W=V.lastChild,F=W.textContent;W.textContent=$,V.classList.add("armed"),setTimeout(()=>{W.textContent=F,V.classList.remove("armed")},4000)}}var o4={daily:"Daily",manual:"Saved by you","before-import":"Before an import","before-restore":"Before a restore","before-reset":"Before a reset","before-update":"Before an update",unreadable:"Unreadable file"},i4={pending:"Waiting",accepted:"Accepted",declined:"Not planned",done:"Added"};function a4(){let $=X("textarea",{class:"text suggest-box",rows:3,maxlength:1000,placeholder:"A feature, a fix, anything you'd like in Ashlight"}),J=X("div",{class:"suggest-list"}),Q=new Map,Z=()=>z.share.server.trim().replace(/\/+$/,""),V=()=>{let q=[...z.suggest.sent].reverse().slice(0,8);J.replaceChildren(...q.map((G)=>{let _=Q.get(G.id);return X("div",{class:"suggest-row"},X("span",{class:"suggest-text"},G.text),X("i",{class:`suggest-status ${_?.status??"pending"}`},i4[_?.status??"pending"]??"Waiting"),_?.reply?X("span",{class:"note suggest-reply"},_.reply):null)}))},W=async()=>{let q=z.suggest.sent.map((G)=>G.id).slice(-50);if(!q.length||S5()||!/^https?:\/\//.test(Z()))return V();try{let G=await fetch(`${Z()}/suggest/status?ids=${q.join(",")}`,{cache:"no-store"});if(G.ok)for(let _ of await G.json())Q.set(_.id,_)}catch{}V()},F=X("button",{class:"btn primary",onclick:async()=>{let q=$.value.trim();if(q.length<5)return b("Write a little more first.");F.disabled=!0;try{let G="";if(S5())G=Math.random().toString(16).slice(2,18).padEnd(16,"0");else{let _=await fetch(`${Z()}/suggest`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({text:q,name:z.suggest.withName?z.profile.name:""})}),H=await _.json().catch(()=>({}));if(!_.ok||!H.id)throw Error(H.error||"Couldn't send it. Try again in a bit.");G=H.id}L("suggest.sent",[...z.suggest.sent,{id:G,text:q.slice(0,1000),at:Date.now()}].slice(-50)),$.value="",b("Thanks! Sent to the Ashlight team."),V()}catch(G){b(G.message||"Couldn't send it.")}finally{F.disabled=!1}}},T(m2),"Send"),Y=0;return new IntersectionObserver((q)=>{if(!q.some((G)=>G.isIntersecting))return;if(Date.now()-Y<30000)return V();Y=Date.now(),W()}).observe(J),V(),y("Suggest something",j2,$,X("div",{class:"spread suggest-foot"},U4("suggest.withName","Include my name"),F),X("span",{class:"note"},"Only what you write is sent, plus your name if you tick it."),J)}function s4($,J){let Q=X("div",{class:"backup-list"},X("div",{class:"note"},"Loading")),Z=!1,V=async()=>{let W=await P.call("backups");if(!W.length)return Q.replaceChildren(X("div",{class:"note"},"No backups yet."));let F=(q)=>new Date(q).toLocaleString(void 0,{month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"}),Y=Z?W:W.slice(0,5);Q.replaceChildren(...Y.map((q)=>X("div",{class:"backup-row"},X("span",{class:"backup-when"},F(q.time)),X("span",{class:"backup-why"},o4[q.reason]??q.reason),X("button",{class:"btn small",tip:"Puts these settings back. Your current ones are backed up first.",onclick:w5("Restore?",()=>$(P.call("restoreBackup",q.name),`Settings from ${F(q.time)} are back.`))},T(C1),"Restore"))),...W.length<=5?[]:[X("button",{class:"link-btn",onclick:()=>{Z=!Z,V()}},Z?"Show fewer":`Show all ${W.length}`)])};return V(),y("Backups",x1,X("div",{class:"spread wrap"},X("button",{class:"btn",tip:"Saves all your settings to a file you choose.",onclick:async()=>{if(await P.call("exportToFile"))b("Settings saved.")}},T(C2),"Save to file"),X("button",{class:"btn",tip:"Loads settings from a file. Your current ones are backed up first.",onclick:()=>void $(P.call("importFromFile"),"Settings loaded.")},T(L2),"Open file"),X("button",{class:"btn",tip:"Copies your settings as text. Your chat account is never included.",onclick:async()=>J(await P.call("exportSettings"),"Settings copied.")},T(N0),"Copy"),X("button",{class:"btn",tip:"Uses settings you copied earlier. Your current ones are backed up first.",onclick:async()=>{let W="";try{W=await navigator.clipboard.readText()}catch{}await $(P.call("importSettings",W),"Settings pasted.")}},T(Q0),"Paste")),X("div",{class:"backup-head"},X("span",{class:"note"},"Made daily and before big changes. Kept on this PC only."),X("button",{class:"btn small",onclick:async()=>{if(await P.call("backupNow"))b("Backup saved."),V();else b("Couldn't save a backup.")}},T(u2),"Back up now")),Q)}function t4(){let $=X("span",{class:"note"}),J=()=>$.textContent=m4[O6];J(),g6.add(J);let Q=X("span",{class:"note"}),Z=X("button",{class:"btn"},T(Q0),X("span",{},"Check")),V=()=>{Q.textContent=d4(Y0),Z.querySelector("span").textContent=Y0.status==="ready"?"Restart and install":Y0.status==="available"?"Download":"Check",Z.disabled=["dev","checking","downloading"].includes(Y0.status),Z.classList.toggle("primary",Y0.status==="ready")};V(),H2.add(V),Z.addEventListener("click",()=>{if(Y0.status==="ready"||Y0.status==="available")P.call("installUpdate");else P.call("checkUpdate")});let W=X("code",{class:"hash"},"Working it out"),F=X("div",{class:"verdict"},X("span",{},"Checking")),Y="";(async()=>{Y=await P.call("selfHash")??"",W.textContent=Y||"Couldn't read this copy";let H=await P.call("officialBuild"),I=(U,D)=>{F.className=`verdict ${U===!0?"good":U===!1?"bad":""}`,F.replaceChildren(T(U===!0?O1:S0),X("span",{},D))};if(!Y)I(null,"Couldn't read this copy");else if(!H)I(null,"Couldn't reach the website to compare");else if(H.version!==R6)I(null,`Compared only for the newest version, ${H.version}. Update first.`);else if(!H.appSha256)I(null,"The website doesn't list this version's fingerprint");else if(H.appSha256.toLowerCase()===Y.toLowerCase())I(!0,"Official build. Matches the website exactly.");else I(!1,"Doesn't match the official build. Reinstall from the website.")})();let q=async(H,I)=>{try{await navigator.clipboard.writeText(H)}catch{let U=X("textarea",{value:H});document.body.append(U),U.select(),document.execCommand("copy"),U.remove()}b(I)},G=async(H)=>{z=(await P.get()).settings,A2(),J0(),J3(),_2("settings",!0),b(H)},_=async(H,I)=>{let U=await H;if(U==="cancelled")return;if(U)return b(U);await G(I)};return[D0("Settings",X("button",{class:"btn",onclick:()=>void P.call("openFolder")},T(j1),"Config"),X("button",{class:"btn",tip:"Sets everything back to default. A backup is made first.",onclick:w5("Reset all?",async()=>{await P.call("resetAll"),await G("Everything is back to default. Your old settings are in Backups.")})},T(s0),"Reset all")),A1(q0(l5(),y("Window",v2,o("Buttons",void 0,m0("app.windowButtons",[["mac","macOS"],["windows","Windows"]],v6)),o("Side",void 0,m0("app.buttonsSide",[["left","Left"],["right","Right"]],v6)),d("app.intro","Intro when opening")),y("App",t0,d("app.startWithWindows","Start with Windows","Starts in the tray and puts your look back."),d("app.startMinimized","Start hidden in the tray"),d("app.closeToTray","Keep running in tray","Closing the window keeps effects and HUDs running."),X("div",{class:"spread gap"},X("button",{class:"btn",onclick:()=>c5()},T(I0),"Show the welcome again"))),y("Keybinds",v1,...b5.map(([H,I])=>o(I,void 0,_1(H)))),y("Recording and streaming",j0,d("app.hideFromCapture","Hide overlays from recordings","Your crosshair and HUDs stay on your screen but won't appear in OBS, Discord or screenshots.")),s4(_,q)),q0(a4(),y("Discord",n0,d("discord.enabled","Show Ashlight on my profile"),X("div",{class:"row gap"},$)),y("Updates",M2,d("app.autoUpdate","Update automatically"),X("div",{class:"gap"}),O("app.updateEveryHours","Check every",{unit:" h"}),X("div",{class:"row gap"},Q,Z),X("div",{class:"note gap"},`Ashlight ${R6}`)),y("Verify this copy",d2,F,X("div",{class:"gap"},W),X("div",{class:"spread gap"},X("button",{class:"btn",onclick:()=>Y&&void q(Y,"Fingerprint copied.")},T(N0),"Copy SHA-256"))),y("Diagnostics",g1,X("div",{class:"spread"},X("button",{class:"btn",tip:"Copies your Ashlight version, screen and feature status, for reporting a problem. Nothing is sent anywhere.",onclick:async()=>q(await P.call("diagnostics"),"Diagnostics copied.")},T(N0),"Copy diagnostics")))))]}var e4={ws:null,status:"offline",me:null,ice:[],servers:[],dms:[],friends:[],users:new Map,messages:new Map,voice:new Map,typing:new Map,unread:new Map,ring:null,place:"home",channel:"",homeTab:"online",retry:0},S5=()=>!!window.ttoolDemo&&!window.ttoolLiveChat,f5={channel:"",mic:null,cam:null,screen:null,muted:!1,deaf:!1,peers:new Map,levels:new Map,rejoin:!1},$3=new Map;setInterval(()=>{if(!f5.channel)return;let $=new Uint8Array(256);for(let[J,Q]of $3){Q.getByteTimeDomainData($);let Z=0;for(let W of $)Z+=(W-128)**2;let V=Math.sqrt(Z/$.length)>6&&!(J===e4.me?.id&&f5.muted);document.querySelectorAll(`[data-voice-user="${J}"]`).forEach((W)=>W.classList.toggle("speaking",V))}},100);var u5=[["",[{id:"home",title:"Home",icon:f1,build:O4}]],["Display",[{id:"color",title:"Colour",icon:a0,build:R4},{id:"boost",title:"Dark Boost",icon:i0,build:j4,features:["boost.enabled"]},{id:"zoom",title:"Screen Zoom",icon:m1,build:S4,features:["zoom.enabled"]}]],["Overlay",[{id:"crosshair",title:"Crosshair",icon:r0,build:k4,features:["crosshair.enabled"]}]],["System",[{id:"tools",title:"Utilities",icon:g1,build:y4},{id:"decompiler",title:"Decompiler",icon:R1,build:g4},{id:"customize",title:"Customize",icon:T2,build:n4},{id:"settings",title:"Settings",icon:t0,build:t4}]]],x6=u5.flatMap(([,$])=>$),w6=new Set,D2=new Set,f6=null,g5=new Set,u6=new Set,g6=new Set,H2=new Set,m6=new Map,Y2=new Map,u0="";function J3(){if(Y2.clear(),D1.clear(),w6.clear(),D2.clear(),f6)clearInterval(f6);g5.clear(),u6.clear(),g6.clear(),H2.clear(),m6.clear(),m5(),document.getElementById("page").replaceChildren(),u0=""}var C6=($)=>x6.findIndex((J)=>J.id===$);function Q3(){let $=null,J=()=>{if($)$.style.transform="";$=null};document.addEventListener("pointermove",(Q)=>{let Z=Q.target?.closest(".tile, .theme, .dc-drop")??null;if(Z!==$)J();if(!Z||!z.ui.motion||z.ui.mode==="win10")return;$=Z;let V=Z.getBoundingClientRect(),W=(Q.clientX-V.left)/V.width-0.5,F=(Q.clientY-V.top)/V.height-0.5;Z.style.transform=`perspective(700px) rotateX(${(-F*7).toFixed(1)}deg) rotateY(${(W*9).toFixed(1)}deg) translateZ(4px)`}),document.addEventListener("pointerleave",J)}function Z3(){let $=document.querySelector(".brand img");if(!$)return;let J=0,Q=0,Z=!1;setInterval(async()=>{if(Z||document.hidden||!z.ui.motion)return;Z=!0;let V=Number(await P.call("audioPeak"))||0;Z=!1,J=J*0.9+V*0.1;let W=Math.max(0,V-J*1.15)*3.2;Q=Math.max(Q*0.72,Math.min(1,W+V*0.35)),$.style.setProperty("--beat",Q.toFixed(3))},50)}function b6(){let $=document.querySelector(".nav-item.on"),J=document.getElementById("pill"),Q=!!$?.closest(".nav-fold.folded");if(J.style.opacity=$&&!Q?"":"0",$&&!Q)J.style.transform=`translateY(${$.offsetTop}px)`}function _2($,J=!1){if($===u0)return;document.body.classList.toggle("chat-mode",$==="chat");let Q=document.getElementById("page"),Z=C6($)>=C6(u0)?1:-1,V=Y2.get(u0),W=Y2.get($);if(!W)W=X("div",{class:"page"},...x6[C6($)].build()),Y2.set($,W);u0=$,document.querySelectorAll(".nav-item").forEach((q)=>{let G=q.dataset.page===$;if(q.classList.toggle("on",G),G)q.setAttribute("aria-current","page");else q.removeAttribute("aria-current")}),b6();let F=matchMedia("(prefers-reduced-motion: reduce)").matches,Y=()=>{if(Q.replaceChildren(W),Q.scrollTop=0,m6.get($)?.(),J||F)return;W.animate([{opacity:0,transform:`translate3d(${Z*18}px, 0, 0)`},{opacity:1,transform:"none"}],{duration:300,easing:"cubic-bezier(0.22, 1, 0.36, 1)"})};if(V&&!J&&!F){let q=V.animate([{opacity:1,transform:"none"},{opacity:0,transform:`translate3d(${Z*-12}px, 0, 0)`}],{duration:90,easing:"ease-in",fill:"forwards"}),G=!1,_=()=>{if(G)return;if(G=!0,q.cancel(),u0===$)Y()};q.onfinish=_,setTimeout(_,160)}else Y()}function m5(){document.querySelectorAll(".nav-item").forEach(($)=>{let J=x6.find((Q)=>Q.id===$.dataset.page);for(let Q of J?.features??[]){let Z=()=>$.classList.toggle("active-feature",!!r(z,Q));Z(),i(Q,Z)}})}function X3(){let $=document.getElementById("tooltip"),J=null,Q=null,Z=()=>{if(J)clearTimeout(J);Q=null,$.classList.remove("show")};addEventListener("pointerover",(V)=>{let W=V.target.closest?.("[data-tip]");if(W===Q)return;if(Z(),!W)return;Q=W,J=setTimeout(()=>{if(!Q?.isConnected)return;$.textContent=Q.dataset.tip??"";let F=Q.getBoundingClientRect(),Y=$.getBoundingClientRect(),q=Math.min(innerWidth-Y.width-12,Math.max(12,F.left)),G=F.bottom+8+Y.height<innerHeight;$.style.left=`${q}px`,$.style.top=`${G?F.bottom+8:F.top-Y.height-8}px`,$.classList.add("show")},380)},{passive:!0}),addEventListener("pointerdown",Z,{passive:!0}),addEventListener("blur",Z)}async function V3(){C5();let $=await P.get();z=$.settings,q2=$.live,R6=$.version,e=$.media,F2=$.lyrics,O6=$.discord,Y0=$.update,A2(),J0();let J=document.getElementById("nav");for(let[Z,V]of u5){let W=V.map((_)=>{let H=X("button",{class:"nav-item",onclick:()=>_2(_.id)},T(_.icon),_.title,X("i",{class:"dot"}));return H.dataset.page=_.id,H});if(!Z){J.append(...W);continue}let F=()=>z.ui.navFolded.includes(Z),Y=X("div",{class:"nav-fold"},X("div",{class:"nav-fold-inner"},...W)),q=X("button",{class:"nav-group",onclick:()=>{L("ui.navFolded",F()?z.ui.navFolded.filter((_)=>_!==Z):[...z.ui.navFolded,Z]),G(),b6(),setTimeout(b6,300)}},Z,X("i",{class:"nav-chev"})),G=()=>{q.classList.toggle("folded",F()),q.setAttribute("aria-expanded",String(!F())),Y.classList.toggle("folded",F())};G(),J.append(q,Y)}if(O0=$.discordUser,v6(),W3(),P.on("discordUser",(Z)=>{if(O0=Z,z.profile.source==="discord")d5();g0.forEach((V)=>V())}),z.app.intro&&z.ui.motion&&!matchMedia("(prefers-reduced-motion: reduce)").matches)Y3();X3(),Z3(),Q3();for(let Z of["ui.glassPanels","ui.background","ui.panelOpacity"])i(Z,J0);P.on("live",(Z)=>{q2=Z,u6.forEach((V)=>V())}),P.on("media",(Z)=>{e=Z,w6.forEach((V)=>V())}),P.on("lyrics",(Z)=>F2=Z),P.on("changed",(Z)=>k6(Z));let Q=(Z)=>{let V=document.querySelector("#bg video");if(!V)return;if(Z||!z.ui.pauseVideo)V.play().catch(()=>{});else V.pause()};if(addEventListener("focus",()=>Q(!0)),addEventListener("blur",()=>Q(!1)),P.on("monitor",(Z)=>g5.forEach((V)=>V(Z))),P.on("discord",(Z)=>{O6=Z,g6.forEach((V)=>V())}),P.on("update",(Z)=>{Y0=Z,H2.forEach((V)=>V()),document.querySelector('.nav-item[data-page="settings"]')?.classList.toggle("active-feature",["available","ready"].includes(Z.status))}),j6=$.announcement,G1=$.whatsNew,$.notice)setTimeout(()=>b($.notice),1200);if(P.on("announce",(Z)=>{j6=Z,D2.forEach((V)=>V())}),P.on("whatsNew",(Z)=>{G1=Z,D2.forEach((V)=>V())}),m5(),_2("home",!0),$.recovered)b("Ashlight closed unexpectedly last time. Your original settings were restored.");if(!z.app.welcomed)c5()}function v6(){let $=document.getElementById("lights"),J=document.getElementById("lightsRight");$.replaceChildren(),J.replaceChildren();let Q=z.app.windowButtons==="mac",Z=z.app.buttonsSide==="left"?$:J;document.body.classList.toggle("buttons-left",z.app.buttonsSide==="left");let V=Q?[["close",B0,"Close","close"],["min",k1,"Minimize","minimize"],["max",f2,"Maximize","maximize"]]:[["min",k1,"Minimize","minimize"],["max",c2,"Maximize","maximize"],["close",B0,"Close","close"]];if(Q&&Z===J)V.reverse();for(let[W,F,Y,q]of V)Z.append(X("button",{class:`${Q?"light":"wbtn"} ${W}`,"aria-label":Y,onclick:()=>void P.call("windowAction",q)},T(F)));Z.className=`lights ${Q?"mac":"win"}`}var g0=new Set;function d5(){if(!O0)return!1;return L("profile.name",O0.name),L("profile.avatar",O0.avatar),L("profile.source","discord"),g0.forEach(($)=>$()),!0}function h5($){let J=X("img",{class:`avatar ${$}`,alt:""});return J.src=z.profile.avatar||"logo.png",J.addEventListener("error",()=>J.src="logo.png",{once:!0}),J}function W3(){let $=document.getElementById("profile"),J=()=>{let Q=z.profile;$.replaceChildren(Q.name?h5("small"):X("span",{class:"avatar small empty"},T(J1)),X("span",{class:"profile-text"},X("b",{},Q.name||"Sign in"),X("small",{},Q.source==="discord"?"Discord":Q.name?"On this PC":"Optional")))};J(),g0.add(J),$.onclick=()=>_2("settings")}function l5(){let $=X("div",{}),J=X("input",{class:"text",placeholder:"Your name",maxLength:24,"aria-label":"Your name"});J.addEventListener("change",()=>{let Z=J.value.trim();L("profile.name",Z),L("profile.source",Z?"local":"none"),L("profile.avatar",""),g0.forEach((V)=>V())});let Q=()=>{let Z=z.profile;J.value=Z.source==="local"?Z.name:"";let V=X("button",{class:"btn primary",onclick:()=>{if(!d5())b("Open Discord, then try again.")}},T(n0),O0?`Continue as ${O0.name}`:"Sign in with Discord");$.replaceChildren(Z.name?X("div",{class:"account"},h5("big"),X("div",{class:"account-text"},X("b",{},Z.name),X("small",{},Z.source==="discord"?"Signed in with Discord":"Name on this PC")),X("button",{class:"btn icon","aria-label":"Sign out",tip:"Sign out",onclick:()=>{L("profile.name",""),L("profile.avatar",""),L("profile.source","none"),g0.forEach((W)=>W())}},T(S2))):X("div",{class:"stack"},V,X("div",{class:"or"},"or"),J))};return Q(),g0.add(Q),y("Account",J1,$)}function Y3(){let $=X("b",{}),J=X("div",{class:"intro"},X("img",{src:"logo.png",alt:""}),$);document.body.append(J),document.body.classList.add("entering");let Q=0,Z=setInterval(()=>{if($.textContent="Ashlight".slice(0,++Q),Q>=5)clearInterval(Z)},70);setTimeout(()=>{J.classList.add("out"),document.body.classList.remove("entering"),document.body.classList.add("entered")},900),setTimeout(()=>{J.remove(),document.body.classList.remove("entered")},1600)}var L6=["Hello","Hej","Hola","Bonjour","Hallo","Ciao","Olá","Привет","こんにちは","안녕하세요","你好","مرحبا","Merhaba","Cześć","नमस्ते","Hei"];function c5(){if(document.querySelector(".hello"))return;let $=null,J=X("div",{class:"hello-word"},X("span",{},L6[0])),Q=X("div",{class:"hello-done"});Q.innerHTML='<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>';let Z=[{body:()=>X("div",{class:"hello-first"},X("img",{class:"hello-logo",src:"logo.png",alt:""}),J,X("p",{class:"hello-sub"},"Welcome to Ashlight")),button:"Get started"},{title:"Make it yours",text:"Sign in to see your name and picture. You can skip this.",body:()=>X("div",{class:"hello-panel"},l5()),button:"Continue"},{title:"Pick a theme",text:"You can change it any time.",body:()=>X("div",{class:"hello-panel"},x5()),button:"Continue"},{title:"You're ready",text:"Everything's set up.",body:()=>Q,button:"Open Ashlight"}],V=Z.map((R)=>R.body()),W=X("h1",{}),F=X("p",{}),Y=X("div",{class:"hello-body"}),q=X("div",{class:"hello-content"},Y,W,F),G=X("div",{class:"hello-progress"},...Z.map(()=>X("i"))),_=X("button",{class:"hello-next"}),H=X("button",{class:"hello-back","aria-label":"Back",onclick:()=>N>0&&E(N-1)},T(L1)),I=X("button",{class:"hello-skip",onclick:()=>M()},"Skip"),U=X("div",{class:"hello-glow","aria-hidden":"true"},X("i"),X("i"),X("i")),D=X("div",{class:"hello",role:"dialog","aria-modal":"true","aria-label":"Welcome"},U,X("div",{class:"hello-top"},H,G,I),q,X("div",{class:"hello-foot"},_)),N=0,K=()=>{let R=0;$=setInterval(()=>{R=(R+1)%L6.length;let g=J.firstElementChild,w=X("span",{class:"enter"},L6[R]);g.classList.add("leave"),J.append(w),setTimeout(()=>g.remove(),700)},2200)},E=(R)=>{let g=R>=N;N=R;let w=Z[R],j=()=>{W.textContent=w.title??"",W.hidden=!w.title,F.textContent=w.text??"",F.hidden=!w.text,Y.replaceChildren(V[R]),_.textContent=w.button,G.querySelectorAll("i").forEach((S,v)=>S.classList.toggle("on",v<=R)),H.classList.toggle("shown",R>0),q.classList.remove("leaving","back"),Q.classList.toggle("draw",R===Z.length-1)};if(q.dataset.ready!=="1")return q.dataset.ready="1",j();q.classList.add("leaving"),q.classList.toggle("back",!g),setTimeout(j,240)};_.addEventListener("click",()=>N===Z.length-1?M():E(N+1));let M=()=>{if(L("app.welcomed",!0),$)clearInterval($);D.classList.add("out"),setTimeout(()=>D.remove(),700)};if(D.addEventListener("keydown",(R)=>{if(R.key==="Escape")M();if(R.key==="Enter"&&document.activeElement===document.body)_.click()}),document.body.append(D),E(0),z.ui.motion)K();requestAnimationFrame(()=>D.classList.add("in")),_.focus()}V3();
+}`;
+function startSmoke(canvas, opts) {
+  const gl = canvas.getContext("webgl", { antialias: false, alpha: true, premultipliedAlpha: true });
+  if (!gl)
+    return () => {};
+  const shader = (type, source) => {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, source);
+    gl.compileShader(s);
+    return s;
+  };
+  const program = gl.createProgram();
+  gl.attachShader(program, shader(gl.VERTEX_SHADER, "attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}"));
+  gl.attachShader(program, shader(gl.FRAGMENT_SHADER, FRAG));
+  gl.linkProgram(program);
+  if (!gl.getProgramParameter(program, gl.LINK_STATUS))
+    return () => {};
+  gl.useProgram(program);
+  gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+  gl.enableVertexAttribArray(0);
+  gl.vertexAttribPointer(gl.getAttribLocation(program, "a"), 2, gl.FLOAT, false, 0, 0);
+  const u = (n) => gl.getUniformLocation(program, n);
+  const uRes = u("res"), uT = u("t"), uTint = u("tint"), uStrength = u("strength");
+  gl.uniform1f(uStrength, opts.strength);
+  const resize = () => {
+    const box = canvas.getBoundingClientRect();
+    canvas.width = Math.max(160, Math.round(box.width / 4));
+    canvas.height = Math.max(100, Math.round(box.height / 4));
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform2f(uRes, canvas.width, canvas.height);
+  };
+  resize();
+  addEventListener("resize", resize);
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const draw = (now) => {
+    const [r, g, b] = opts.tint();
+    gl.uniform3f(uTint, r, g, b);
+    gl.uniform1f(uT, reduced ? 20 : now / 1000);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  };
+  let onScreen = true;
+  const watcher = new IntersectionObserver(([e]) => onScreen = !!e?.isIntersecting);
+  watcher.observe(canvas);
+  let running = true, last = 0;
+  const frame = (now) => {
+    if (!running)
+      return;
+    if (onScreen && !document.hidden && now - last > 33) {
+      last = now;
+      draw(now);
+    }
+    if (!reduced)
+      requestAnimationFrame(frame);
+  };
+  requestAnimationFrame(frame);
+  return () => {
+    running = false;
+    watcher.disconnect();
+    removeEventListener("resize", resize);
+  };
+}
+// release.config.json
+var release_config_default = {
+  updateUrl: "https://ashlightapp.github.io/updates",
+  repo: "ashlightapp/ashlightapp.github.io"
+};
+
+// src/shared/settings.ts
+var NO_KEY = { vk: 0, name: "None" };
+var key = (vk, name) => ({ vk, name });
+var DEFAULT_MOUSE_SPEED = 10;
+var defaultColor = () => ({
+  vibrance: 0,
+  saturation: 100,
+  hue: 0,
+  contrast: 100,
+  brightness: 0,
+  gamma: 1,
+  highlights: 0,
+  shadows: 0,
+  blacks: 0,
+  whites: 0,
+  shadowTint: 0,
+  highlightTint: 0,
+  temperature: 0,
+  tint: 0,
+  red: 100,
+  green: 100,
+  blue: 100,
+  filter: "none",
+  nvidia: false
+});
+var defaults = () => ({
+  color: defaultColor(),
+  darken: { enabled: false, color: "#00ff00", amount: 45, complement: 0 },
+  aspect: { enabled: false, mode: "stretch", w: 4, h: 3, key: { ...NO_KEY }, onlyGames: true },
+  crosshair: {
+    enabled: false,
+    show: "aim",
+    aimKey: key(2, "Right mouse"),
+    toggleKey: key(119, "F8"),
+    aimDelay: 200,
+    onlyRust: false,
+    style: "rustholo",
+    color: "#ff3b3b",
+    size: 14,
+    thickness: 2,
+    gap: 3,
+    opacity: 100,
+    glow: 40,
+    outline: false,
+    offsetX: 0,
+    offsetY: 0,
+    cover: 0,
+    coverColor: "#1a1c1f",
+    image: "",
+    fitScreen: true,
+    dynamic: false
+  },
+  hud: {
+    enabled: false,
+    corner: "tr",
+    x: -1,
+    y: -1,
+    scale: 100,
+    opacity: 100,
+    layout: "card",
+    lyricAnim: "slide",
+    gradientText: true,
+    textColor: "#ffffff",
+    background: 100,
+    artBlur: 28,
+    radius: 20,
+    lyricSize: 17,
+    lyricGlow: false,
+    showProgress: true,
+    showArt: true,
+    showLyrics: true,
+    lines: 3,
+    lyricsOnline: true,
+    lyricOffset: 0,
+    hideWhenPaused: false,
+    artColor: true,
+    toggleKey: { ...NO_KEY },
+    playKey: { ...NO_KEY },
+    nextKey: { ...NO_KEY },
+    prevKey: { ...NO_KEY }
+  },
+  stats: {
+    enabled: false,
+    corner: "tl",
+    scale: 100,
+    opacity: 100,
+    background: 100,
+    layout: "bar",
+    color: "#ffffff",
+    meters: true,
+    cpu: true,
+    gpu: true,
+    temp: true,
+    ram: true,
+    vram: false,
+    power: false,
+    ping: false,
+    session: false,
+    clock: true,
+    pingHost: "1.1.1.1"
+  },
+  tools: {
+    noMouseAccel: false,
+    highPerformance: false,
+    keepAwake: false,
+    mouseSpeed: DEFAULT_MOUSE_SPEED,
+    gameMode: false,
+    noGameCapture: false
+  },
+  macro: {
+    enabled: false,
+    key: { ...NO_KEY },
+    sendKey: false,
+    gameKey: { ...NO_KEY },
+    startDelay: 25,
+    confirmRelease: false,
+    confirmDelay: 20,
+    onlyGame: true
+  },
+  discord: { enabled: true },
+  app: {
+    closeToTray: true,
+    startWithWindows: false,
+    autoUpdate: true,
+    theme: "graphite",
+    accent: "#ffffff",
+    welcomed: true,
+    windowButtons: "mac",
+    buttonsSide: "right",
+    intro: true,
+    lastVersion: "",
+    seenAnnouncement: "",
+    startMinimized: false,
+    hideFromCapture: false,
+    quickKey: { ...NO_KEY },
+    updateEveryHours: 2
+  },
+  profile: { name: "", avatar: "", source: "none" },
+  library: { custom: [], hidden: [], played: {} },
+  games: {
+    auto: true,
+    profiles: [],
+    seen: [],
+    active: { exe: "", base: {} }
+  },
+  suggest: { sent: [], withName: false },
+  social: { id: "", secret: "" },
+  share: { server: SHARE_SERVER, quality: "1080p60", audio: true },
+  ui: {
+    background: "none",
+    file: "",
+    dim: 40,
+    blur: 0,
+    glassPanels: false,
+    panelOpacity: 22,
+    mode: "dark",
+    scale: 100,
+    font: "mono",
+    motion: true,
+    pauseVideo: true,
+    smoke: false,
+    navFolded: []
+  },
+  plugins: {}
+});
+var PROFILE_SECTIONS = {
+  color: { label: "Colour", keys: ["color", "darken"] },
+  aspect: { label: "Aspect ratio", keys: ["aspect"] },
+  crosshair: { label: "Crosshair", keys: ["crosshair"] }
+};
+var DISCORD_APP_ID = "1554975548944420904";
+var SHARE_SERVER = "https://app-804a9dc99f9869a8.up.railway.app";
+var THEMES = [
+  { id: "graphite", name: "Graphite", a: "70, 70, 70", b: "32, 32, 32", glow1: "218, 218, 218", glow2: "150, 150, 150" },
+  { id: "sky", name: "Sky", a: "44, 98, 162", b: "18, 38, 84", glow1: "130, 210, 255", glow2: "80, 130, 250" },
+  { id: "aurora", name: "Aurora", a: "20, 110, 120", b: "56, 34, 126", glow1: "90, 255, 210", glow2: "190, 110, 255" },
+  { id: "sunset", name: "Sunset", a: "154, 62, 96", b: "64, 32, 100", glow1: "255, 170, 95", glow2: "255, 80, 150" },
+  { id: "ocean", name: "Ocean", a: "14, 118, 148", b: "10, 50, 96", glow1: "90, 240, 255", glow2: "40, 150, 230" },
+  { id: "lavender", name: "Lavender", a: "108, 84, 170", b: "48, 40, 100", glow1: "220, 200, 255", glow2: "165, 130, 245" },
+  { id: "rose", name: "Rose", a: "162, 70, 112", b: "80, 34, 72", glow1: "255, 175, 205", glow2: "235, 100, 165" },
+  { id: "forest", name: "Forest", a: "38, 116, 90", b: "16, 56, 56", glow1: "120, 245, 185", glow2: "60, 185, 145" },
+  { id: "ember", name: "Ember", a: "164, 78, 46", b: "86, 36, 32", glow1: "255, 170, 90", glow2: "255, 95, 60" },
+  { id: "midnight", name: "Midnight", a: "40, 52, 128", b: "16, 20, 66", glow1: "145, 160, 255", glow2: "100, 85, 235" },
+  { id: "mint", name: "Mint", a: "36, 132, 120", b: "22, 74, 88", glow1: "150, 255, 220", glow2: "70, 215, 190" },
+  { id: "slate", name: "Slate", a: "72, 82, 100", b: "36, 42, 58", glow1: "180, 200, 230", glow2: "120, 140, 180" },
+  { id: "crimson", name: "Crimson", a: "128, 24, 44", b: "32, 14, 20", glow1: "255, 120, 130", glow2: "220, 50, 70" },
+  { id: "gold", name: "Gold", a: "150, 112, 30", b: "58, 44, 20", glow1: "255, 220, 130", glow2: "250, 170, 60" }
+];
+var RANGES = {
+  "color.vibrance": [0, 200, 1],
+  "color.highlights": [-100, 100, 1],
+  "color.shadows": [-100, 100, 1],
+  "color.blacks": [-100, 100, 1],
+  "color.whites": [-100, 100, 1],
+  "color.shadowTint": [-100, 100, 1],
+  "color.highlightTint": [-100, 100, 1],
+  "darken.amount": [0, 100, 1],
+  "darken.complement": [0, 100, 1],
+  "ui.dim": [0, 90, 1],
+  "ui.blur": [0, 40, 1],
+  "ui.panelOpacity": [0, 100, 1],
+  "ui.scale": [85, 115, 5],
+  "app.updateEveryHours": [1, 24, 1],
+  "color.saturation": [0, 300, 1],
+  "color.hue": [-180, 180, 1],
+  "color.contrast": [50, 150, 1],
+  "color.brightness": [-40, 40, 1],
+  "color.gamma": [0.5, 2.5, 0.01],
+  "color.temperature": [-100, 100, 1],
+  "color.tint": [-100, 100, 1],
+  "color.red": [50, 150, 1],
+  "color.green": [50, 150, 1],
+  "color.blue": [50, 150, 1],
+  "macro.startDelay": [0, 100, 5],
+  "macro.confirmDelay": [0, 150, 5],
+  "crosshair.aimDelay": [0, 600, 10],
+  "crosshair.size": [1, 60, 1],
+  "crosshair.thickness": [1, 10, 1],
+  "crosshair.gap": [0, 40, 1],
+  "crosshair.opacity": [10, 100, 1],
+  "crosshair.glow": [0, 100, 1],
+  "crosshair.offsetX": [-40, 40, 1],
+  "crosshair.offsetY": [-40, 40, 1],
+  "crosshair.cover": [0, 40, 1],
+  "hud.scale": [60, 180, 5],
+  "hud.opacity": [20, 100, 1],
+  "hud.background": [0, 100, 1],
+  "hud.artBlur": [0, 60, 1],
+  "hud.radius": [0, 32, 1],
+  "hud.lyricSize": [12, 28, 1],
+  "hud.lines": [1, 5, 1],
+  "hud.lyricOffset": [-2000, 2000, 50],
+  "stats.scale": [60, 180, 5],
+  "stats.opacity": [20, 100, 1],
+  "stats.background": [0, 100, 1],
+  "tools.mouseSpeed": [1, 20, 1],
+  "aspect.w": [1, 8192, 1],
+  "aspect.h": [1, 8192, 1]
+};
+function getPath(root, path) {
+  return path.split(".").reduce((node, k) => node?.[k], root);
+}
+function setPath(root, path, value) {
+  const keys = path.split(".");
+  const last = keys.pop();
+  const parent2 = keys.reduce((node, k) => node?.[k], root);
+  if (parent2 && typeof parent2 === "object")
+    parent2[last] = value;
+}
+var clamp = (v, min, max) => Math.min(max, Math.max(min, v));
+function clampSetting(path, value) {
+  const range = RANGES[path];
+  return range ? clamp(value, range[0], range[1]) : value;
+}
+var CONFIG_VERSION = 2;
+function migrate(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw))
+    return raw;
+  const from = typeof raw.v === "number" ? raw.v : 1;
+  if (from < 2) {
+    if (raw.ui?.background === "desktop")
+      raw.ui.background = "none";
+  }
+  raw.v = CONFIG_VERSION;
+  return raw;
+}
+function looksLikeSettings(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw))
+    return false;
+  const known = Object.keys(defaults());
+  return Object.keys(raw).filter((k) => known.includes(k) && raw[k] && typeof raw[k] === "object").length >= 3;
+}
+var HEX = /^#(?:[0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i;
+function sanitize(saved) {
+  const merged = defaults();
+  const walk = (target, source, prefix) => {
+    if (!source || typeof source !== "object")
+      return;
+    for (const k of Object.keys(target)) {
+      const path = prefix ? `${prefix}.${k}` : k;
+      const value = source[k];
+      if (value === undefined || value === null || typeof value !== typeof target[k])
+        continue;
+      if (Array.isArray(target[k])) {
+        if (Array.isArray(value))
+          target[k] = value;
+        continue;
+      }
+      if (typeof value === "object" && Object.keys(target[k]).length === 0)
+        target[k] = value;
+      else if (typeof value === "object")
+        walk(target[k], value, path);
+      else if (typeof value === "number") {
+        if (Number.isFinite(value))
+          target[k] = clampSetting(path, value);
+      } else if (typeof value === "string" && HEX.test(target[k]) && !HEX.test(value)) {} else
+        target[k] = value;
+    }
+  };
+  walk(merged, saved, "");
+  return merged;
+}
+
+// src/renderer/core.ts
+var webview = window.chrome.webview;
+var SITE = release_config_default.updateUrl.replace(/\/updates$/, "");
+var OVERLAY_BOX = 400;
+var HUD_MARGIN = 24;
+var nextId = 1;
+var waiting = new Map;
+var eventHandlers = new Map;
+var listeners = new Map;
+function host(action, ...params) {
+  return new Promise((resolve) => {
+    const id = nextId++;
+    waiting.set(id, resolve);
+    webview.postMessage(JSON.stringify({ id, a: action, p: params }));
+  });
+}
+var onHost = (name, fn) => eventHandlers.set(name, fn);
+var emit = (channel, ...args) => listeners.get(channel)?.forEach((fn) => fn(...args));
+webview.addEventListener("message", (e) => {
+  const m = e.data;
+  if (m.id !== undefined) {
+    waiting.get(m.id)?.(m.r);
+    waiting.delete(m.id);
+  } else if (m.e)
+    eventHandlers.get(m.e)?.(...m.p ?? []);
+});
+var settings = defaults();
+var live = { nvidia: false, colorOk: true, gammaOk: true, gammaAccepted: 1, boostOn: false, aspectOn: false, lensError: false, firing: false, zoomOn: false, crosshairVisible: false, rust: false, game: false, front: "", powerError: "" };
+var media = null;
+var lyrics = [];
+var lyricsFor = "";
+var discord = "off";
+var update = { status: "idle" };
+var announcement = null;
+var whatsNew = null;
+var discordUser = null;
+var version = "";
+var recovered = false;
+var primary = { width: 1920, height: 1080, scale: 1 };
+var visible = false;
+var firstRun = false;
+var notice = "";
+var originalMouseSpeed = DEFAULT_MOUSE_SPEED;
+var hudHidden = false;
+var hudMoving = false;
+var resolveReady;
+var ready = new Promise((resolve) => resolveReady = resolve);
+var overlayOpen = new Set;
+var saveTimer = null;
+var settingsText = () => JSON.stringify({ v: CONFIG_VERSION, ...settings }, null, 2);
+var saveNow = () => void host("save", settingsText());
+var BACKUP_KEEP = 20;
+var BACKUP_NAME = /^(\d{4})-(\d\d)-(\d\d)_(\d\d)-(\d\d)-(\d\d)-(\d{3})_([a-z-]+)\.json$/;
+var pad = (n) => String(n).padStart(2, "0");
+var today = () => {
+  const d = new Date;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+};
+async function backupNames() {
+  const all = await host("backups") ?? [];
+  return all.filter((n) => BACKUP_NAME.test(n)).sort().reverse();
+}
+async function makeBackup(reason, text = settingsText()) {
+  const d = new Date;
+  const name = `${today()}_${pad(d.getHours())}-${pad(d.getMinutes())}-${pad(d.getSeconds())}-${String(d.getMilliseconds()).padStart(3, "0")}_${reason}.json`;
+  const ok = await host("backupWrite", name, text);
+  for (const old of (await backupNames()).slice(BACKUP_KEEP))
+    await host("backupDelete", old);
+  return ok ? name : null;
+}
+async function replaceAll(raw, reason) {
+  if (!looksLikeSettings(raw))
+    return "This doesn't look like Ashlight settings.";
+  if (!await makeBackup(reason))
+    return "Couldn't make a backup first, so nothing was changed.";
+  const wasStartup = settings.app.startWithWindows;
+  const social = settings.social;
+  settings = sanitize(migrate(raw));
+  settings = ownSettings();
+  settings.social = social;
+  settings.app.welcomed = true;
+  settings.app.lastVersion = version;
+  if (settings.app.startWithWindows !== wasStartup)
+    host("startup", settings.app.startWithWindows);
+  saveNow();
+  pushSettings();
+  syncCrosshair();
+  syncHud();
+  syncStats();
+  host("discord", settings.discord.enabled, DISCORD_APP_ID);
+  return null;
+}
+function parseSettings(text) {
+  if (typeof text !== "string" || !text.trim() || text.length > 1024 * 1024)
+    return null;
+  try {
+    return JSON.parse(text);
+  } catch {
+    return null;
+  }
+}
+function scheduleSave() {
+  if (saveTimer)
+    clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveNow, 400);
+}
+function pushSettings() {
+  const { image: _image, ...crosshair } = settings.crosshair;
+  host("engine", `settings:${JSON.stringify({ ...settings, crosshair })}`);
+}
+var px = (value) => Math.round(value * primary.scale);
+function cornerPosition(corner, width, height) {
+  const margin = px(HUD_MARGIN);
+  return {
+    x: corner.endsWith("l") ? margin : primary.width - width - margin,
+    y: corner.startsWith("t") ? margin : primary.height - height - margin
+  };
+}
+function openOverlay(kind, page) {
+  if (overlayOpen.has(kind))
+    return;
+  overlayOpen.add(kind);
+  host("overlayCreate", kind, page);
+}
+function closeOverlay(kind) {
+  if (!overlayOpen.delete(kind))
+    return;
+  host("overlayDestroy", kind);
+}
+var sendOverlay = (kind, channel, ...args) => {
+  if (overlayOpen.has(kind))
+    host("overlaySend", kind, JSON.stringify({ c: channel, a: args }));
+};
+function placeCrosshair() {
+  const size = px(OVERLAY_BOX);
+  const x = settings.crosshair;
+  host("overlayPlace", "crosshair", Math.round((primary.width - size) / 2 + px(x.offsetX)), Math.round((primary.height - size) / 2 + px(x.offsetY)), size, size);
+}
+var sendCrosshair = () => sendOverlay("crosshair", "crosshair", settings.crosshair, live.crosshairVisible, live.firing);
+function syncCrosshair() {
+  if (settings.crosshair.enabled) {
+    const fresh = !overlayOpen.has("crosshair");
+    openOverlay("crosshair", "overlay/overlay.html");
+    if (!fresh) {
+      placeCrosshair();
+      sendCrosshair();
+    }
+  } else
+    closeOverlay("crosshair");
+}
+function hudSize() {
+  const h = settings.hud;
+  const scale = h.scale / 100 * primary.scale;
+  const lineHeight = h.lyricSize * 2;
+  const lines = h.showLyrics || h.layout === "lyrics" ? h.lines : 0;
+  const body = lines ? lines * lineHeight + 14 : 0;
+  if (h.layout === "line")
+    return { width: Math.round(620 * scale), height: Math.round(64 * scale) };
+  return { width: Math.round(400 * scale), height: Math.round(((h.layout === "lyrics" ? 16 : 104) + body) * scale) };
+}
+function placeHud() {
+  const size = hudSize();
+  const h = settings.hud;
+  const position2 = h.x >= 0 && h.y >= 0 ? { x: h.x, y: h.y } : cornerPosition(h.corner, size.width, size.height);
+  host("overlayPlace", "hud", position2.x, position2.y, size.width, size.height);
+}
+var sendHud = () => sendOverlay("hud", "hud", settings.hud, media, hudHidden, hudMoving);
+var sendLyrics = () => {
+  sendOverlay("hud", "lyrics", lyrics);
+  emit("lyrics", lyrics);
+};
+function syncHud() {
+  if (settings.hud.enabled) {
+    const fresh = !overlayOpen.has("hud");
+    openOverlay("hud", "hud/hud.html");
+    if (!fresh) {
+      placeHud();
+      sendHud();
+    }
+  } else {
+    closeOverlay("hud");
+    hudMoving = false;
+  }
+  syncMedia();
+}
+function placeStats() {
+  const s = settings.stats;
+  const items = [s.cpu, s.gpu, s.temp, s.ram, s.vram, s.power, s.ping, s.session, s.clock].filter(Boolean).length;
+  const scale = s.scale / 100 * primary.scale;
+  const count = Math.max(1, items);
+  let width, height;
+  if (s.layout === "list") {
+    width = Math.round(190 * scale);
+    height = Math.round((count * (s.meters ? 30 : 22) + 22) * scale);
+  } else if (s.layout === "mini") {
+    width = Math.round(count * 72 * scale + 16);
+    height = Math.round(34 * scale);
+  } else {
+    width = Math.round(count * 74 * scale + 20);
+    height = Math.round((s.meters ? 66 : 58) * scale);
+  }
+  const position2 = cornerPosition(s.corner, width, height);
+  host("overlayPlace", "stats", position2.x, position2.y, width, height);
+}
+function syncStats() {
+  if (false) {} else
+    closeOverlay("stats");
+  syncMonitor();
+}
+var quickOpen = false;
+var QUICK = { width: 320, height: 268 };
+function toggleQuick() {
+  quickOpen = !quickOpen;
+  if (quickOpen)
+    openOverlay("quick", "quick/quick.html");
+  else
+    closeOverlay("quick");
+}
+onHost("quickSet", (message) => {
+  if (!message.path?.startsWith("color.") || typeof message.value !== "number")
+    return;
+  applySetting(message.path, message.value);
+  emit("changed", message.path);
+});
+onHost("overlayReady", (kind) => {
+  if (kind === "quick") {
+    const w = px(QUICK.width), h = px(QUICK.height);
+    host("overlayPlace", "quick", primary.width - w - px(HUD_MARGIN), Math.round((primary.height - h) / 2), w, h);
+    host("overlayInteractive", "quick", true);
+    sendOverlay("quick", "quick", settings.color);
+  }
+  if (kind === "crosshair") {
+    placeCrosshair();
+    sendCrosshair();
+  } else if (kind === "hud") {
+    placeHud();
+    sendHud();
+    sendOverlay("hud", "lyrics", lyrics);
+  } else if (kind === "stats") {
+    placeStats();
+    sendOverlay("stats", "stats", settings.stats);
+  }
+});
+onHost("overlayMoved", (x, y) => {
+  if (!hudMoving)
+    return;
+  settings.hud.x = Math.max(0, x);
+  settings.hud.y = Math.max(0, y);
+  scheduleSave();
+});
+function syncMedia() {
+  const keys = settings.hud.playKey.vk || settings.hud.nextKey.vk || settings.hud.prevKey.vk;
+  host("media", !!(settings.hud.enabled || visible || keys));
+}
+function parseLrc(text) {
+  const lines = [];
+  for (const row of text.split(/\r?\n/)) {
+    const stamps = [...row.matchAll(/\[(\d+):(\d+(?:\.\d+)?)\]/g)];
+    if (stamps.length === 0)
+      continue;
+    const words = row.replace(/\[[^\]]*\]/g, "").trim();
+    for (const s of stamps)
+      lines.push({ time: (Number(s[1]) * 60 + Number(s[2])) * 1000, text: words });
+  }
+  return lines.sort((a, b) => a.time - b.time);
+}
+var lyricCache = new Map;
+async function fetchLyrics(m) {
+  if (lyricCache.size > 60)
+    lyricCache.clear();
+  const id = `${m.artist}|${m.title}`;
+  const cached = lyricCache.get(id);
+  if (cached)
+    return cached;
+  const params = new URLSearchParams({ track_name: m.title, artist_name: m.artist });
+  let synced = "";
+  try {
+    const exact = new URLSearchParams(params);
+    if (m.album)
+      exact.set("album_name", m.album);
+    if (m.duration)
+      exact.set("duration", String(Math.round(m.duration / 1000)));
+    const response = await fetch(`https://lrclib.net/api/get?${exact}`, { signal: AbortSignal.timeout(8000) });
+    if (response.ok)
+      synced = (await response.json()).syncedLyrics ?? "";
+    if (!synced) {
+      const search = await fetch(`https://lrclib.net/api/search?${params}`, { signal: AbortSignal.timeout(8000) });
+      if (search.ok)
+        synced = (await search.json()).find((r) => r.syncedLyrics)?.syncedLyrics ?? "";
+    }
+  } catch {
+    return [];
+  }
+  const lines = parseLrc(synced);
+  lyricCache.set(id, lines);
+  return lines;
+}
+function refreshLyrics() {
+  const id = media ? `${media.artist}|${media.title}` : "";
+  if (id === lyricsFor)
+    return;
+  lyricsFor = id;
+  lyrics = [];
+  sendLyrics();
+  if (media && settings.hud.lyricsOnline) {
+    const asked = id;
+    fetchLyrics(media).then((lines) => {
+      if (lyricsFor !== asked)
+        return;
+      lyrics = lines;
+      sendLyrics();
+    });
+  }
+}
+onHost("media", (raw) => {
+  if (raw.none || !raw.title || /\.localhost$|^https?:/i.test(raw.title))
+    media = null;
+  else {
+    const now = Date.now();
+    const position2 = raw.playing && raw.updated ? raw.position + Math.max(0, now - raw.updated) : raw.position;
+    media = { title: raw.title, artist: raw.artist ?? "", album: raw.album ?? "", playing: !!raw.playing, position: position2, duration: raw.duration ?? 0, at: now, art: raw.art ?? "", source: raw.source ?? "" };
+  }
+  emit("media", media);
+  sendHud();
+  refreshLyrics();
+});
+var syncMonitor = () => void host("monitor", false, "", false);
+onHost("monitor", (m) => {
+  emit("monitor", m);
+  sendOverlay("stats", "monitor", m);
+});
+function setUpdate(next) {
+  update = next;
+  emit("update", update);
+}
+var updateInfo = null;
+var downloadedFile = "";
+var newer = (a, b) => {
+  const x = a.split(".").map(Number), y = b.split(".").map(Number);
+  for (let i = 0;i < 3; i++)
+    if ((x[i] ?? 0) !== (y[i] ?? 0))
+      return (x[i] ?? 0) > (y[i] ?? 0);
+  return false;
+};
+async function checkUpdate() {
+  setUpdate({ status: "checking" });
+  try {
+    const text = await host("fetchText", `${release_config_default.updateUrl}/latest.json`);
+    if (!text)
+      throw new Error("unreachable");
+    updateInfo = JSON.parse(text);
+    if (!updateInfo)
+      return setUpdate({ status: "latest" });
+    if (updateInfo.version === version && settings.app.lastVersion && settings.app.lastVersion !== version && updateInfo.notes) {
+      whatsNew = { version, notes: updateInfo.notes };
+      emit("whatsNew", whatsNew);
+    }
+    if (settings.app.lastVersion !== version) {
+      settings.app.lastVersion = version;
+      scheduleSave();
+    }
+    if (!newer(updateInfo.version, version))
+      return setUpdate({ status: "latest" });
+    setUpdate({ status: "available", version: updateInfo.version, notes: updateInfo.notes });
+    if (!visible)
+      host("notify", `Ashlight ${updateInfo.version} is out`, updateInfo.notes || "Open Ashlight to update.");
+    if (settings.app.autoUpdate)
+      await downloadUpdate();
+  } catch {
+    setUpdate({ status: "error" });
+  }
+}
+async function downloadUpdate() {
+  if (!updateInfo)
+    return;
+  setUpdate({ status: "downloading", version: updateInfo.version, percent: 0 });
+  const file = await host("downloadUpdate", `${release_config_default.updateUrl}/${updateInfo.file}`, updateInfo.sha256);
+  if (!file)
+    return setUpdate({ status: "error" });
+  downloadedFile = file;
+  setUpdate({ status: "ready", version: updateInfo.version, notes: updateInfo.notes });
+}
+var lastAnnounceCheck = 0;
+async function checkAnnouncement() {
+  if (release_config_default.updateUrl.includes("localhost"))
+    return;
+  lastAnnounceCheck = Date.now();
+  const text = await host("fetchText", `${SITE}/announce.json`);
+  let next = null;
+  try {
+    const raw = text ? JSON.parse(text) : null;
+    if (raw && typeof raw.id === "string" && raw.id && typeof raw.title === "string") {
+      const level = ["info", "update", "important"].includes(raw.level) ? raw.level : "info";
+      next = { id: raw.id.slice(0, 64), title: raw.title.slice(0, 80), text: String(raw.text ?? "").slice(0, 600), level };
+      if (typeof raw.url === "string" && /^https:\/\/[^\s]+$/.test(raw.url))
+        next.url = raw.url;
+      if (typeof raw.expires === "string" && Date.parse(raw.expires) < Date.now())
+        next = null;
+    }
+  } catch {
+    next = null;
+  }
+  if (next && next.id === settings.app.seenAnnouncement)
+    next = null;
+  const fresh = !!next && next.id !== announcement?.id;
+  announcement = next;
+  emit("announce", announcement);
+  if (fresh && !visible && next)
+    host("notify", next.title, next.text);
+}
+setInterval(() => void checkAnnouncement(), 30 * 60 * 1000);
+var updateTimer = null;
+function scheduleUpdates() {
+  if (updateTimer)
+    clearInterval(updateTimer);
+  updateTimer = setInterval(() => {
+    if (settings.app.autoUpdate && update.status !== "ready" && update.status !== "downloading")
+      checkUpdate();
+  }, settings.app.updateEveryHours * 3600 * 1000);
+}
+function applySetting(path, value) {
+  const finalValue = typeof value === "number" ? clampSetting(path, value) : value;
+  setPath(settings, path, finalValue);
+  if (path === "color.vibrance" && !settings.color.nvidia) {
+    settings.color.nvidia = true;
+    emit("changed", "color.nvidia");
+  }
+  if (path === "hud.corner") {
+    settings.hud.x = -1;
+    settings.hud.y = -1;
+  }
+  scheduleSave();
+  const forEngine = !/^(ui|discord|stats|library|profile|share|social|games|suggest|decompiler)\./.test(path) && !(path.startsWith("app.") && path !== "app.quickKey") && !(path.startsWith("hud.") && !path.endsWith("Key"));
+  if (forEngine)
+    pushSettings();
+  if (path === "app.startWithWindows")
+    host("startup", !!finalValue);
+  if (path === "app.hideFromCapture")
+    host("overlayHidden", !!finalValue);
+  if (path === "app.updateEveryHours")
+    scheduleUpdates();
+  if (path.startsWith("crosshair."))
+    syncCrosshair();
+  if (path.startsWith("hud.")) {
+    syncHud();
+    if (path === "hud.lyricsOnline" && finalValue) {
+      lyricsFor = "";
+      refreshLyrics();
+    }
+  }
+  if (path.startsWith("stats."))
+    syncStats();
+  if (path.startsWith("discord."))
+    host("discord", settings.discord.enabled, DISCORD_APP_ID);
+}
+function pickReticleImage() {
+  return new Promise((resolve) => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/png,image/webp,image/jpeg,image/gif";
+    input.addEventListener("cancel", () => resolve(null));
+    input.addEventListener("change", () => {
+      const file = input.files?.[0];
+      if (!file)
+        return resolve(null);
+      if (file.size > 2 * 1024 * 1024)
+        return resolve({ error: "Use an image under 2 MB." });
+      const reader = new FileReader;
+      reader.onload = () => resolve({ image: String(reader.result) });
+      reader.onerror = () => resolve({ error: "Could not read that image." });
+      reader.readAsDataURL(file);
+    });
+    input.click();
+  });
+}
+var actions = {
+  windowAction: (action) => {
+    if (action === "minimize")
+      host("minimize");
+    if (action === "maximize")
+      host("maximize");
+    if (action === "close")
+      closeRequested();
+  },
+  openFolder: () => host("openFolder"),
+  openUrl: (url) => host("openUrl", url),
+  resetColor: () => {
+    settings.color = defaults().color;
+    scheduleSave();
+    pushSettings();
+  },
+  resetAll: async () => {
+    await makeBackup("before-reset");
+    if (settings.app.startWithWindows)
+      host("startup", false);
+    const social = settings.social;
+    settings = defaults();
+    settings.social = social;
+    settings.app.lastVersion = version;
+    settings.tools.mouseSpeed = originalMouseSpeed;
+    saveNow();
+    pushSettings();
+    syncCrosshair();
+    syncHud();
+    syncStats();
+    host("discord", settings.discord.enabled, DISCORD_APP_ID);
+    host("windowGlass", false);
+    return settings;
+  },
+  compare: (on) => host("engine", on ? "compare:1" : "compare:0"),
+  capture: (on) => host("engine", on ? "capture:1" : "capture:0"),
+  devices: () => host("devices"),
+  modes: (device) => host("modes", device),
+  applyMode: (device, mode, scaling) => host("applyMode", device, mode, scaling),
+  resetMode: (device) => host("resetMode", device),
+  mediaCommand: (name) => host("mediaCommand", name),
+  hudMove: (on) => {
+    hudMoving = on;
+    host("overlayInteractive", "hud", on);
+    sendHud();
+  },
+  pickReticleImage,
+  flushDns: () => host("flushDns"),
+  pingNow: (target) => host("pingNow", target),
+  listDir: (dir) => host("listDir", dir),
+  readFile: (path) => host("readFile", path),
+  steamPath: () => host("steamPath"),
+  pickExe: () => host("pickExe"),
+  audioPeak: () => host("audioPeak"),
+  pluginsDir: () => host("pluginsDir"),
+  pickPluginManifest: () => host("pickPluginManifest"),
+  pluginOpenFolder: (id) => host("pluginOpenFolder", String(id)),
+  pluginInstall: (id, url) => host("pluginInstall", String(id), String(url)),
+  pluginInstallLocal: (id, folder) => host("pluginInstallLocal", String(id), String(folder)),
+  pluginUninstall: (id) => host("pluginUninstall", String(id)),
+  fetchText: (url) => host("fetchText", String(url)),
+  launch: (target) => host("launch", target),
+  notify: (title, text) => !visible && host("notify", String(title).slice(0, 60), String(text).slice(0, 200)),
+  officialBuild: async () => {
+    const text = await host("fetchText", `${release_config_default.updateUrl}/latest.json`);
+    try {
+      const info = text ? JSON.parse(text) : null;
+      return info ? { version: String(info.version), appSha256: String(info.appSha256 ?? "") } : null;
+    } catch {
+      return null;
+    }
+  },
+  openSettings: (page) => host("openSettings", page),
+  dismissAnnouncement: () => {
+    if (!announcement)
+      return;
+    settings.app.seenAnnouncement = announcement.id;
+    scheduleSave();
+    announcement = null;
+    emit("announce", null);
+  },
+  dismissWhatsNew: () => {
+    whatsNew = null;
+    emit("whatsNew", null);
+  },
+  scanTemp: () => host("scanTemp"),
+  cleanTemp: () => host("cleanTemp"),
+  checkUpdate: () => checkUpdate(),
+  pickBackground: (kind) => host("pickBackground", kind),
+  selfHash: () => host("selfHash"),
+  diagnostics: async () => {
+    const lines = [
+      `Ashlight ${version}`,
+      navigator.userAgent,
+      `Main screen: ${primary.width} x ${primary.height} at ${Math.round(primary.scale * 100)}%`,
+      `NVIDIA vibrance: ${live.nvidia ? "yes" : "no"}`,
+      `Colour layer: ${live.colorOk ? "ok" : "unavailable"}`,
+      `Gamma: ${live.gammaOk ? `ok, ${Math.round(live.gammaAccepted * 100)}% accepted` : "unavailable"}`,
+      `Discord: ${discord}`,
+      `Update check: ${update.status}`,
+      `Overlays open: ${[...overlayOpen].join(", ") || "none"}`,
+      `Recovered from a crash: ${recovered}`
+    ];
+    return lines.join(`
+`);
+  },
+  exportSettings: () => {
+    const own = ownSettings();
+    return JSON.stringify({ ttool: true, v: CONFIG_VERSION, ...own, crosshair: { ...own.crosshair, image: "" }, social: { id: "", secret: "" } }, null, 2);
+  },
+  importSettings: async (text) => {
+    const raw = parseSettings(text);
+    return raw ? replaceAll(raw, "before-import") : "Your clipboard doesn't hold Ashlight settings.";
+  },
+  importFromFile: async () => {
+    const text = await host("importFile");
+    if (text === null)
+      return "cancelled";
+    if (text === "too big")
+      return "That file is too big to be Ashlight settings.";
+    const raw = parseSettings(text);
+    return raw ? replaceAll(raw, "before-import") : "That file isn't Ashlight settings.";
+  },
+  exportToFile: async () => host("exportFile", actions.exportSettings(), `Ashlight settings ${today()}.json`),
+  backups: async () => (await backupNames()).map((name) => {
+    const m = BACKUP_NAME.exec(name);
+    return { name, time: new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6], +m[7]).getTime(), reason: m[8] };
+  }),
+  backupNow: () => makeBackup("manual"),
+  saveProfile: (exe, parts) => {
+    exe = cleanExe(exe);
+    parts = parts.filter((p) => (p in PROFILE_SECTIONS));
+    if (!/^[\w .()+-]{1,60}\.exe$/.test(exe) || !parts.length)
+      return false;
+    if (settings.games.active.exe)
+      switchProfile("");
+    const anySettings = settings;
+    const values = {};
+    for (const k of sectionKeys(parts))
+      values[k] = clone(anySettings[k]);
+    settings.games.profiles = [...settings.games.profiles.filter((p) => p.exe !== exe), { exe, parts, values }];
+    saveNow();
+    emit("games");
+    return true;
+  },
+  deleteProfile: (exe) => {
+    if (settings.games.active.exe === exe)
+      switchProfile("");
+    settings.games.profiles = settings.games.profiles.filter((p) => p.exe !== exe);
+    saveNow();
+    emit("games");
+  },
+  pickGame: async () => {
+    const path = await host("pickExe");
+    return path ? cleanExe(path) : null;
+  },
+  restoreBackup: async (name) => {
+    const raw = parseSettings(await host("backupRead", name));
+    return raw ? replaceAll(raw, "before-restore") : "That backup can't be read.";
+  },
+  deleteBackup: (name) => host("backupDelete", name),
+  installUpdate: () => {
+    if (update.status === "available")
+      downloadUpdate();
+    else if (update.status === "ready" && downloadedFile) {
+      saveNow();
+      host("runUpdate", downloadedFile);
+    }
+  }
+};
+function closeAnimation() {
+  const on = settings.ui.motion && !matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!on)
+    return false;
+  document.body.classList.add("closing");
+  setTimeout(() => document.body.classList.remove("closing"), 400);
+  return true;
+}
+function closeRequested() {
+  const animate = closeAnimation();
+  if (settings.app.closeToTray) {
+    visible = false;
+    host("hide", animate);
+    syncMedia();
+    syncMonitor();
+  } else {
+    saveNow();
+    host("quit", animate);
+  }
+}
+onHost("live", (next) => {
+  const changed = live.crosshairVisible !== next.crosshairVisible || live.firing !== next.firing;
+  const frontChanged = live.front !== next.front || live.game !== next.game;
+  live = next;
+  emit("live", live);
+  if (changed)
+    sendCrosshair();
+  if (frontChanged)
+    onFront(next.front ?? "", !!next.game);
+});
+var clone = (v) => JSON.parse(JSON.stringify(v));
+var sectionKeys = (parts) => parts.flatMap((p) => [...PROFILE_SECTIONS[p]?.keys ?? []]);
+var cleanExe = (exe) => exe.trim().toLowerCase().replace(/^.*[\\/]/, "");
+var frontTimer = null;
+function onFront(exe, game) {
+  exe = cleanExe(exe);
+  if (game && exe && exe !== "ashlight.exe" && exe !== "explorer.exe" && !settings.games.seen.includes(exe)) {
+    settings.games.seen = [exe, ...settings.games.seen].slice(0, 8);
+    scheduleSave();
+    emit("games");
+  }
+  if (frontTimer)
+    clearTimeout(frontTimer);
+  frontTimer = setTimeout(() => {
+    const want = settings.games.auto && settings.games.profiles.some((p) => p.exe === exe) ? exe : "";
+    if (want !== settings.games.active.exe)
+      switchProfile(want);
+  }, 700);
+}
+function switchProfile(exe) {
+  const active = settings.games.active;
+  const anySettings = settings;
+  if (active.exe) {
+    for (const [k, v] of Object.entries(active.base))
+      if (k in anySettings)
+        anySettings[k] = clone(v);
+    settings.games.active = { exe: "", base: {} };
+  }
+  const profile = settings.games.profiles.find((p) => p.exe === exe);
+  if (profile) {
+    const base = {};
+    const cleaned = sanitize(clone(profile.values));
+    for (const k of sectionKeys(profile.parts)) {
+      base[k] = clone(anySettings[k]);
+      anySettings[k] = cleaned[k];
+    }
+    settings.games.active = { exe, base };
+  }
+  saveNow();
+  pushSettings();
+  syncCrosshair();
+  emit("profile", settings.games.active.exe);
+}
+function restoreAfterCrash() {
+  if (!settings.games.active.exe)
+    return;
+  settings = ownSettings();
+  saveNow();
+}
+function ownSettings() {
+  const own = clone(settings);
+  const anyOwn = own;
+  for (const [k, v] of Object.entries(own.games.active.base))
+    if (k in anyOwn && k !== "games")
+      anyOwn[k] = v;
+  own.games.active = { exe: "", base: {} };
+  return own;
+}
+onHost("hotkey", (name) => {
+  if (name === "hudToggle") {
+    hudHidden = !hudHidden;
+    sendHud();
+  } else if (name === "quick")
+    toggleQuick();
+  else
+    host("mediaCommand", name);
+});
+onHost("discordReady", (ready2) => {
+  const u = ready2?.data?.user;
+  if (!u || !/^\d{5,22}$/.test(String(u.id)))
+    return;
+  const avatar = typeof u.avatar === "string" && /^[a-z0-9_]{6,64}$/i.test(u.avatar) ? `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png?size=128` : "";
+  discordUser = { name: String(u.global_name || u.username || "").slice(0, 40), avatar };
+  emit("discordUser", discordUser);
+});
+onHost("discord", (status) => {
+  discord = status;
+  emit("discord", status);
+});
+onHost("closeRequested", closeRequested);
+onHost("windowShown", () => {
+  visible = true;
+  if (Date.now() - lastAnnounceCheck > 5 * 60 * 1000)
+    checkAnnouncement();
+  syncMedia();
+  syncMonitor();
+});
+onHost("displayChanged", (next) => {
+  primary = next;
+  if (overlayOpen.has("crosshair"))
+    placeCrosshair();
+  if (overlayOpen.has("hud"))
+    placeHud();
+  if (overlayOpen.has("stats"))
+    placeStats();
+});
+onHost("engineReady", (info) => {
+  recovered = info.recovered;
+  originalMouseSpeed = clampSetting("tools.mouseSpeed", info.mouseSpeed);
+  if (firstRun) {
+    settings.color.vibrance = info.vibrancePercent;
+    settings.tools.mouseSpeed = originalMouseSpeed;
+  }
+  pushSettings();
+  syncCrosshair();
+  syncHud();
+  syncStats();
+  host("discord", settings.discord.enabled, DISCORD_APP_ID);
+  resolveReady();
+});
+var bridge = {
+  get: async () => {
+    await ready;
+    const shown = notice;
+    notice = "";
+    return { settings, live, version, recovered, media, lyrics, discord, update, announcement, whatsNew, discordUser, notice: shown };
+  },
+  set: applySetting,
+  call: async (action, ...args) => actions[action]?.(...args),
+  on: (channel, fn) => {
+    if (!listeners.has(channel))
+      listeners.set(channel, []);
+    listeners.get(channel).push(fn);
+  }
+};
+window.ttool = bridge;
+addEventListener("mousedown", (e) => {
+  if (e.button !== 0)
+    return;
+  const target = e.target;
+  if (target.closest("button, a, input, select, label, nav") || !target.closest(".titlebar, .side"))
+    return;
+  host("drag");
+});
+async function bootCore() {
+  const boot = await host("boot");
+  version = boot.version;
+  primary = boot.primary;
+  firstRun = boot.settings === null;
+  let upgraded = false;
+  if (!firstRun) {
+    const raw = parseSettings(boot.settings);
+    if (raw && typeof raw === "object") {
+      upgraded = raw.v !== CONFIG_VERSION || raw.app?.lastVersion !== version;
+      settings = sanitize(migrate(raw));
+    } else {
+      settings = defaults();
+      settings.app.welcomed = true;
+      notice = "Your settings file couldn't be read, so Ashlight started fresh. The old file is saved in Settings, Backups.";
+      makeBackup("unreadable", String(boot.settings));
+    }
+  } else {
+    settings.app.welcomed = false;
+    settings.app.lastVersion = version;
+  }
+  settings.games.profiles = (Array.isArray(settings.games.profiles) ? settings.games.profiles : []).filter((p) => p && typeof p.exe === "string" && Array.isArray(p.parts) && p.values && typeof p.values === "object").map((p) => ({ exe: cleanExe(p.exe), parts: p.parts.filter((x) => (x in PROFILE_SECTIONS)), values: p.values })).slice(0, 50);
+  settings.games.seen = settings.games.seen.filter((x) => typeof x === "string").slice(0, 8);
+  settings.hud.enabled = false;
+  settings.aspect.enabled = false;
+  restoreAfterCrash();
+  await ready;
+  if (!firstRun)
+    (async () => {
+      if (upgraded) {
+        await makeBackup("before-update", String(boot.settings));
+        saveNow();
+      } else if (!(await backupNames()).some((n) => n.startsWith(today())))
+        await makeBackup("daily");
+    })();
+  host("overlayHidden", settings.app.hideFromCapture);
+  if (!settings.share.server)
+    settings.share.server = SHARE_SERVER;
+  scheduleUpdates();
+  if (!boot.hidden && !settings.app.startMinimized) {
+    visible = true;
+    host("show");
+  }
+  syncMedia();
+  syncMonitor();
+  if (!release_config_default.updateUrl.includes("localhost")) {
+    checkUpdate();
+    checkAnnouncement();
+  }
+}
+
+// src/shared/reticle.ts
+function drawReticle(ctx, cx, cy, r, scale, image, spread = 0) {
+  const size = r.size * scale * (1 + 0.18 * spread);
+  const t = Math.max(1, Math.round(r.thickness * scale));
+  const gap = r.gap * scale + spread * (r.size * 0.55 + 3) * scale;
+  const strokes = new Path2D;
+  const fills = new Path2D;
+  const bar = (x, y, w, h) => fills.rect(Math.round(x), Math.round(y), Math.round(w), Math.round(h));
+  const arms = (top, length = size, g = gap) => {
+    bar(cx - g - length, cy - t / 2, length, t);
+    bar(cx + g, cy - t / 2, length, t);
+    bar(cx - t / 2, cy + g, t, length);
+    if (top)
+      bar(cx - t / 2, cy - g - length, t, length);
+  };
+  const dot = (radius) => {
+    fills.moveTo(cx + radius, cy);
+    fills.arc(cx, cy, radius, 0, Math.PI * 2);
+  };
+  const ring = (radius) => {
+    strokes.moveTo(cx + radius, cy);
+    strokes.arc(cx, cy, radius, 0, Math.PI * 2);
+  };
+  switch (r.style) {
+    case "rustholo":
+      ring(size);
+      dot(Math.max(1.2 * scale, t * 0.8));
+      for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        strokes.moveTo(cx + dx * size, cy + dy * size);
+        strokes.lineTo(cx + dx * size * 0.72, cy + dy * size * 0.72);
+      }
+      break;
+    case "rustdot":
+      dot(Math.max(1, size / 6));
+      break;
+    case "rustcross":
+      arms(true, size * 0.45, Math.max(gap, 2 * scale));
+      break;
+    case "holo":
+      ring(size);
+      dot(Math.max(1.2 * scale, t * 0.9));
+      break;
+    case "dot":
+      dot(Math.max(1, size / 4));
+      break;
+    case "cross":
+      arms(true);
+      break;
+    case "crossdot":
+      arms(true);
+      dot(t * 0.75);
+      break;
+    case "tee":
+      arms(false);
+      break;
+    case "ring":
+      ring(size);
+      break;
+    case "chevron":
+      strokes.moveTo(cx - size, cy + size * 0.8);
+      strokes.lineTo(cx, cy + gap * 0.25);
+      strokes.lineTo(cx + size, cy + size * 0.8);
+      break;
+    case "triangle":
+      strokes.moveTo(cx, cy - size);
+      strokes.lineTo(cx + size * 0.87, cy + size * 0.5);
+      strokes.lineTo(cx - size * 0.87, cy + size * 0.5);
+      strokes.closePath();
+      break;
+    case "x":
+      for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        const k = Math.SQRT1_2;
+        strokes.moveTo(cx + dx * gap * k, cy + dy * gap * k);
+        strokes.lineTo(cx + dx * (gap + size) * k, cy + dy * (gap + size) * k);
+      }
+      break;
+    case "square":
+      strokes.rect(cx - size * 0.7, cy - size * 0.7, size * 1.4, size * 1.4);
+      dot(Math.max(1, t * 0.8));
+      break;
+    case "diamond":
+      strokes.moveTo(cx, cy - size);
+      strokes.lineTo(cx + size, cy);
+      strokes.lineTo(cx, cy + size);
+      strokes.lineTo(cx - size, cy);
+      strokes.closePath();
+      dot(Math.max(1, t * 0.8));
+      break;
+    case "brackets": {
+      const e = size * 0.9, l = size * 0.45;
+      for (const [dx, dy] of [[1, 1], [-1, 1], [1, -1], [-1, -1]]) {
+        strokes.moveTo(cx + dx * e, cy + dy * (e - l));
+        strokes.lineTo(cx + dx * e, cy + dy * e);
+        strokes.lineTo(cx + dx * (e - l), cy + dy * e);
+      }
+      dot(Math.max(1, t * 0.7));
+      break;
+    }
+    case "ringcross":
+      ring(size);
+      arms(true, size * 0.55, Math.max(gap, size * 0.35));
+      break;
+    case "sniper": {
+      const long = size * 2.6;
+      const thin = Math.max(1, Math.round(t * 0.6));
+      fills.rect(Math.round(cx - long), Math.round(cy - thin / 2), Math.round(long * 2), thin);
+      fills.rect(Math.round(cx - thin / 2), Math.round(cy - long), thin, Math.round(long * 2));
+      for (let i = 1;i <= 3; i++) {
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+          const px2 = cx + dx * i * size * 0.7, py = cy + dy * i * size * 0.7;
+          fills.moveTo(px2 + t * 0.9, py);
+          fills.arc(px2, py, Math.max(1.2, t * 0.9), 0, Math.PI * 2);
+        }
+      }
+      break;
+    }
+    case "image":
+      break;
+  }
+  ctx.save();
+  if (r.cover > 0) {
+    ctx.fillStyle = r.coverColor;
+    ctx.beginPath();
+    ctx.arc(cx, cy, r.cover * scale, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  ctx.globalAlpha = r.opacity / 100;
+  if (r.style === "image") {
+    if (image?.complete && image.naturalWidth > 0) {
+      const box = size * 2;
+      const ratio = image.naturalWidth / image.naturalHeight;
+      const w = ratio >= 1 ? box : box * ratio;
+      const h = ratio >= 1 ? box / ratio : box;
+      ctx.imageSmoothingQuality = "high";
+      ctx.drawImage(image, cx - w / 2, cy - h / 2, w, h);
+    }
+    ctx.restore();
+    return;
+  }
+  ctx.lineWidth = t;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+  if (r.outline) {
+    ctx.strokeStyle = "rgba(0,0,0,0.85)";
+    ctx.lineWidth = t + 2 * scale;
+    ctx.stroke(strokes);
+    ctx.lineWidth = 2 * scale;
+    ctx.stroke(fills);
+    ctx.lineWidth = t;
+  }
+  ctx.strokeStyle = r.color;
+  ctx.fillStyle = r.color;
+  if (r.glow > 0) {
+    ctx.shadowColor = r.color;
+    ctx.shadowBlur = r.glow / 100 * 14 * scale;
+  }
+  ctx.stroke(strokes);
+  ctx.fill(fills);
+  ctx.restore();
+}
+
+// src/renderer/app.ts
+var api = window.ttool;
+var settings2;
+var live2;
+var media2 = null;
+var lyrics2 = [];
+var discordStatus = "off";
+var updateState = { status: "idle" };
+var version2 = "";
+var announcement2 = null;
+var whatsNew2 = null;
+var discordUser2 = null;
+function h(tag, props = {}, ...children) {
+  const el2 = document.createElement(tag);
+  for (const [key2, value] of Object.entries(props)) {
+    if (key2 === "class")
+      el2.className = String(value);
+    else if (key2 === "tip")
+      el2.dataset.tip = String(value);
+    else if (key2.startsWith("on"))
+      el2.addEventListener(key2.slice(2), value);
+    else if (key2.startsWith("aria-") || key2 === "role")
+      el2.setAttribute(key2, String(value));
+    else
+      el2[key2] = value;
+  }
+  for (const child of children)
+    if (child)
+      el2.append(child);
+  return el2;
+}
+var icon = (node) => {
+  const svg = createElement(node);
+  svg.classList.add("lucide");
+  return svg;
+};
+var card = (title, ic, ...children) => h("section", { class: "card" }, title ? h("h2", { class: "card-title" }, ic && icon(ic), title) : null, ...children);
+var head = (title, ...actions2) => h("div", { class: "page-head" }, h("h1", {}, title), actions2.length ? h("div", { class: "spread" }, ...actions2) : null);
+var grid = (...children) => h("div", { class: "grid" }, ...children);
+var stack = (...children) => h("div", { class: "stack" }, ...children);
+var watchers = new Map;
+var watch = (path, fn) => {
+  if (!watchers.has(path))
+    watchers.set(path, new Set);
+  watchers.get(path).add(fn);
+};
+var notify = (path) => watchers.get(path)?.forEach((fn) => fn());
+var queued = new Map;
+var flushing = false;
+function set(path, value) {
+  setPath(settings2, path, value);
+  notify(path);
+  queued.set(path, value);
+  if (!flushing) {
+    flushing = true;
+    requestAnimationFrame(() => {
+      flushing = false;
+      queued.forEach((v, p) => api.set(p, v));
+      queued.clear();
+    });
+  }
+}
+function toast(text) {
+  const el2 = document.getElementById("toast");
+  el2.textContent = text;
+  el2.classList.add("show");
+  clearTimeout(el2.timer);
+  el2.timer = setTimeout(() => el2.classList.remove("show"), 2600);
+}
+function slider(path, title, opts = {}) {
+  const [min, max, step] = RANGES[path];
+  const reset = getPath(defaults(), path);
+  const format = (v) => v.toFixed(opts.decimals ?? 0) + (opts.unit ?? "");
+  const value = h("span", { class: "value" });
+  const input = h("input", { type: "range", min, max, step, "aria-label": title });
+  const paint = () => {
+    const v = Number(input.value);
+    value.textContent = (min < 0 && v > 0 ? "+" : "") + format(v);
+    const pos = (v - min) / (max - min) * 100;
+    const zero = min < 0 ? (0 - min) / (max - min) * 100 : 0;
+    input.style.setProperty("--a", `${Math.min(pos, zero)}%`);
+    input.style.setProperty("--b", `${Math.max(pos, zero)}%`);
+  };
+  const load = () => {
+    input.value = String(getPath(settings2, path));
+    paint();
+  };
+  load();
+  watch(path, load);
+  input.addEventListener("input", () => {
+    paint();
+    set(path, Number(input.value));
+    opts.onChange?.();
+  });
+  input.addEventListener("dblclick", () => {
+    set(path, reset);
+    opts.onChange?.();
+  });
+  value.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (value.querySelector("input"))
+      return;
+    let finished = false;
+    const field = h("input", { class: "value-edit", value: String(Number(input.value)), inputMode: "decimal", "aria-label": `${title} value` });
+    const done = (keep) => {
+      if (finished)
+        return;
+      finished = true;
+      const n = Number(field.value.replace(",", ".").replace(/[^\d.+-]/g, ""));
+      if (keep && field.value.trim() !== "" && Number.isFinite(n)) {
+        const v = Math.min(max, Math.max(min, Math.round(n / step) * step));
+        set(path, Number(v.toFixed(6)));
+        opts.onChange?.();
+      }
+      paint();
+    };
+    field.addEventListener("keydown", (k) => {
+      k.stopPropagation();
+      if (k.key === "Enter")
+        done(true);
+      if (k.key === "Escape")
+        done(false);
+    });
+    field.addEventListener("blur", () => done(true));
+    field.addEventListener("click", (c) => c.preventDefault());
+    value.replaceChildren(field);
+    field.focus();
+    field.select();
+  });
+  return h("label", { class: `slider${opts.hero ? " hero" : ""}`, tip: `${opts.tip ? `${opts.tip} ` : ""}Click the number to type one. Double-click the slider to reset.` }, h("div", { class: "top" }, h("span", {}, title), opts.hero ? opts.marks ? h("small", {}, opts.marks) : null : value), opts.hero ? h("div", { class: "hero-value" }, value) : null, input);
+}
+function toggle(path, title, onChange) {
+  const button = h("button", { class: "switch", role: "switch", "aria-label": title });
+  const load = () => button.setAttribute("aria-checked", String(getPath(settings2, path)));
+  load();
+  watch(path, load);
+  button.addEventListener("click", () => {
+    set(path, !getPath(settings2, path));
+    onChange?.();
+  });
+  return button;
+}
+var labeledToggle = (path, title) => h("span", { class: "inline-toggle" }, toggle(path, title), h("span", {}, title));
+var rowOf = (title, tip, control, ic) => h("div", { class: `row${tip ? " tipped" : ""}`, ...tip ? { tip } : {} }, h("div", { class: "row-label" }, ic && icon(ic), h("span", {}, title)), control);
+var toggleRow = (path, title, tip, onChange, ic) => rowOf(title, tip, toggle(path, title, onChange), ic);
+function segmented(path, options, onChange) {
+  const thumb = h("span", { class: "thumb" });
+  const root = h("div", { class: "seg", role: "radiogroup" }, thumb);
+  const buttons = options.map(([value, text]) => {
+    const b = h("button", { role: "radio", onclick: () => {
+      set(path, value);
+      onChange?.();
+    } }, text);
+    root.append(b);
+    return b;
+  });
+  const paint = () => {
+    const index = options.findIndex(([v]) => v === getPath(settings2, path));
+    buttons.forEach((b, i) => {
+      b.classList.toggle("on", i === index);
+      b.setAttribute("aria-checked", String(i === index));
+    });
+    thumb.style.width = `calc((100% - 6px) / ${options.length})`;
+    thumb.style.transform = `translateX(${index * 100}%)`;
+  };
+  paint();
+  watch(path, paint);
+  return root;
+}
+function chips(path, options) {
+  const root = h("div", { class: "chips" });
+  const buttons = options.map(([value, text, tip]) => {
+    const b = h("button", { class: "chip", tip, onclick: () => set(path, value) }, text);
+    b.dataset.v = value;
+    root.append(b);
+    return b;
+  });
+  const paint = () => buttons.forEach((b) => b.classList.toggle("on", b.dataset.v === getPath(settings2, path)));
+  paint();
+  watch(path, paint);
+  return root;
+}
+var KEY_NAMES = {
+  ShiftLeft: "Left Shift",
+  ShiftRight: "Right Shift",
+  ControlLeft: "Left Ctrl",
+  ControlRight: "Right Ctrl",
+  AltLeft: "Left Alt",
+  AltRight: "Right Alt",
+  Space: "Space",
+  Backquote: "`",
+  Minus: "-",
+  Equal: "=",
+  BracketLeft: "[",
+  BracketRight: "]",
+  Backslash: "\\",
+  Semicolon: ";",
+  Quote: "'",
+  Comma: ",",
+  Period: ".",
+  Slash: "/",
+  ArrowUp: "Up",
+  ArrowDown: "Down",
+  ArrowLeft: "Left",
+  ArrowRight: "Right",
+  CapsLock: "Caps Lock",
+  Enter: "Enter",
+  Tab: "Tab",
+  Insert: "Insert",
+  Home: "Home",
+  End: "End",
+  PageUp: "Page Up",
+  PageDown: "Page Down"
+};
+var keyName = (e) => {
+  const code = e.code;
+  if (KEY_NAMES[code])
+    return KEY_NAMES[code];
+  if (code.startsWith("Key"))
+    return code.slice(3);
+  if (code.startsWith("Digit"))
+    return code.slice(5);
+  if (code.startsWith("Numpad"))
+    return `Num ${code.slice(6).replace("Decimal", ".").replace("Add", "+").replace("Subtract", "-").replace("Multiply", "*").replace("Divide", "/")}`;
+  return code.replace(/([a-z])([A-Z])/g, "$1 $2") || e.key;
+};
+var MOUSE = {
+  1: { vk: 4, name: "Middle mouse" },
+  2: { vk: 2, name: "Right mouse" },
+  3: { vk: 5, name: "Mouse 4" },
+  4: { vk: 6, name: "Mouse 5" }
+};
+var KEYBINDS = [
+  ["crosshair.aimKey", "Crosshair aim"],
+  ["crosshair.toggleKey", "Crosshair toggle"],
+  ["hud.playKey", "Play or pause"],
+  ["hud.nextKey", "Next track"],
+  ["hud.prevKey", "Previous track"],
+  ["app.quickKey", "Quick panel"],
+  ["macro.key", "Edit Macro"],
+  ["macro.gameKey", "Edit Macro: game key"]
+];
+var NONE = { vk: 0, name: "None" };
+function keyButton(path) {
+  const cap = h("span", { class: "keycap" });
+  const hint = h("span", { class: "key-hint" });
+  const button = h("button", { class: "btn key", tip: "Click, then press a key or mouse button. Esc clears it so you can press a new one." }, icon(Keyboard), cap, hint);
+  let listening = false;
+  let swallowClick = false;
+  let timer = null;
+  const show = () => {
+    const k = getPath(settings2, path);
+    cap.textContent = k.vk ? k.name : listening ? "None" : "Not set";
+    button.classList.toggle("unset", !k.vk);
+    hint.textContent = listening ? "Press a key" : "";
+  };
+  const stop = () => {
+    if (!listening)
+      return;
+    listening = false;
+    if (timer)
+      clearTimeout(timer);
+    button.classList.remove("listening");
+    removeEventListener("keydown", onKey, true);
+    removeEventListener("keyup", onKeyUp, true);
+    removeEventListener("mousedown", onMouse, true);
+    removeEventListener("mouseup", block, true);
+    removeEventListener("auxclick", block, true);
+    removeEventListener("blur", stop);
+    api.call("capture", false);
+    show();
+  };
+  const wait = () => {
+    if (timer)
+      clearTimeout(timer);
+    timer = setTimeout(stop, 1e4);
+  };
+  const bind = (key2) => {
+    for (const [other, label] of KEYBINDS) {
+      if (other !== path && getPath(settings2, other).vk === key2.vk) {
+        set(other, { ...NONE });
+        toast(`${key2.name} was on ${label}, so that one is now unset.`);
+      }
+    }
+    set(path, key2);
+    stop();
+  };
+  const block = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const onKey = (e) => {
+    block(e);
+    if (e.repeat || e.code === "PrintScreen")
+      return;
+    if (e.code === "Escape" || e.code === "Backspace" || e.code === "Delete") {
+      set(path, { ...NONE });
+      show();
+      wait();
+      return;
+    }
+    bind({ vk: e.keyCode, name: keyName(e) });
+  };
+  const onKeyUp = (e) => {
+    if (e.code !== "PrintScreen")
+      return;
+    block(e);
+    bind({ vk: 44, name: "Print Screen" });
+  };
+  const onMouse = (e) => {
+    if (e.button === 0) {
+      if (button.contains(e.target)) {
+        block(e);
+        swallowClick = true;
+      }
+      stop();
+      return;
+    }
+    block(e);
+    const key2 = MOUSE[e.button];
+    if (key2)
+      bind(key2);
+  };
+  button.addEventListener("contextmenu", (e) => e.preventDefault());
+  button.addEventListener("click", () => {
+    if (swallowClick) {
+      swallowClick = false;
+      return;
+    }
+    if (listening)
+      return;
+    listening = true;
+    button.classList.add("listening");
+    show();
+    api.call("capture", true);
+    addEventListener("keydown", onKey, true);
+    addEventListener("keyup", onKeyUp, true);
+    addEventListener("mousedown", onMouse, true);
+    addEventListener("mouseup", block, true);
+    addEventListener("auxclick", block, true);
+    addEventListener("blur", stop);
+    wait();
+  });
+  show();
+  watch(path, show);
+  return button;
+}
+function swatches(path, colors, onChange) {
+  const root = h("div", { class: "swatches" });
+  const custom = h("input", { type: "color", class: "color-input", tip: "Pick any colour", "aria-label": "Custom colour" });
+  const paint = () => {
+    const current = String(getPath(settings2, path)).toLowerCase();
+    root.querySelectorAll(".swatch").forEach((s) => s.classList.toggle("on", s.dataset.c === current));
+    custom.value = current;
+  };
+  const pick = (color) => {
+    set(path, color);
+    onChange?.();
+  };
+  for (const color of colors) {
+    const s = h("button", { class: "swatch", "aria-label": `Colour ${color}`, onclick: () => pick(color) });
+    s.dataset.c = color;
+    s.style.setProperty("--c", color);
+    root.append(s);
+  }
+  custom.addEventListener("input", () => pick(custom.value));
+  root.append(colorPicker(custom));
+  paint();
+  watch(path, paint);
+  return root;
+}
+var position2 = () => {
+  if (!media2)
+    return 0;
+  return media2.position + (media2.playing ? Date.now() - media2.at : 0);
+};
+function featureTile(path, name, ic, tip) {
+  const state = h("small", {});
+  const b = h("button", { class: "tile", tip, onclick: () => set(path, !getPath(settings2, path)) }, h("span", { class: "tile-icon" }, icon(ic)), h("span", { class: "tile-text" }, h("b", {}, name), state));
+  const load = () => {
+    const on = !!getPath(settings2, path);
+    b.setAttribute("aria-pressed", String(on));
+    state.textContent = on ? "On" : "Off";
+  };
+  load();
+  watch(path, load);
+  return b;
+}
+var notice2 = (ic, title, text, action, kind = "") => h("section", { class: `card notice ${kind}` }, h("span", { class: "notice-icon" }, icon(ic)), h("div", { class: "notice-text" }, h("b", {}, title), text ? h("p", {}, text) : null), action);
+function notices() {
+  const root = h("div", { class: "notices" });
+  const paint = () => {
+    const items = [];
+    const u = updateState;
+    if (u.status === "available" || u.status === "downloading" || u.status === "ready") {
+      const button = h("button", { class: "btn primary", onclick: () => void api.call("installUpdate") }, u.status === "ready" ? "Restart and update" : u.status === "available" ? "Update" : `Downloading`);
+      button.disabled = u.status === "downloading";
+      items.push(notice2(Download, `Ashlight ${u.version} ${u.status === "ready" ? "is ready to install" : "is out"}`, u.notes ?? "", button));
+    }
+    if (whatsNew2)
+      items.push(notice2(Sparkles, `New in ${whatsNew2.version}`, whatsNew2.notes, h("button", { class: "btn icon", "aria-label": "Dismiss", onclick: () => void api.call("dismissWhatsNew") }, icon(X))));
+    const a = announcement2;
+    if (a) {
+      items.push(notice2(a.level === "update" ? Download : a.level === "important" ? Info : Megaphone, a.title, a.text, h("div", { class: "spread" }, a.url ? h("button", { class: "btn", onclick: () => void api.call("openUrl", a.url) }, "Open", icon(ArrowRight)) : null, h("button", { class: "btn icon", "aria-label": "Dismiss", onclick: () => void api.call("dismissAnnouncement") }, icon(X))), a.level));
+    }
+    root.replaceChildren(...items);
+  };
+  paint();
+  updateListeners.add(paint);
+  announceListeners.add(paint);
+  return root;
+}
+function homePage() {
+  const bg = h("img", { class: "player-bg", alt: "" });
+  const art2 = h("img", { class: "player-art", alt: "" });
+  const title = h("div", { class: "player-title" });
+  const sub = h("div", { class: "player-sub" });
+  const lyric = h("div", { class: "player-lyric" });
+  const playIcon = h("span", { style: "display:contents" });
+  const update2 = () => {
+    title.textContent = media2?.title || "Nothing playing";
+    sub.textContent = media2 ? media2.artist : "Play something in Spotify or any music app";
+    if (media2?.art) {
+      art2.src = bg.src = media2.art;
+      bg.classList.add("on");
+      art2.style.display = "";
+    } else {
+      bg.classList.remove("on");
+      art2.style.display = "none";
+    }
+    playIcon.replaceChildren(icon(media2?.playing ? Pause : Play));
+  };
+  update2();
+  mediaListeners.add(update2);
+  homeTimer = setInterval(() => {
+    if (!media2 || lyrics2.length === 0) {
+      lyric.textContent = "";
+      return;
+    }
+    const t = position2() + settings2.hud.lyricOffset;
+    let current = "";
+    for (const line of lyrics2) {
+      if (line.time <= t)
+        current = line.text;
+      else
+        break;
+    }
+    if (lyric.textContent !== current)
+      lyric.textContent = current;
+  }, 250);
+  const controls = h("div", { class: "spread" }, h("button", { class: "btn icon", "aria-label": "Previous", onclick: () => void api.call("mediaCommand", "prev") }, icon(SkipBack)), h("button", { class: "btn icon primary", "aria-label": "Play or pause", onclick: () => void api.call("mediaCommand", "play") }, playIcon), h("button", { class: "btn icon", "aria-label": "Next", onclick: () => void api.call("mediaCommand", "next") }, icon(SkipForward)));
+  const greeting = h("h1", {});
+  const paintGreeting = () => {
+    const hour = new Date().getHours();
+    const part = hour < 5 ? "Good night" : hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
+    greeting.textContent = settings2.profile.name ? `${part}, ${settings2.profile.name}` : "Home";
+  };
+  paintGreeting();
+  watch("profile.name", paintGreeting);
+  return [
+    h("div", { class: "page-head" }, greeting),
+    stack(notices(), h("section", { class: "card player" }, bg, art2, h("div", { class: "player-meta" }, title, sub, lyric), controls), h("div", { class: "tiles" }, featureTile("crosshair.enabled", "Crosshair", Crosshair, "Your reticle on top of the game."), featureTile("macro.enabled", "Edit Macro", Gamepad2, "Holds a click for you while you hold a key. Some games ban for this."), featureTile("tools.keepAwake", "Keep Awake", SunMedium, "No sleep or screen-off while Ashlight runs.")))
+  ];
+}
+function colorPage() {
+  return [
+    head("Colour", (() => {
+      const compare = h("button", { class: "btn", tip: "Hold to see your picture without Ashlight." }, icon(Layers), "Compare");
+      compare.addEventListener("pointerdown", (e) => {
+        compare.setPointerCapture(e.pointerId);
+        api.call("compare", true);
+      });
+      for (const end of ["pointerup", "pointercancel", "lostpointercapture"])
+        compare.addEventListener(end, () => void api.call("compare", false));
+      return compare;
+    })(), h("button", { class: "btn", onclick: () => {
+      settings2.color = defaults().color;
+      api.call("resetColor");
+      for (const key2 of Object.keys(settings2.color))
+        notify(`color.${key2}`);
+    } }, icon(RotateCcw), "Reset")),
+    h("div", { class: "grid hero-row" }, h("section", { class: "card" }, slider("color.saturation", "Saturation", { unit: "%", hero: true, marks: "100 is normal", tip: "100 is the picture as it is. 0 is black and white." })), h("section", { class: "card" }, slider("color.vibrance", "Vibrance", { unit: "%", hero: true, marks: "Past 100 adds software boost", tip: "Uses NVIDIA's own control up to 100. Past that, it continues as extra saturation.", onChange: () => !settings2.color.nvidia && set("color.nvidia", true) }), toggleRow("color.nvidia", "Control NVIDIA vibrance", "Off leaves your NVIDIA setting exactly as it is. Moving the slider turns this on."))),
+    h("div", { class: "grid gap" }, stack(card("Light", SunMedium, h("div", { class: "pair" }, slider("color.brightness", "Brightness"), slider("color.contrast", "Contrast", { unit: "%" }), slider("color.gamma", "Gamma", { decimals: 2, tip: "Above 1 lifts mid-tones, below 1 deepens them." }), slider("color.shadows", "Shadows", { tip: "Plus lifts dark areas, minus deepens them." }), slider("color.highlights", "Highlights", { tip: "Minus brings back bright areas, plus makes them brighter." }), slider("color.blacks", "Blacks", { tip: "Plus raises the darkest parts, minus crushes them." }), slider("color.whites", "Whites", { tip: "Plus pushes the brightest parts up, minus pulls them down." }))), card("Colour", Palette, h("div", { class: "pair" }, slider("color.temperature", "Temperature", { tip: "Minus is cooler and bluer, plus is warmer and more orange." }), slider("color.tint", "Tint", { tip: "Minus is greener, plus is more magenta." }), slider("color.shadowTint", "Shadow tint", { tip: "Colours only the dark areas. Minus is cool, plus is warm." }), slider("color.highlightTint", "Highlight tint", { tip: "Colours only the bright areas. Minus is cool, plus is warm." }), slider("color.hue", "Hue", { unit: "°", tip: "Rotates every colour around the wheel." })))), stack(card("Red, green, blue", SlidersVertical, slider("color.red", "Red", { unit: "%" }), slider("color.green", "Green", { unit: "%" }), slider("color.blue", "Blue", { unit: "%" })), card("Filter", Sparkles, chips("color.filter", [
+      ["none", "None", "No filter."],
+      ["protan", "Protan", "Helps red-weak colour vision."],
+      ["deutan", "Deutan", "Helps green-weak colour vision."],
+      ["tritan", "Tritan", "Helps blue-weak colour vision."],
+      ["gray", "Mono", "Black and white."],
+      ["sepia", "Sepia", "Warm vintage tone."],
+      ["invert", "Invert", "Flips all colours."]
+    ]), h("div", { class: "gap" }), h("div", { class: "strip rainbow" }), h("div", { class: "strip steps", tip: "Every step should be visible without the black looking washed out." }, ...["#000", "#050505", "#0a0a0a", "#101010", "#181818", "#202020", "#2c2c2c", "#3a3a3a", "#505050", "#707070", "#a0a0a0", "#fff"].map((c) => {
+      const i = h("i");
+      i.style.setProperty("--c", c);
+      return i;
+    })))))
+  ];
+}
+function macroPage() {
+  return [
+    head("Edit Macro"),
+    grid(card(null, null, toggleRow("macro.enabled", "Enable", "Clicks down as soon as the key is confirmed held, and up the instant you let go."), rowOf("Hold this key", "Works alongside whatever that key already does in the game.", keyButton("macro.key")), h("div", { class: "gap" }), toggleRow("macro.sendKey", "Also press a game key", "For a key the game itself never sees, like a spare mouse button."), rowOf("Game key", undefined, keyButton("macro.gameKey")), h("div", { class: "gap" }), slider("macro.startDelay", "Start delay", { unit: "ms", tip: "A short wait before it clicks, so the game's own menu has time to open." }), toggleRow("macro.confirmRelease", "Click again on release"), slider("macro.confirmDelay", "Confirm delay", { unit: "ms" }), h("div", { class: "gap" }), toggleRow("macro.onlyGame", "Only while a game is in front", "Stays off in your desktop, browser or Discord.")), h("div", { class: "note warn" }, "Holding a key for you is a macro. Most games ban for this if it's noticed - check the game's rules before using it online."))
+  ];
+}
+var STYLES = [
+  ["rustholo", "Rust holo"],
+  ["rustdot", "Rust dot"],
+  ["rustcross", "Rust cross"],
+  ["holo", "Holo ring"],
+  ["dot", "Dot"],
+  ["cross", "Cross"],
+  ["crossdot", "Cross and dot"],
+  ["tee", "T"],
+  ["ring", "Ring"],
+  ["chevron", "Chevron"],
+  ["triangle", "Triangle"],
+  ["x", "X"],
+  ["square", "Square"],
+  ["diamond", "Diamond"],
+  ["brackets", "Brackets"],
+  ["ringcross", "Ring and cross"],
+  ["sniper", "Sniper"],
+  ["image", "Your image"]
+];
+var CROSSHAIR_LOOK = ["style", "color", "size", "thickness", "gap", "opacity", "glow", "outline", "offsetX", "offsetY", "cover", "coverColor", "fitScreen", "dynamic"];
+var crosshairCode = () => `TTX1-${btoa(JSON.stringify(Object.fromEntries(CROSSHAIR_LOOK.map((k) => [k, settings2.crosshair[k]]))))}`;
+function applyCrosshairCode(text) {
+  const m = /TTX1-([A-Za-z0-9+/=]{8,2000})/.exec(text);
+  if (!m)
+    return false;
+  let raw;
+  try {
+    raw = JSON.parse(atob(m[1]));
+  } catch {
+    return false;
+  }
+  if (!raw || typeof raw !== "object")
+    return false;
+  const clean = sanitize({ crosshair: raw }).crosshair;
+  const keys = CROSSHAIR_LOOK.filter((k) => (k in raw) && typeof raw[k] === typeof clean[k] && (typeof raw[k] !== "string" || raw[k] === clean[k]));
+  if (!keys.length)
+    return false;
+  for (const k of keys)
+    set(`crosshair.${k}`, clean[k]);
+  return true;
+}
+function crosshairPage() {
+  const reticleImage = new Image;
+  const preview = h("canvas");
+  const paintPreview = () => {
+    const scale = devicePixelRatio;
+    const box = preview.parentElement?.clientWidth || 300;
+    preview.width = box * scale;
+    preview.height = 260 * scale;
+    const ctx = preview.getContext("2d");
+    ctx.clearRect(0, 0, preview.width, preview.height);
+    drawReticle(ctx, preview.width / 2, preview.height / 2, settings2.crosshair, scale, reticleImage);
+  };
+  reticleImage.onload = () => paintPreview();
+  if (settings2.crosshair.image)
+    reticleImage.src = settings2.crosshair.image;
+  const stylesRoot = h("div", { class: "styles" });
+  const paintStyles = () => {
+    stylesRoot.querySelectorAll(".style").forEach((b) => {
+      const on = b.dataset.s === settings2.crosshair.style;
+      b.classList.toggle("on", on);
+      const canvas = b.querySelector("canvas");
+      if (!canvas)
+        return;
+      canvas.width = canvas.height = 64 * devicePixelRatio;
+      const s = canvas.width / 2;
+      drawReticle(canvas.getContext("2d"), s, s, {
+        style: b.dataset.s,
+        color: "#ffffff",
+        size: 11,
+        thickness: 2,
+        gap: 3,
+        opacity: on ? 100 : 75,
+        glow: 0,
+        outline: false,
+        cover: 0,
+        coverColor: "#000000"
+      }, devicePixelRatio);
+    });
+  };
+  const changed = () => {
+    paintPreview();
+    paintStyles();
+    syncShow();
+  };
+  const pickImage = async () => {
+    const result = await api.call("pickReticleImage");
+    if (result?.error)
+      return toast(result.error);
+    if (!result?.image)
+      return;
+    reticleImage.src = result.image;
+    set("crosshair.image", result.image);
+    set("crosshair.style", "image");
+    changed();
+  };
+  for (const [style, name] of STYLES) {
+    const b = h("button", { class: "style", tip: name, "aria-label": name, onclick: () => {
+      if (style === "image" && !settings2.crosshair.image)
+        return void pickImage();
+      set("crosshair.style", style);
+      changed();
+    } }, style === "image" ? icon(ImageUp) : h("canvas"));
+    b.dataset.s = style;
+    stylesRoot.append(b);
+  }
+  const PRESETS2 = [
+    ["Clean dot", { style: "dot", color: "#ffffff", size: 4, thickness: 2, gap: 0, glow: 0, outline: true }],
+    ["Classic cross", { style: "cross", color: "#00ff88", size: 10, thickness: 2, gap: 4, glow: 20, outline: true }],
+    ["Tight cross", { style: "crossdot", color: "#00e5ff", size: 7, thickness: 1.5, gap: 3, glow: 30, outline: false }],
+    ["Red holo", { style: "holo", color: "#ff3b3b", size: 14, thickness: 2, gap: 3, glow: 50, outline: false }],
+    ["Ring", { style: "ringcross", color: "#ffd84a", size: 12, thickness: 1.5, gap: 4, glow: 25, outline: false }],
+    ["Sniper", { style: "sniper", color: "#ffffff", size: 20, thickness: 1, gap: 6, glow: 0, outline: true }]
+  ];
+  const presets = h("div", { class: "presets" }, ...PRESETS2.map(([name, look]) => h("button", { class: "preset", onclick: () => {
+    for (const [k, v] of Object.entries(look))
+      set(`crosshair.${k}`, v);
+    changed();
+    toast(`${name} applied.`);
+  } }, name)));
+  const aimRow = rowOf("Aim key", "Hold this to show the reticle.", keyButton("crosshair.aimKey"));
+  const delayRow = h("div", { class: "gap" }, slider("crosshair.aimDelay", "Aim delay", { unit: " ms", tip: "Waits for the sight to come up. Rust's holosight takes about 200 ms." }));
+  const toggleKeyRow = rowOf("Toggle key", undefined, keyButton("crosshair.toggleKey"));
+  const syncShow = () => {
+    const aiming = settings2.crosshair.show === "aim";
+    aimRow.style.display = delayRow.style.display = aiming ? "" : "none";
+    toggleKeyRow.style.display = settings2.crosshair.show === "toggle" ? "" : "none";
+  };
+  requestAnimationFrame(changed);
+  const opts = { onChange: changed };
+  pageRefresh.set("crosshair", changed);
+  return [
+    head("Crosshair", h("button", { class: "btn", tip: "Copies a short code for this crosshair's look, to share or keep.", onclick: async () => {
+      try {
+        await navigator.clipboard.writeText(crosshairCode());
+        toast("Crosshair code copied.");
+      } catch {
+        toast("Couldn't reach the clipboard.");
+      }
+    } }, icon(Copy), "Copy code"), h("button", { class: "btn", tip: "Uses a crosshair code from your clipboard. Your keys and image stay as they are.", onclick: async () => {
+      let text = "";
+      try {
+        text = await navigator.clipboard.readText();
+      } catch {}
+      toast(applyCrosshairCode(text) ? "Crosshair loaded." : "Your clipboard doesn't hold a crosshair code.");
+    } }, icon(Download), "Paste code"), h("button", { class: "btn", tip: "Use a PNG with a transparent background as your reticle.", onclick: () => void pickImage() }, icon(ImageUp), "Image")),
+    grid(stack(card(null, null, toggleRow("crosshair.enabled", "Show crosshair", "Rust's own reticle can't be changed without modifying the game, which risks a ban, so yours is drawn on top. Run the game in borderless window."), rowOf("When", undefined, segmented("crosshair.show", [["aim", "Aiming"], ["always", "Always"], ["toggle", "Toggle"]], changed)), aimRow, delayRow, toggleKeyRow, toggleRow("crosshair.onlyRust", "Only in Rust", "Shows only while Rust is the window in front.")), darkenerCard(), card("Hide Rust's reticle", Layers, slider("crosshair.cover", "Cover size", { tip: "A solid disc under your reticle that covers the game's dot. Keep it small, because it also hides what's behind it.", ...opts }), rowOf("Cover colour", undefined, swatches("crosshair.coverColor", ["#1a1c1f", "#000000", "#3a3f36", "#5a5f66"], changed))), card("Position", Move, slider("crosshair.offsetX", "Left and right", { tip: "Nudges the reticle if it isn't perfectly on the sight." }), slider("crosshair.offsetY", "Up and down"))), stack(h("section", { class: "card preview" }, h("div", { class: "scene" }), preview), card("Reticle", Crosshair, presets, stylesRoot, slider("crosshair.size", "Size", opts), slider("crosshair.thickness", "Thickness", opts), slider("crosshair.gap", "Gap", opts), slider("crosshair.opacity", "Opacity", { unit: "%", ...opts }), slider("crosshair.glow", "Glow", { unit: "%", ...opts }), toggleRow("crosshair.outline", "Black outline", undefined, changed), toggleRow("crosshair.fitScreen", "Fit to screen", "Same size on screen at 1080p, 1440p or 4K."), toggleRow("crosshair.dynamic", "Dynamic", "Opens up while you hold left mouse, then settles back."), rowOf("Colour", undefined, swatches("crosshair.color", ["#ff3b3b", "#ffffff", "#3bff6f", "#3be8ff", "#ffe23b", "#ff4fd8"], changed)))))
+  ];
+}
+function resolutionPage() {
+  const intro = h("div", { class: "note" }, "Changes a monitor's resolution and refresh rate for this session only. Windows' own setting comes back after a restart, or right away with Reset.");
+  const monitorRow = h("div", { class: "chips" });
+  const modeGrid = h("div", { class: "tiles four" });
+  const currentText = h("div", { class: "note" });
+  const status = h("div", { class: "note" });
+  let devices = [];
+  let device = "";
+  let modes = [];
+  let current = null;
+  let selected = null;
+  let scaling = "default";
+  let revertTimer = null;
+  const scalingButtons = ["default", "stretch", "center"].map((v) => h("button", { class: "chip", onclick: () => {
+    scaling = v;
+    paintScaling();
+  } }, v === "default" ? "Default" : v === "stretch" ? "Stretch" : "Center"));
+  const scalingRow = h("div", { class: "chips" }, ...scalingButtons);
+  const paintScaling = () => scalingButtons.forEach((b, i) => b.classList.toggle("on", ["default", "stretch", "center"][i] === scaling));
+  const applyButton = h("button", { class: "btn primary", onclick: () => void apply() }, icon(Monitor), "Apply");
+  const resetButton = h("button", { class: "btn ghost", onclick: () => void reset(true) }, "Reset to Windows' setting");
+  function stopRevertTimer() {
+    if (revertTimer)
+      clearInterval(revertTimer);
+    revertTimer = null;
+    status.textContent = "";
+  }
+  async function reset(announce) {
+    stopRevertTimer();
+    if (!device)
+      return;
+    await api.call("resetMode", device);
+    if (announce)
+      toast("Back to Windows' own setting.");
+    await loadModes();
+  }
+  async function apply() {
+    if (!device || !selected)
+      return;
+    stopRevertTimer();
+    const ok = await api.call("applyMode", device, selected, scaling);
+    if (!ok) {
+      status.textContent = "That monitor wouldn't accept this mode.";
+      return;
+    }
+    let left = 15;
+    const keep = h("button", { class: "btn primary", onclick: () => stopRevertTimer() }, "Keep this");
+    const revertNow = h("button", { class: "btn ghost", onclick: () => void reset(false) }, "Revert now");
+    const paint = () => status.replaceChildren(h("span", {}, `If this looks wrong, it reverts in ${left}s. `), keep, revertNow);
+    paint();
+    revertTimer = setInterval(() => {
+      left -= 1;
+      if (left <= 0) {
+        reset(false);
+        return;
+      }
+      paint();
+    }, 1000);
+    await loadModes();
+  }
+  function paintModes() {
+    const groups = new Map;
+    for (const m of modes) {
+      const key2 = `${m.width}x${m.height}`;
+      if (!groups.has(key2))
+        groups.set(key2, []);
+      groups.get(key2).push(m);
+    }
+    const rows = [...groups.entries()].sort((a, b) => {
+      const [aw, ah] = a[0].split("x").map(Number);
+      const [bw, bh] = b[0].split("x").map(Number);
+      return bw * bh - aw * ah;
+    });
+    modeGrid.replaceChildren(...rows.flatMap(([key2, group]) => group.sort((a, b) => b.hz - a.hz).map((m) => {
+      const on = selected?.width === m.width && selected?.height === m.height && selected?.hz === m.hz;
+      const isCurrent = current?.width === m.width && current?.height === m.height && current?.hz === m.hz;
+      const tile = h("button", { class: `tile${on ? " on" : ""}`, onclick: () => {
+        selected = m;
+        paintModes();
+      } }, h("b", {}, key2), h("span", {}, `${m.hz} Hz${isCurrent ? " · current" : ""}`));
+      return tile;
+    })));
+  }
+  async function loadModes() {
+    modeGrid.replaceChildren(h("div", { class: "note" }, "Loading…"));
+    const r = await api.call("modes", device);
+    modes = r?.modes ?? [];
+    current = r?.current ?? null;
+    selected = current;
+    currentText.textContent = current ? `Current: ${current.width} x ${current.height} at ${current.hz} Hz` : "Couldn't read this monitor's modes.";
+    paintModes();
+  }
+  function paintMonitors() {
+    monitorRow.replaceChildren(...devices.map((d, i) => {
+      const b = h("button", { class: `chip${d === device ? " on" : ""}`, tip: d, onclick: () => {
+        device = d;
+        paintMonitors();
+        loadModes();
+      } }, `Monitor ${i + 1}`);
+      return b;
+    }));
+  }
+  (async () => {
+    devices = await api.call("devices") ?? [];
+    if (!devices.length) {
+      monitorRow.replaceChildren(h("div", { class: "note" }, "No monitors found."));
+      return;
+    }
+    device = devices[0];
+    paintMonitors();
+    await loadModes();
+  })();
+  paintScaling();
+  return [
+    head("Resolution"),
+    card(null, null, intro, monitorRow),
+    card(null, null, currentText, modeGrid, h("div", { class: "gap" }), rowOf("Scaling", "Only matters when the mode doesn't match the monitor's native size.", scalingRow), h("div", { class: "row", style: "gap:8px" }, applyButton, resetButton), status)
+  ];
+}
+var BOOST_TOOLS = [
+  ["tools.highPerformance", "Top power plan", Gauge, "Stops Windows lowering CPU speed to save power."],
+  ["tools.gameMode", "Game Mode", Gamepad2, "Turns on Windows Game Mode."],
+  ["tools.noGameCapture", "Xbox capture off", Camera, "Stops Game Bar's background recording, which can cost FPS."],
+  ["tools.noMouseAccel", "Raw mouse", MousePointer2, "Turns off Enhance Pointer Precision, so aim depends only on distance moved."],
+  ["tools.keepAwake", "Keep awake", SunMedium, "No sleep or screen-off while Ashlight runs."]
+];
+var toolCard = (ic, title, text, ...actions2) => h("section", { class: "card tool" }, h("div", { class: "tool-head" }, h("span", { class: "tool-icon" }, icon(ic)), h("b", {}, title)), h("div", { class: "tool-text" }, text), h("div", { class: "spread tool-actions" }, ...actions2));
+function toolsPage() {
+  const powerNote = h("div", { class: "note warn" });
+  const refreshPower = () => {
+    powerNote.textContent = live2.powerError;
+    powerNote.style.display = live2.powerError ? "" : "none";
+  };
+  refreshPower();
+  liveListeners.add(refreshPower);
+  const boostState = h("p", {});
+  const boostButton = h("button", { class: "btn primary big", onclick: () => {
+    const all = BOOST_TOOLS.every(([p]) => getPath(settings2, p));
+    for (const [p] of BOOST_TOOLS)
+      set(p, !all);
+    toast(all ? "Everything is back to how Windows had it." : "Boost is on. It all goes back when Ashlight closes.");
+  } });
+  const hero = h("section", { class: "card boost-hero" }, h("span", { class: "boost-icon" }, icon(Rocket)), h("div", { class: "boost-text" }, h("h2", {}, "Game boost"), boostState), boostButton);
+  const paintBoost = () => {
+    const on = BOOST_TOOLS.filter(([p]) => getPath(settings2, p)).length;
+    const all = on === BOOST_TOOLS.length;
+    boostButton.textContent = all ? "Turn off" : "Boost now";
+    boostState.textContent = all ? "All on" : `${on} of ${BOOST_TOOLS.length} on`;
+    hero.classList.toggle("on", all);
+  };
+  for (const [p] of BOOST_TOOLS)
+    watch(p, paintBoost);
+  paintBoost();
+  const pingText = h("span", {}, "");
+  const pingInput = h("input", { class: "text", value: settings2.stats.pingHost, "aria-label": "Server to test" });
+  pingInput.addEventListener("change", () => set("stats.pingHost", pingInput.value.trim() || "1.1.1.1"));
+  const pingButton = h("button", { class: "btn", onclick: async () => {
+    pingButton.disabled = true;
+    pingText.textContent = "Testing";
+    const results = [];
+    for (let i = 0;i < 3; i++) {
+      const ms = Number(await api.call("pingNow", pingInput.value.trim() || "1.1.1.1"));
+      if (ms >= 0)
+        results.push(ms);
+    }
+    pingText.textContent = results.length ? `${Math.min(...results)} ms best, ${Math.round(results.reduce((x, y) => x + y, 0) / results.length)} ms average` : "No answer from that server.";
+    pingButton.disabled = false;
+  } }, icon(Wifi), "Test");
+  const tempText = h("span", {}, "");
+  let scanned = false;
+  const tempButton = h("button", { class: "btn" }, icon(Trash), h("span", {}, "Scan"));
+  const tempLabel = tempButton.querySelector("span");
+  tempButton.addEventListener("click", async () => {
+    tempButton.disabled = true;
+    if (!scanned) {
+      const r = await api.call("scanTemp");
+      tempText.textContent = `${(r.bytes / 1024 ** 2).toFixed(0)} MB in ${r.files} files can go.`;
+      tempLabel.textContent = "Delete";
+      scanned = r.files > 0;
+      tempButton.classList.toggle("primary", scanned);
+    } else {
+      const r = await api.call("cleanTemp");
+      toast(`Freed ${(r.bytes / 1024 ** 2).toFixed(0)} MB.`);
+      tempText.textContent = "";
+      tempLabel.textContent = "Scan";
+      tempButton.classList.remove("primary");
+      scanned = false;
+    }
+    tempButton.disabled = false;
+  });
+  const shortcut = (label, page) => h("button", { class: "chip", onclick: () => void api.call("openSettings", page) }, label);
+  return [
+    head("Utilities"),
+    stack(hero, h("div", { class: "tiles five" }, ...BOOST_TOOLS.map(([p, name, ic, tip]) => featureTile(p, name, ic, `${tip} Back to normal when Ashlight closes.`))), powerNote, h("div", { class: "tools" }, toolCard(Wifi, "Ping test", h("div", {}, pingInput, h("div", { class: "gap" }, pingText)), pingButton), toolCard(Globe, "Flush DNS", "", h("button", { class: "btn", onclick: async () => toast(await api.call("flushDns") ? "DNS cache cleared." : "Could not clear the DNS cache.") }, icon(Globe), "Flush")), toolCard(Trash, "Clean temp files", tempText, tempButton), toolCard(MousePointer2, "Pointer speed", slider("tools.mouseSpeed", "Speed", { tip: "10 is one-to-one with your mouse." })), toolCard(Settings, "Windows settings", "", shortcut("Graphics", "ms-settings:display-advancedgraphics"), shortcut("Game Mode", "ms-settings:gaming-gamemode"), shortcut("Display", "ms-settings:display"), shortcut("Sound", "ms-settings:sound"))))
+  ];
+}
+var DISCORD_TEXT = {
+  off: "Off",
+  "needs-id": "Not set up",
+  connecting: "Looking for Discord",
+  connected: "Showing on your Discord profile",
+  "no-discord": "Discord isn't running",
+  "bad-id": "Discord didn't accept Ashlight"
+};
+var UPDATE_TEXT = (u) => ({
+  idle: "Not checked yet",
+  dev: "Updates work in the installed app",
+  checking: "Checking",
+  latest: "You're on the latest version",
+  available: `Version ${u.version} is available`,
+  downloading: `Downloading ${Math.round(u.percent ?? 0)}%`,
+  ready: `Version ${u.version} is ready to install`,
+  error: "Couldn't reach the update server"
+})[u.status];
+function applyTheme() {
+  const root = document.documentElement.style;
+  const accent = settings2.app.accent;
+  const n = parseInt(accent.slice(1), 16);
+  const lum = (0.2126 * (n >> 16 & 255) + 0.7152 * (n >> 8 & 255) + 0.0722 * (n & 255)) / 255;
+  root.setProperty("--accent", accent);
+  root.setProperty("--on-accent", lum > 0.55 ? "#17181b" : "#ffffff");
+  const theme = THEMES.find((t) => t.id === settings2.app.theme) ?? THEMES[0];
+  root.setProperty("--bg-a", theme.a);
+  root.setProperty("--bg-b", theme.b);
+  root.setProperty("--glow-1", theme.glow1);
+  root.setProperty("--glow-2", theme.glow2);
+}
+function themePicker() {
+  const root = h("div", { class: "themes" });
+  const buttons = THEMES.map((theme) => {
+    const b = h("button", { class: "theme", tip: theme.name, "aria-label": theme.name, onclick: () => {
+      set("app.theme", theme.id);
+      applyTheme();
+    } });
+    b.style.setProperty("--c1", `rgb(${theme.a})`);
+    b.style.setProperty("--c2", `rgb(${theme.b})`);
+    b.style.setProperty("--c3", `rgb(${theme.glow1})`);
+    b.dataset.v = theme.id;
+    root.append(b);
+    return b;
+  });
+  const paint = () => buttons.forEach((b) => b.classList.toggle("on", b.dataset.v === settings2.app.theme));
+  paint();
+  watch("app.theme", paint);
+  return root;
+}
+function hueToHex(hue) {
+  const f = (n) => {
+    const k = (n + hue / 60) % 6;
+    return Math.round(255 * (1 - Math.max(0, Math.min(k, 4 - k, 1)))).toString(16).padStart(2, "0");
+  };
+  return `#${f(5)}${f(3)}${f(1)}`;
+}
+function hexToHue(hex) {
+  const n = parseInt(hex.slice(1), 16);
+  const r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+  const max = Math.max(r, g, b), d = max - Math.min(r, g, b);
+  if (d === 0)
+    return 0;
+  const raw = max === r ? (g - b) / d % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return (raw * 60 + 360) % 360;
+}
+var HUE_NAMES = [[0, "Red"], [30, "Orange"], [60, "Yellow"], [120, "Green"], [180, "Cyan"], [240, "Blue"], [300, "Magenta"], [360, "Red"]];
+var hueName = (hue) => HUE_NAMES.reduce((best, x) => Math.abs(x[0] - hue) < Math.abs(best[0] - hue) ? x : best)[1];
+function darkenerCard() {
+  const thumb = h("i", { class: "wheel-thumb" });
+  const swatch = h("i", { class: "wheel-swatch" });
+  const percent = h("b", {});
+  const name = h("span", {});
+  const wheel = h("div", { class: "wheel", role: "slider", "aria-label": "Colour to darken", tabIndex: 0 }, thumb, h("div", { class: "wheel-center" }, swatch, percent, name));
+  const custom = h("input", { type: "color", class: "color-input", tip: "Pick an exact colour", "aria-label": "Exact colour" });
+  const paint = () => {
+    const d = settings2.darken;
+    const hue = hexToHue(d.color);
+    const angle = (hue - 90) * Math.PI / 180;
+    thumb.style.left = `${50 + 43.5 * Math.cos(angle)}%`;
+    thumb.style.top = `${50 + 43.5 * Math.sin(angle)}%`;
+    thumb.style.setProperty("--c", d.color);
+    swatch.style.setProperty("--c", d.color);
+    percent.textContent = d.amount >= 100 ? "Full" : `${d.amount}%`;
+    name.textContent = `${hueName(hue)} darker`;
+    custom.value = d.color;
+    wheel.classList.toggle("off", !d.enabled);
+  };
+  const pick = (color) => {
+    if (!settings2.darken.enabled)
+      set("darken.enabled", true);
+    set("darken.color", color);
+    paint();
+  };
+  const fromPointer = (e) => {
+    const r = wheel.getBoundingClientRect();
+    const hue = Math.atan2(e.clientY - (r.top + r.height / 2), e.clientX - (r.left + r.width / 2)) * 180 / Math.PI + 90;
+    pick(hueToHex((hue + 360) % 360));
+  };
+  wheel.addEventListener("pointerdown", (e) => {
+    wheel.setPointerCapture(e.pointerId);
+    fromPointer(e);
+  });
+  wheel.addEventListener("pointermove", (e) => {
+    if (wheel.hasPointerCapture(e.pointerId))
+      fromPointer(e);
+  });
+  wheel.addEventListener("keydown", (e) => {
+    const step = e.key === "ArrowRight" || e.key === "ArrowUp" ? 5 : e.key === "ArrowLeft" || e.key === "ArrowDown" ? -5 : 0;
+    if (!step)
+      return;
+    e.preventDefault();
+    pick(hueToHex((hexToHue(settings2.darken.color) + step + 360) % 360));
+  });
+  custom.addEventListener("input", () => pick(custom.value));
+  for (const path of ["darken.amount", "darken.enabled", "darken.color"])
+    watch(path, paint);
+  paint();
+  const fromScreen = h("button", { class: "btn primary", onclick: async () => {
+    if (!("EyeDropper" in window))
+      return toast("Picking from the screen isn't available here.");
+    api.call("compare", true);
+    try {
+      const { sRGBHex } = await new window.EyeDropper().open();
+      pick(String(sRGBHex).toLowerCase());
+      toast(`Darkening ${String(sRGBHex).toLowerCase()}.`);
+    } catch {} finally {
+      api.call("compare", false);
+    }
+  } }, icon(Pipette), "Pick from screen");
+  const hexText = h("code", { class: "hex-tag" });
+  watch("darken.color", () => hexText.textContent = settings2.darken.color);
+  hexText.textContent = settings2.darken.color;
+  const quick = h("div", { class: "swatches" }, ...[["Red", "#ff0000"], ["Yellow", "#ffff00"], ["Green", "#00ff00"], ["Cyan", "#00ffff"], ["Blue", "#0000ff"], ["Magenta", "#ff00ff"]].map(([label, color]) => {
+    const s = h("button", { class: "swatch", tip: label, "aria-label": label, onclick: () => pick(color) });
+    s.style.setProperty("--c", color);
+    return s;
+  }), colorPicker(custom));
+  return card("Colour darkener", Moon, toggleRow("darken.enabled", "Darken a colour", "Darkens the chosen colour across your whole screen, so a bright reticle or sight can be dimmed. Things nearby in that colour dim too."), h("div", { class: "spread" }, fromScreen, hexText), h("div", { class: "wheel-box" }, wheel), quick, h("div", { class: "gap" }), slider("darken.amount", "How dark", { unit: "%", onChange: paint, tip: "100 is full dark for the pure colour." }), slider("darken.complement", "Opposite colour", { unit: "%", tip: "Also darkens the colour across the wheel." }), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => {
+    if (!settings2.darken.enabled)
+      set("darken.enabled", true);
+    set("darken.amount", 100);
+    paint();
+  } }, "Full dark"), h("button", { class: "btn", onclick: () => {
+    set("darken.amount", 45);
+    set("darken.complement", 0);
+    paint();
+  } }, icon(RotateCcw), "Reset")));
+}
+var bgUrl = (file) => window.ttoolDemo ? `../assets/${encodeURIComponent(file)}` : `https://ttool-data.local/${encodeURIComponent(file)}`;
+var readableListener = null;
+function checkReadable(source) {
+  try {
+    const canvas = document.createElement("canvas");
+    canvas.width = canvas.height = 48;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(source, 0, 0, 48, 48);
+    const d = ctx.getImageData(0, 0, 48, 48).data;
+    let brightest = 0;
+    for (let i = 0;i < d.length; i += 4) {
+      const lum2 = 0.2126 * (d[i] / 255) ** 2.2 + 0.7152 * (d[i + 1] / 255) ** 2.2 + 0.0722 * (d[i + 2] / 255) ** 2.2;
+      brightest = Math.max(brightest, lum2);
+    }
+    const u = settings2.ui;
+    const behind = u.glassPanels ? 1 - u.panelOpacity / 100 : 0.06;
+    const lum = brightest * (1 - u.dim / 100) * behind + 0.01;
+    const ratio = 1.05 / (lum + 0.05);
+    readableListener?.(`${ratio >= 4.5 ? "Readable" : "Hard to read"} ${ratio.toFixed(1)} : 1`, ratio >= 4.5);
+  } catch {
+    readableListener?.("Couldn't measure this file", true);
+  }
+}
+var stopSmoke = null;
+var themeGlow = () => {
+  const theme = THEMES.find((t) => t.id === settings2.app.theme) ?? THEMES[0];
+  const [r, g, b] = theme.glow1.split(",").map((n) => Number(n) / 255);
+  return [r, g, b];
+};
+function applyBackground() {
+  const u = settings2.ui;
+  const layer = document.getElementById("bg");
+  const root = document.documentElement;
+  const desktop = u.background === "desktop";
+  const has = desktop || u.background !== "none" && !!u.file;
+  document.body.classList.toggle("has-bg", has);
+  document.body.classList.toggle("see-desktop", desktop);
+  document.body.classList.toggle("glass-panels", desktop);
+  document.body.classList.toggle("mode-light", u.mode === "light");
+  document.body.classList.toggle("mode-win10", u.mode === "win10");
+  document.body.classList.toggle("font-sans", u.font === "sans");
+  document.body.classList.toggle("no-motion", !u.motion);
+  document.body.classList.toggle("smoky", u.smoke && u.motion);
+  if (u.smoke && u.motion && !stopSmoke)
+    stopSmoke = startSmoke(document.getElementById("smoke"), { tint: themeGlow, strength: 0.55 });
+  if (!(u.smoke && u.motion) && stopSmoke) {
+    stopSmoke();
+    stopSmoke = null;
+  }
+  root.style.setProperty("--bg-dim", String(u.dim / 100));
+  root.style.setProperty("--bg-blur", `${u.blur}px`);
+  root.style.setProperty("--panel-o", String(u.panelOpacity / 100));
+  root.style.zoom = String(u.scale / 100);
+  const current = layer.firstElementChild;
+  if (!has || desktop) {
+    layer.replaceChildren();
+    readableListener?.(desktop ? "Depends on what's behind the window" : "Solid window, nothing behind the text", true);
+    return;
+  }
+  const url = bgUrl(u.file);
+  if (current?.dataset.url === url) {
+    checkReadable(current);
+    return;
+  }
+  if (u.background === "video") {
+    const video = document.createElement("video");
+    video.crossOrigin = "anonymous";
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.dataset.url = url;
+    video.src = url;
+    video.addEventListener("loadeddata", () => checkReadable(video), { once: true });
+    layer.replaceChildren(video);
+  } else {
+    const img = new Image;
+    img.crossOrigin = "anonymous";
+    img.alt = "";
+    img.dataset.url = url;
+    img.addEventListener("load", () => checkReadable(img), { once: true });
+    img.src = url;
+    layer.replaceChildren(img);
+  }
+}
+var PLUGIN_PERMISSIONS = [
+  { id: "storage", label: "Save its own settings", hint: "A small amount of data, private to this plugin, saved with the rest of Ashlight's settings." },
+  { id: "network", label: "Check a ping", hint: "Can ask Ashlight to measure the ping to a server address it names." },
+  { id: "theme", label: "Read the current theme", hint: "Can see which theme and mode Ashlight is set to, to match its own look. Read-only." }
+];
+var KNOWN_PERMISSIONS = new Set(PLUGIN_PERMISSIONS.map((p) => p.id));
+var safeManifest = (raw, fallbackId) => {
+  if (!raw)
+    return null;
+  try {
+    const m = JSON.parse(raw);
+    const id = String(m.id ?? fallbackId ?? "").trim();
+    if (!/^[A-Za-z0-9_-]{1,60}$/.test(id))
+      return null;
+    const permissions = Array.isArray(m.permissions) ? m.permissions.filter((p) => typeof p === "string" && KNOWN_PERMISSIONS.has(p)) : [];
+    return {
+      id,
+      name: String(m.name ?? id).slice(0, 80),
+      version: String(m.version ?? "0.0.0").slice(0, 20),
+      author: m.author ? String(m.author).slice(0, 60) : undefined,
+      description: m.description ? String(m.description).slice(0, 300) : undefined,
+      permissions,
+      main: /^[\w.-]{1,80}\.js$/.test(String(m.main ?? "")) ? String(m.main) : "main.js"
+    };
+  } catch {
+    return null;
+  }
+};
+var pluginsRoot = null;
+var pluginsDirPath = async () => pluginsRoot ??= await api.call("pluginsDir");
+async function listInstalledPlugins() {
+  const root = await pluginsDirPath();
+  const names = await api.call("listDir", root) ?? [];
+  const rows = [];
+  for (const id of names) {
+    const raw = await api.call("readFile", `${root}\\${id}\\plugin.json`);
+    const manifest = safeManifest(raw, id);
+    if (!manifest)
+      continue;
+    const state = settings2.plugins[id] ?? { enabled: false, granted: [] };
+    rows.push({ manifest, state });
+  }
+  return rows;
+}
+var pluginToast = (id, text) => toast(`${id}: ${String(text).slice(0, 200)}`);
+function savePluginState(id, patch) {
+  const current = settings2.plugins[id] ?? { enabled: false, granted: [] };
+  set("plugins", { ...settings2.plugins, [id]: { ...current, ...patch } });
+}
+var runningPlugins = new Map;
+function startPlugin(row, mainJs) {
+  const { manifest, state } = row;
+  const granted = new Set(state.granted);
+  const handle = async (e) => {
+    if (e.source !== frame.contentWindow || !e.data)
+      return;
+    if (e.data.t === "ready")
+      return void frame.contentWindow?.postMessage({ t: "init", code: mainJs }, "*");
+    if (e.data.t !== "call")
+      return;
+    const { id: callId, method, args } = e.data;
+    const reply = (value, err) => frame.contentWindow?.postMessage({ t: "reply", id: callId, value, err }, "*");
+    try {
+      if (method === "notify")
+        return reply(undefined, undefined), pluginToast(manifest.name, String(args[0] ?? ""));
+      if (method === "storage.get") {
+        if (!granted.has("storage"))
+          return reply(undefined, "Permission denied: storage");
+        return reply((settings2.plugins[manifest.id]?.data ?? {})[String(args[0])] ?? null);
+      }
+      if (method === "storage.set") {
+        if (!granted.has("storage"))
+          return reply(undefined, "Permission denied: storage");
+        const data = { ...settings2.plugins[manifest.id]?.data ?? {}, [String(args[0])]: args[1] };
+        savePluginState(manifest.id, { data });
+        return reply(true);
+      }
+      if (method === "network.ping") {
+        if (!granted.has("network"))
+          return reply(undefined, "Permission denied: network");
+        return reply(await api.call("pingNow", String(args[0])));
+      }
+      if (method === "theme.get") {
+        if (!granted.has("theme"))
+          return reply(undefined, "Permission denied: theme");
+        return reply({ mode: settings2.ui.mode, themeId: settings2.app.theme, colors: THEMES.find((t) => t.id === settings2.app.theme) ?? null });
+      }
+      reply(undefined, "Unknown method");
+    } catch (err) {
+      reply(undefined, err instanceof Error ? err.message : "Plugin call failed.");
+    }
+  };
+  const frame = h("iframe", { sandbox: "allow-scripts", style: "display:none", src: "https://ashlight-sandbox.local/renderer/sandbox.html" });
+  addEventListener("message", handle);
+  document.body.append(frame);
+  return { frame, destroy: () => {
+    removeEventListener("message", handle);
+    frame.remove();
+  } };
+}
+var syncChain = Promise.resolve();
+function syncPlugins() {
+  const next = syncChain.then(syncPluginsNow);
+  syncChain = next.catch(() => {});
+  return next;
+}
+async function syncPluginsNow() {
+  const rows = await listInstalledPlugins();
+  const wanted = new Set(rows.filter((r) => r.state.enabled).map((r) => r.manifest.id));
+  for (const [id, running] of runningPlugins) {
+    if (!wanted.has(id)) {
+      running.destroy();
+      runningPlugins.delete(id);
+    }
+  }
+  const root = await pluginsDirPath();
+  for (const row of rows) {
+    if (!row.state.enabled || runningPlugins.has(row.manifest.id))
+      continue;
+    const mainJs = await api.call("readFile", `${root}\\${row.manifest.id}\\${row.manifest.main}`);
+    if (typeof mainJs !== "string") {
+      pluginToast(row.manifest.name, "Couldn't read its main script.");
+      savePluginState(row.manifest.id, { enabled: false });
+      continue;
+    }
+    runningPlugins.set(row.manifest.id, startPlugin(row, mainJs));
+  }
+}
+function permissionRow(id, checked, requested, onChange) {
+  const meta = PLUGIN_PERMISSIONS.find((p) => p.id === id);
+  const box = h("input", { type: "checkbox", disabled: !requested });
+  box.checked = checked && requested;
+  box.addEventListener("change", () => onChange(box.checked));
+  return h("label", { class: "inline-toggle", tip: meta.hint, style: requested ? "" : "opacity:.4" }, box, h("span", {}, meta.label));
+}
+function pluginCard(row, onChange) {
+  const { manifest, state } = row;
+  const perms = h("div", { class: "chips" }, ...PLUGIN_PERMISSIONS.filter((p) => manifest.permissions.includes(p.id)).map((p) => permissionRow(p.id, state.granted.includes(p.id), true, (on) => {
+    savePluginState(manifest.id, { granted: on ? [...new Set([...state.granted, p.id])] : state.granted.filter((g) => g !== p.id) });
+    onChange();
+  })));
+  const enableToggle = h("button", { class: "switch", role: "switch", "aria-label": `Turn on ${manifest.name}` });
+  enableToggle.setAttribute("aria-checked", String(state.enabled));
+  enableToggle.addEventListener("click", () => {
+    savePluginState(manifest.id, { enabled: !state.enabled });
+    onChange();
+  });
+  return h("div", { class: "plugin-card" }, h("div", { class: "plugin-card-head" }, icon(Puzzle), h("div", { class: "plugin-card-text" }, h("b", {}, manifest.name), h("span", {}, `v${manifest.version}${manifest.author ? ` by ${manifest.author}` : ""}`)), enableToggle), manifest.description ? h("div", { class: "plugin-card-body" }, h("p", {}, manifest.description)) : null, manifest.permissions.length ? h("div", { class: "plugin-card-body" }, h("p", {}, "Permissions:"), perms) : null, h("div", { class: "row", style: "gap:8px" }, h("button", { class: "btn ghost", onclick: () => void api.call("pluginOpenFolder", manifest.id) }, icon(FolderOpen), "Open folder"), h("button", { class: "btn ghost", onclick: async () => {
+    await api.call("pluginUninstall", manifest.id);
+    const rest = { ...settings2.plugins };
+    delete rest[manifest.id];
+    set("plugins", rest);
+    onChange();
+  } }, icon(Trash), "Uninstall")));
+}
+function pluginsPage() {
+  const intro = h("div", { class: "note" }, "Plugins run sandboxed, with no access to files, other processes or the registry - only the small API a plugin asks for and you approve below. Loading your own plugin while you build it copies its folder in; re-load after you change its code.");
+  const list = h("div", { class: "stack" });
+  const status = h("div", { class: "note" });
+  const refresh = async () => {
+    list.replaceChildren(h("div", { class: "note" }, "Loading…"));
+    await syncPlugins();
+    const rows = await listInstalledPlugins();
+    list.replaceChildren(...rows.length ? rows.map((r) => pluginCard(r, () => void refresh())) : [h("div", { class: "note" }, "No plugins installed yet. Load one of your own below, or get one from the Marketplace.")]);
+  };
+  const loadButton = h("button", { class: "btn primary", onclick: async () => {
+    const manifestPath = await api.call("pickPluginManifest");
+    if (!manifestPath)
+      return;
+    const raw = await api.call("readFile", manifestPath);
+    const manifest = safeManifest(raw);
+    if (!manifest) {
+      status.textContent = `That plugin.json isn't valid (needs at least an id like "my-plugin").`;
+      return;
+    }
+    const folder = manifestPath.replace(/\\plugin\.json$/i, "");
+    const r = await api.call("pluginInstallLocal", manifest.id, folder);
+    if (!r?.ok) {
+      status.textContent = r?.error || "Couldn't load that plugin.";
+      return;
+    }
+    if (!settings2.plugins[manifest.id])
+      savePluginState(manifest.id, { enabled: false, granted: [] });
+    status.textContent = `Loaded ${manifest.name}. Turn it on and grant what it needs above.`;
+    refresh();
+  } }, icon(FolderOpen), "Load plugin from folder");
+  refresh();
+  return [head("Plugins"), card(null, null, intro, loadButton, status), list];
+}
+function marketCard(entry, installed, onInstalled) {
+  const busy = { v: false };
+  const button = h("button", { class: "btn primary" }, icon(Download), installed ? installed.manifest.version === entry.version ? "Installed" : "Update" : "Install");
+  const status = h("div", { class: "note" });
+  button.addEventListener("click", async () => {
+    if (busy.v)
+      return;
+    busy.v = true;
+    button.setAttribute("disabled", "");
+    button.replaceChildren(icon(Download), "Installing…");
+    const r = await api.call("pluginInstall", entry.id, entry.download);
+    busy.v = false;
+    if (!r?.ok) {
+      status.textContent = r?.error || "That plugin couldn't be installed.";
+      button.replaceChildren(icon(Download), "Install");
+      button.removeAttribute("disabled");
+      return;
+    }
+    if (!settings2.plugins[entry.id])
+      savePluginState(entry.id, { enabled: false, granted: [] });
+    status.textContent = `Installed. Turn it on from Plugins.`;
+    button.replaceChildren(icon(Check), "Installed");
+    onInstalled();
+  });
+  return h("div", { class: "plugin-card" }, h("div", { class: "plugin-card-head" }, icon(Store), h("div", { class: "plugin-card-text" }, h("b", {}, entry.name), h("span", {}, `v${entry.version}${entry.author ? ` by ${entry.author}` : ""}`)), button), entry.description ? h("div", { class: "plugin-card-body" }, h("p", {}, entry.description)) : null, entry.permissions.length ? h("div", { class: "plugin-card-body" }, h("p", {}, `Asks for: ${entry.permissions.map((p) => PLUGIN_PERMISSIONS.find((m) => m.id === p)?.label ?? p).join(", ")}`)) : null, status);
+}
+function marketplacePage() {
+  const intro = h("div", { class: "note" }, "Plugins published here were put up by their own developers, not reviewed line by line by Ashlight. Installing one only downloads and unpacks its folder - it still can't do anything until you turn it on and grant it permissions, on the Plugins page.");
+  const list = h("div", { class: "stack" });
+  const refreshButton = h("button", { class: "btn ghost", onclick: () => void load() }, icon(RefreshCw), "Refresh");
+  async function load() {
+    list.replaceChildren(h("div", { class: "note" }, "Loading the marketplace…"));
+    try {
+      const text = await api.call("fetchText", `${release_config_default.updateUrl.replace(/\/updates$/, "")}/plugins.json`);
+      const entries = text ? JSON.parse(text) : [];
+      const installedRows = await listInstalledPlugins();
+      if (!entries.length) {
+        list.replaceChildren(h("div", { class: "note" }, "Nothing's published yet."));
+        return;
+      }
+      list.replaceChildren(...entries.map((e) => marketCard(e, installedRows.find((r) => r.manifest.id === e.id), () => void load())));
+    } catch {
+      list.replaceChildren(h("div", { class: "note" }, "Couldn't reach the marketplace. Check your internet and try again."));
+    }
+  }
+  load();
+  return [head("Marketplace", refreshButton), card(null, null, intro), list];
+}
+function customizePage() {
+  const readable = h("span", {});
+  const readableIcon = h("span", { class: "read-icon" });
+  readableListener = (text, ok) => {
+    readable.textContent = text;
+    readableIcon.classList.toggle("bad", !ok);
+    readableIcon.replaceChildren(icon(ok ? Check : Info));
+  };
+  const typeChips = h("div", { class: "chips" });
+  const fileName = h("div", { class: "note" });
+  const paintType = () => {
+    const current = settings2.ui.background === "desktop" ? "desktop" : settings2.ui.file ? settings2.ui.background : "none";
+    typeChips.querySelectorAll(".chip").forEach((c) => c.classList.toggle("on", c.dataset.v === current));
+    fileName.textContent = current === "desktop" ? "The app is see-through: whatever is behind the window shows, with no blur." : settings2.ui.file ? `${settings2.ui.background === "video" ? "Video" : "Picture"} set. Only you see it, nothing is uploaded.` : "No background. The window stays plain.";
+  };
+  const choose = async (kind) => {
+    const file = await api.call("pickBackground", kind);
+    if (!file)
+      return;
+    set("ui.background", kind);
+    set("ui.file", file);
+    paintType();
+    applyBackground();
+  };
+  for (const [id, text] of [["none", "None"], ["image", "Picture or GIF"], ["video", "Video"]]) {
+    const c = h("button", { class: "chip", onclick: () => {
+      if (id === "none") {
+        set("ui.background", id);
+        set("ui.file", "");
+        paintType();
+        applyBackground();
+      } else
+        choose(id);
+    } }, text);
+    c.dataset.v = id;
+    typeChips.append(c);
+  }
+  paintType();
+  const onUi = { onChange: applyBackground };
+  requestAnimationFrame(applyBackground);
+  return [
+    head("Customize"),
+    grid(stack(card("Background", Image2, typeChips, h("div", { class: "gap" }, fileName), h("div", { class: "gap" }), slider("ui.dim", "Dim", { unit: "%", ...onUi, tip: "Darkens the background so text stays easy to read." }), slider("ui.blur", "Blur", { unit: "px", ...onUi, tip: "Softens the picture itself. Panels never blur." }), toggleRow("ui.pauseVideo", "Pause video when not in front", "Saves your GPU while you are in another window."))), stack(card("Theme", Sparkles, themePicker()), card("Style", Palette, rowOf("Accent", "Colour of buttons, sliders and hovers.", swatches("app.accent", ["#ffffff", "#c9cdd4", "#ffb86b", "#ff6b6b", "#c9a6ff", "#6fb7ff"], applyTheme)), rowOf("Mode", undefined, segmented("ui.mode", [["dark", "Dark"], ["light", "Light"], ["win10", "Windows 10"]], applyBackground)), h("div", { class: "gap" }), slider("ui.scale", "Interface size", { unit: "%", ...onUi }), toggleRow("ui.motion", "Animations", undefined, applyBackground), toggleRow("ui.smoke", "Smoke", "Soft moving smoke behind the app. It stops while Ashlight is hidden.", applyBackground))))
+  ];
+}
+function confirmClick(ask, run) {
+  let armed = 0;
+  return (e) => {
+    const button = e.currentTarget;
+    if (Date.now() - armed < 4000) {
+      armed = 0;
+      button.classList.remove("armed");
+      run();
+      return;
+    }
+    armed = Date.now();
+    const label = button.lastChild;
+    const before = label.textContent;
+    label.textContent = ask;
+    button.classList.add("armed");
+    setTimeout(() => {
+      label.textContent = before;
+      button.classList.remove("armed");
+    }, 4000);
+  };
+}
+var BACKUP_REASONS = {
+  daily: "Daily",
+  manual: "Saved by you",
+  "before-import": "Before an import",
+  "before-restore": "Before a restore",
+  "before-reset": "Before a reset",
+  "before-update": "Before an update",
+  unreadable: "Unreadable file"
+};
+var STATUS_LABEL = { pending: "Waiting", accepted: "Accepted", declined: "Not planned", done: "Added" };
+function suggestCard() {
+  const box = h("textarea", { class: "text suggest-box", rows: 3, maxlength: 1000, placeholder: "A feature, a fix, anything you'd like in Ashlight" });
+  const list = h("div", { class: "suggest-list" });
+  const statuses = new Map;
+  const base = () => settings2.share.server.trim().replace(/\/+$/, "");
+  const paint = () => {
+    const sent = [...settings2.suggest.sent].reverse().slice(0, 8);
+    list.replaceChildren(...sent.map((s) => {
+      const st = statuses.get(s.id);
+      return h("div", { class: "suggest-row" }, h("span", { class: "suggest-text" }, s.text), h("i", { class: `suggest-status ${st?.status ?? "pending"}` }, STATUS_LABEL[st?.status ?? "pending"] ?? "Waiting"), st?.reply ? h("span", { class: "note suggest-reply" }, st.reply) : null);
+    }));
+  };
+  const refresh = async () => {
+    const ids = settings2.suggest.sent.map((s) => s.id).slice(-50);
+    if (!ids.length || isDemo() || !/^https?:\/\//.test(base()))
+      return paint();
+    try {
+      const r = await fetch(`${base()}/suggest/status?ids=${ids.join(",")}`, { cache: "no-store" });
+      if (r.ok)
+        for (const row of await r.json())
+          statuses.set(row.id, row);
+    } catch {}
+    paint();
+  };
+  const sendButton = h("button", { class: "btn primary", onclick: async () => {
+    const text = box.value.trim();
+    if (text.length < 5)
+      return toast("Write a little more first.");
+    sendButton.disabled = true;
+    try {
+      let id = "";
+      if (isDemo())
+        id = Math.random().toString(16).slice(2, 18).padEnd(16, "0");
+      else {
+        const r = await fetch(`${base()}/suggest`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text, name: settings2.suggest.withName ? settings2.profile.name : "" }) });
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok || !j.id)
+          throw new Error(j.error || "Couldn't send it. Try again in a bit.");
+        id = j.id;
+      }
+      set("suggest.sent", [...settings2.suggest.sent, { id, text: text.slice(0, 1000), at: Date.now() }].slice(-50));
+      box.value = "";
+      toast("Thanks! Sent to the Ashlight team.");
+      paint();
+    } catch (e) {
+      toast(e.message || "Couldn't send it.");
+    } finally {
+      sendButton.disabled = false;
+    }
+  } }, icon(Send), "Send");
+  let checked = 0;
+  new IntersectionObserver((entries) => {
+    if (!entries.some((e) => e.isIntersecting))
+      return;
+    if (Date.now() - checked < 30000)
+      return paint();
+    checked = Date.now();
+    refresh();
+  }).observe(list);
+  paint();
+  return card("Suggest something", Lightbulb, box, h("div", { class: "spread suggest-foot" }, labeledToggle("suggest.withName", "Include my name"), sendButton), h("span", { class: "note" }, "Only what you write is sent, plus your name if you tick it."), list);
+}
+function backupsCard(replaced, copy) {
+  const list = h("div", { class: "backup-list" }, h("div", { class: "note" }, "Loading"));
+  let showAll = false;
+  const paint = async () => {
+    const items = await api.call("backups");
+    if (!items.length)
+      return list.replaceChildren(h("div", { class: "note" }, "No backups yet."));
+    const when = (t) => new Date(t).toLocaleString(undefined, { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" });
+    const shown = showAll ? items : items.slice(0, 5);
+    list.replaceChildren(...shown.map((b) => h("div", { class: "backup-row" }, h("span", { class: "backup-when" }, when(b.time)), h("span", { class: "backup-why" }, BACKUP_REASONS[b.reason] ?? b.reason), h("button", { class: "btn small", tip: "Puts these settings back. Your current ones are backed up first.", onclick: confirmClick("Restore?", () => replaced(api.call("restoreBackup", b.name), `Settings from ${when(b.time)} are back.`)) }, icon(ArchiveArrowUp), "Restore"))), ...items.length <= 5 ? [] : [h("button", { class: "link-btn", onclick: () => {
+      showAll = !showAll;
+      paint();
+    } }, showAll ? "Show fewer" : `Show all ${items.length}`)]);
+  };
+  paint();
+  return card("Backups", RotateCcwClock, h("div", { class: "spread wrap" }, h("button", { class: "btn", tip: "Saves all your settings to a file you choose.", onclick: async () => {
+    if (await api.call("exportToFile"))
+      toast("Settings saved.");
+  } }, icon(FileDown), "Save to file"), h("button", { class: "btn", tip: "Loads settings from a file. Your current ones are backed up first.", onclick: () => void replaced(api.call("importFromFile"), "Settings loaded.") }, icon(FileUp), "Open file"), h("button", { class: "btn", tip: "Copies your settings as text. Your chat account is never included.", onclick: async () => copy(await api.call("exportSettings"), "Settings copied.") }, icon(Copy), "Copy"), h("button", { class: "btn", tip: "Uses settings you copied earlier. Your current ones are backed up first.", onclick: async () => {
+    let text = "";
+    try {
+      text = await navigator.clipboard.readText();
+    } catch {}
+    await replaced(api.call("importSettings", text), "Settings pasted.");
+  } }, icon(Download), "Paste")), h("div", { class: "backup-head" }, h("span", { class: "note" }, "Made daily and before big changes. Kept on this PC only."), h("button", { class: "btn small", onclick: async () => {
+    if (await api.call("backupNow")) {
+      toast("Backup saved.");
+      paint();
+    } else
+      toast("Couldn't save a backup.");
+  } }, icon(Plus), "Back up now")), list);
+}
+function settingsPage() {
+  const discordText = h("span", { class: "note" });
+  const paintDiscord = () => discordText.textContent = DISCORD_TEXT[discordStatus];
+  paintDiscord();
+  discordListeners.add(paintDiscord);
+  const updateText = h("span", { class: "note" });
+  const updateButton = h("button", { class: "btn" }, icon(Download), h("span", {}, "Check"));
+  const paintUpdate = () => {
+    updateText.textContent = UPDATE_TEXT(updateState);
+    updateButton.querySelector("span").textContent = updateState.status === "ready" ? "Restart and install" : updateState.status === "available" ? "Download" : "Check";
+    updateButton.disabled = ["dev", "checking", "downloading"].includes(updateState.status);
+    updateButton.classList.toggle("primary", updateState.status === "ready");
+  };
+  paintUpdate();
+  updateListeners.add(paintUpdate);
+  updateButton.addEventListener("click", () => {
+    if (updateState.status === "ready" || updateState.status === "available")
+      api.call("installUpdate");
+    else
+      api.call("checkUpdate");
+  });
+  const hashText = h("code", { class: "hash" }, "Working it out");
+  const verdict = h("div", { class: "verdict" }, h("span", {}, "Checking"));
+  let hash = "";
+  (async () => {
+    hash = await api.call("selfHash") ?? "";
+    hashText.textContent = hash || "Couldn't read this copy";
+    const official = await api.call("officialBuild");
+    const say = (ok, text) => {
+      verdict.className = `verdict ${ok === true ? "good" : ok === false ? "bad" : ""}`;
+      verdict.replaceChildren(icon(ok === true ? Check : Info), h("span", {}, text));
+    };
+    if (!hash)
+      say(null, "Couldn't read this copy");
+    else if (!official)
+      say(null, "Couldn't reach the website to compare");
+    else if (official.version !== version2)
+      say(null, `Compared only for the newest version, ${official.version}. Update first.`);
+    else if (!official.appSha256)
+      say(null, "The website doesn't list this version's fingerprint");
+    else if (official.appSha256.toLowerCase() === hash.toLowerCase())
+      say(true, "Official build. Matches the website exactly.");
+    else
+      say(false, "Doesn't match the official build. Reinstall from the website.");
+  })();
+  const copy = async (text, done) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      const area = h("textarea", { value: text });
+      document.body.append(area);
+      area.select();
+      document.execCommand("copy");
+      area.remove();
+    }
+    toast(done);
+  };
+  const afterReplace = async (done) => {
+    settings2 = (await api.get()).settings;
+    applyTheme();
+    applyBackground();
+    rebuildPages();
+    showPage("settings", true);
+    toast(done);
+  };
+  const replaced = async (result, done) => {
+    const problem = await result;
+    if (problem === "cancelled")
+      return;
+    if (problem)
+      return toast(problem);
+    await afterReplace(done);
+  };
+  return [
+    head("Settings", h("button", { class: "btn", onclick: () => void api.call("openFolder") }, icon(FolderOpen), "Config"), h("button", { class: "btn", tip: "Sets everything back to default. A backup is made first.", onclick: confirmClick("Reset all?", async () => {
+      await api.call("resetAll");
+      await afterReplace("Everything is back to default. Your old settings are in Backups.");
+    }) }, icon(RotateCcw), "Reset all")),
+    grid(stack(accountCard(), card("Window", Monitor, rowOf("Buttons", undefined, segmented("app.windowButtons", [["mac", "macOS"], ["windows", "Windows"]], mountWindowButtons)), rowOf("Side", undefined, segmented("app.buttonsSide", [["left", "Left"], ["right", "Right"]], mountWindowButtons)), toggleRow("app.intro", "Intro when opening")), card("App", Settings, toggleRow("app.startWithWindows", "Start with Windows", "Starts in the tray and puts your look back."), toggleRow("app.startMinimized", "Start hidden in the tray"), toggleRow("app.closeToTray", "Keep running in tray", "Closing the window keeps effects and HUDs running."), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => showWelcome() }, icon(Sparkles), "Show the welcome again"))), card("Keybinds", Keyboard, ...KEYBINDS.map(([path, label]) => rowOf(label, undefined, keyButton(path)))), card("Recording and streaming", Camera, toggleRow("app.hideFromCapture", "Hide overlays from recordings", "Your crosshair and HUDs stay on your screen but won't appear in OBS, Discord or screenshots.")), backupsCard(replaced, copy)), stack(suggestCard(), card("Discord", Gamepad2, toggleRow("discord.enabled", "Show Ashlight on my profile"), h("div", { class: "row gap" }, discordText)), card("Updates", Bell, toggleRow("app.autoUpdate", "Update automatically"), h("div", { class: "gap" }), slider("app.updateEveryHours", "Check every", { unit: " h" }), h("div", { class: "row gap" }, updateText, updateButton), h("div", { class: "note gap" }, `Ashlight ${version2}`)), card("Verify this copy", ShieldCheck, verdict, h("div", { class: "gap" }, hashText), h("div", { class: "spread gap" }, h("button", { class: "btn", onclick: () => hash && void copy(hash, "Fingerprint copied.") }, icon(Copy), "Copy SHA-256"))), card("Diagnostics", Wrench, h("div", { class: "spread" }, h("button", { class: "btn", tip: "Copies your Ashlight version, screen and feature status, for reporting a problem. Nothing is sent anywhere.", onclick: async () => copy(await api.call("diagnostics"), "Diagnostics copied.") }, icon(Copy), "Copy diagnostics")))))
+  ];
+}
+var chat = {
+  ws: null,
+  status: "offline",
+  me: null,
+  ice: [],
+  servers: [],
+  dms: [],
+  friends: [],
+  users: new Map,
+  messages: new Map,
+  voice: new Map,
+  typing: new Map,
+  unread: new Map,
+  ring: null,
+  place: "home",
+  channel: "",
+  homeTab: "online",
+  retry: 0
+};
+var isDemo = () => !!window.ttoolDemo && !window.ttoolLiveChat;
+var call = {
+  channel: "",
+  mic: null,
+  cam: null,
+  screen: null,
+  muted: false,
+  deaf: false,
+  peers: new Map,
+  levels: new Map,
+  rejoin: false
+};
+var meters = new Map;
+setInterval(() => {
+  if (!call.channel)
+    return;
+  const buffer = new Uint8Array(256);
+  for (const [user, node] of meters) {
+    node.getByteTimeDomainData(buffer);
+    let sum = 0;
+    for (const v of buffer)
+      sum += (v - 128) ** 2;
+    const talking = Math.sqrt(sum / buffer.length) > 6 && !(user === chat.me?.id && call.muted);
+    document.querySelectorAll(`[data-voice-user="${user}"]`).forEach((el2) => el2.classList.toggle("speaking", talking));
+  }
+}, 100);
+var GROUPS = [
+  ["", [{ id: "home", title: "Home", icon: House, build: homePage }]],
+  ["Display", [
+    { id: "color", title: "Colour", icon: Palette, build: colorPage },
+    { id: "resolution", title: "Resolution", icon: Monitor, build: resolutionPage }
+  ]],
+  ["Overlay", [
+    { id: "crosshair", title: "Crosshair", icon: Crosshair, build: crosshairPage, features: ["crosshair.enabled"] },
+    { id: "macro", title: "Edit Macro", icon: Gamepad2, build: macroPage, features: ["macro.enabled"] }
+  ]],
+  ["System", [
+    { id: "tools", title: "Utilities", icon: Wrench, build: toolsPage },
+    { id: "customize", title: "Customize", icon: Brush, build: customizePage },
+    { id: "settings", title: "Settings", icon: Settings, build: settingsPage }
+  ]],
+  ["Developer", [
+    { id: "plugins", title: "Plugins", icon: Puzzle, build: pluginsPage },
+    { id: "marketplace", title: "Marketplace", icon: Store, build: marketplacePage }
+  ]]
+];
+var PAGES = GROUPS.flatMap(([, pages]) => pages);
+var mediaListeners = new Set;
+var announceListeners = new Set;
+var homeTimer = null;
+var monitorListeners = new Set;
+var liveListeners = new Set;
+var discordListeners = new Set;
+var updateListeners = new Set;
+var pageRefresh = new Map;
+var built = new Map;
+var activePage = "";
+function rebuildPages() {
+  built.clear();
+  watchers.clear();
+  mediaListeners.clear();
+  announceListeners.clear();
+  if (homeTimer)
+    clearInterval(homeTimer);
+  monitorListeners.clear();
+  liveListeners.clear();
+  discordListeners.clear();
+  updateListeners.clear();
+  pageRefresh.clear();
+  wireNavDots();
+  document.getElementById("page").replaceChildren();
+  activePage = "";
+}
+var pageOrder = (id) => PAGES.findIndex((p) => p.id === id);
+function setupTilt() {
+  let active = null;
+  const reset = () => {
+    if (active)
+      active.style.transform = "";
+    active = null;
+  };
+  document.addEventListener("pointermove", (e) => {
+    const t = e.target?.closest(".tile, .theme") ?? null;
+    if (t !== active)
+      reset();
+    if (!t || !settings2.ui.motion || settings2.ui.mode === "win10")
+      return;
+    active = t;
+    const r = t.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    t.style.transform = `perspective(700px) rotateX(${(-y * 7).toFixed(1)}deg) rotateY(${(x * 9).toFixed(1)}deg) translateZ(4px)`;
+  });
+  document.addEventListener("pointerleave", reset);
+}
+function startBeatGlow() {
+  const logo = document.querySelector(".brand img");
+  if (!logo)
+    return;
+  let avg = 0;
+  let glow = 0;
+  let busy = false;
+  setInterval(async () => {
+    if (busy || document.hidden || !settings2.ui.motion)
+      return;
+    busy = true;
+    const peak = Number(await api.call("audioPeak")) || 0;
+    busy = false;
+    avg = avg * 0.9 + peak * 0.1;
+    const kick = Math.max(0, peak - avg * 1.15) * 3.2;
+    glow = Math.max(glow * 0.72, Math.min(1, kick + peak * 0.35));
+    logo.style.setProperty("--beat", glow.toFixed(3));
+  }, 50);
+}
+function movePill() {
+  const el2 = document.querySelector(".nav-item.on");
+  const pill = document.getElementById("pill");
+  const hidden = !!el2?.closest(".nav-fold.folded");
+  pill.style.opacity = el2 && !hidden ? "" : "0";
+  if (el2 && !hidden)
+    pill.style.transform = `translateY(${el2.offsetTop}px)`;
+}
+function showPage(id, instant = false) {
+  if (id === activePage)
+    return;
+  document.body.classList.toggle("chat-mode", id === "chat");
+  const wrap = document.getElementById("page");
+  const direction = pageOrder(id) >= pageOrder(activePage) ? 1 : -1;
+  const old = built.get(activePage);
+  let page = built.get(id);
+  if (!page) {
+    page = h("div", { class: "page" }, ...PAGES[pageOrder(id)].build());
+    built.set(id, page);
+  }
+  activePage = id;
+  document.querySelectorAll(".nav-item").forEach((el2) => {
+    const on = el2.dataset.page === id;
+    el2.classList.toggle("on", on);
+    if (on) {
+      el2.setAttribute("aria-current", "page");
+    } else
+      el2.removeAttribute("aria-current");
+  });
+  movePill();
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const enter = () => {
+    wrap.replaceChildren(page);
+    wrap.scrollTop = 0;
+    pageRefresh.get(id)?.();
+    if (instant || reduced)
+      return;
+    page.animate([{ opacity: 0, transform: `translate3d(${direction * 18}px, 0, 0)` }, { opacity: 1, transform: "none" }], { duration: 300, easing: "cubic-bezier(0.22, 1, 0.36, 1)" });
+  };
+  if (old && !instant && !reduced) {
+    const out = old.animate([{ opacity: 1, transform: "none" }, { opacity: 0, transform: `translate3d(${direction * -12}px, 0, 0)` }], { duration: 90, easing: "ease-in", fill: "forwards" });
+    let entered = false;
+    const finish = () => {
+      if (entered)
+        return;
+      entered = true;
+      out.cancel();
+      if (activePage === id)
+        enter();
+    };
+    out.onfinish = finish;
+    setTimeout(finish, 160);
+  } else
+    enter();
+}
+function wireNavDots() {
+  document.querySelectorAll(".nav-item").forEach((el2) => {
+    const page = PAGES.find((p) => p.id === el2.dataset.page);
+    for (const path of page?.features ?? []) {
+      const paint = () => el2.classList.toggle("active-feature", !!getPath(settings2, path));
+      paint();
+      watch(path, paint);
+    }
+  });
+}
+function setupTooltips() {
+  const box = document.getElementById("tooltip");
+  let timer = null;
+  let target = null;
+  const hide = () => {
+    if (timer)
+      clearTimeout(timer);
+    target = null;
+    box.classList.remove("show");
+  };
+  addEventListener("pointerover", (e) => {
+    const next = e.target.closest?.("[data-tip]");
+    if (next === target)
+      return;
+    hide();
+    if (!next)
+      return;
+    target = next;
+    timer = setTimeout(() => {
+      if (!target?.isConnected)
+        return;
+      box.textContent = target.dataset.tip ?? "";
+      const r = target.getBoundingClientRect();
+      const b = box.getBoundingClientRect();
+      const x = Math.min(innerWidth - b.width - 12, Math.max(12, r.left));
+      const below = r.bottom + 8 + b.height < innerHeight;
+      box.style.left = `${x}px`;
+      box.style.top = `${below ? r.bottom + 8 : r.top - b.height - 8}px`;
+      box.classList.add("show");
+    }, 380);
+  }, { passive: true });
+  addEventListener("pointerdown", hide, { passive: true });
+  addEventListener("blur", hide);
+}
+async function start() {
+  bootCore();
+  const state = await api.get();
+  settings2 = state.settings;
+  live2 = state.live;
+  version2 = state.version;
+  media2 = state.media;
+  lyrics2 = state.lyrics;
+  discordStatus = state.discord;
+  updateState = state.update;
+  applyTheme();
+  applyBackground();
+  const nav = document.getElementById("nav");
+  for (const [group, pages] of GROUPS) {
+    const items = pages.map((page) => {
+      const button = h("button", { class: "nav-item", onclick: () => showPage(page.id) }, icon(page.icon), page.title);
+      button.dataset.page = page.id;
+      return button;
+    });
+    if (!group) {
+      nav.append(...items);
+      continue;
+    }
+    const folded = () => settings2.ui.navFolded.includes(group);
+    const box = h("div", { class: "nav-fold" }, h("div", { class: "nav-fold-inner" }, ...items));
+    const header = h("button", { class: "nav-group", onclick: () => {
+      set("ui.navFolded", folded() ? settings2.ui.navFolded.filter((g) => g !== group) : [...settings2.ui.navFolded, group]);
+      paint();
+      movePill();
+      setTimeout(movePill, 300);
+    } }, group, h("i", { class: "nav-chev" }));
+    const paint = () => {
+      header.classList.toggle("folded", folded());
+      header.setAttribute("aria-expanded", String(!folded()));
+      box.classList.toggle("folded", folded());
+    };
+    paint();
+    nav.append(header, box);
+  }
+  discordUser2 = state.discordUser;
+  mountWindowButtons();
+  mountProfile();
+  api.on("discordUser", (next) => {
+    discordUser2 = next;
+    if (settings2.profile.source === "discord")
+      useDiscordProfile();
+    profileListeners.forEach((fn) => fn());
+  });
+  if (settings2.app.intro && settings2.ui.motion && !matchMedia("(prefers-reduced-motion: reduce)").matches)
+    playIntro();
+  setupTooltips();
+  startBeatGlow();
+  setupTilt();
+  syncPlugins();
+  watch("plugins", () => void syncPlugins());
+  for (const p of ["ui.glassPanels", "ui.background", "ui.panelOpacity"])
+    watch(p, applyBackground);
+  api.on("live", (next) => {
+    live2 = next;
+    liveListeners.forEach((fn) => fn());
+  });
+  api.on("media", (next) => {
+    media2 = next;
+    mediaListeners.forEach((fn) => fn());
+  });
+  api.on("lyrics", (next) => lyrics2 = next);
+  api.on("changed", (path) => notify(path));
+  const videoPlayback = (playing2) => {
+    const video = document.querySelector("#bg video");
+    if (!video)
+      return;
+    if (playing2 || !settings2.ui.pauseVideo)
+      video.play().catch(() => {});
+    else
+      video.pause();
+  };
+  addEventListener("focus", () => videoPlayback(true));
+  addEventListener("blur", () => videoPlayback(false));
+  api.on("monitor", (m) => monitorListeners.forEach((fn) => fn(m)));
+  api.on("discord", (next) => {
+    discordStatus = next;
+    discordListeners.forEach((fn) => fn());
+  });
+  api.on("update", (next) => {
+    updateState = next;
+    updateListeners.forEach((fn) => fn());
+    document.querySelector('.nav-item[data-page="settings"]')?.classList.toggle("active-feature", ["available", "ready"].includes(next.status));
+  });
+  announcement2 = state.announcement;
+  whatsNew2 = state.whatsNew;
+  if (state.notice)
+    setTimeout(() => toast(state.notice), 1200);
+  api.on("announce", (next) => {
+    announcement2 = next;
+    announceListeners.forEach((fn) => fn());
+  });
+  api.on("whatsNew", (next) => {
+    whatsNew2 = next;
+    announceListeners.forEach((fn) => fn());
+  });
+  wireNavDots();
+  showPage("home", true);
+  if (state.recovered)
+    toast("Ashlight closed unexpectedly last time. Your original settings were restored.");
+  if (!settings2.app.welcomed)
+    showWelcome();
+}
+function mountWindowButtons() {
+  const left = document.getElementById("lights"), right = document.getElementById("lightsRight");
+  left.replaceChildren();
+  right.replaceChildren();
+  const mac = settings2.app.windowButtons === "mac";
+  const target = settings2.app.buttonsSide === "left" ? left : right;
+  document.body.classList.toggle("buttons-left", settings2.app.buttonsSide === "left");
+  const list = mac ? [["close", X, "Close", "close"], ["min", Minus, "Minimize", "minimize"], ["max", Maximize2, "Maximize", "maximize"]] : [["min", Minus, "Minimize", "minimize"], ["max", Square, "Maximize", "maximize"], ["close", X, "Close", "close"]];
+  if (mac && target === right)
+    list.reverse();
+  for (const [id, ic, label, action] of list) {
+    target.append(h("button", { class: `${mac ? "light" : "wbtn"} ${id}`, "aria-label": label, onclick: () => void api.call("windowAction", action) }, icon(ic)));
+  }
+  target.className = `lights ${mac ? "mac" : "win"}`;
+}
+var profileListeners = new Set;
+function useDiscordProfile() {
+  if (!discordUser2)
+    return false;
+  set("profile.name", discordUser2.name);
+  set("profile.avatar", discordUser2.avatar);
+  set("profile.source", "discord");
+  profileListeners.forEach((fn) => fn());
+  return true;
+}
+function avatarOf(size) {
+  const img = h("img", { class: `avatar ${size}`, alt: "" });
+  img.src = settings2.profile.avatar || "logo.png";
+  img.addEventListener("error", () => img.src = "logo.png", { once: true });
+  return img;
+}
+function mountProfile() {
+  const button = document.getElementById("profile");
+  const paint = () => {
+    const p = settings2.profile;
+    button.replaceChildren(p.name ? avatarOf("small") : h("span", { class: "avatar small empty" }, icon(UserRound)), h("span", { class: "profile-text" }, h("b", {}, p.name || "Sign in"), h("small", {}, p.source === "discord" ? "Discord" : p.name ? "On this PC" : "Optional")));
+  };
+  paint();
+  profileListeners.add(paint);
+  button.onclick = () => showPage("settings");
+}
+function accountCard() {
+  const body = h("div", {});
+  const nameInput = h("input", { class: "text", placeholder: "Your name", maxLength: 24, "aria-label": "Your name" });
+  nameInput.addEventListener("change", () => {
+    const name = nameInput.value.trim();
+    set("profile.name", name);
+    set("profile.source", name ? "local" : "none");
+    set("profile.avatar", "");
+    profileListeners.forEach((fn) => fn());
+  });
+  const paint = () => {
+    const p = settings2.profile;
+    nameInput.value = p.source === "local" ? p.name : "";
+    const discordButton = h("button", { class: "btn primary", onclick: () => {
+      if (!useDiscordProfile())
+        toast("Open Discord, then try again.");
+    } }, icon(Gamepad2), discordUser2 ? `Continue as ${discordUser2.name}` : "Sign in with Discord");
+    body.replaceChildren(p.name ? h("div", { class: "account" }, avatarOf("big"), h("div", { class: "account-text" }, h("b", {}, p.name), h("small", {}, p.source === "discord" ? "Signed in with Discord" : "Name on this PC")), h("button", { class: "btn icon", "aria-label": "Sign out", tip: "Sign out", onclick: () => {
+      set("profile.name", "");
+      set("profile.avatar", "");
+      set("profile.source", "none");
+      profileListeners.forEach((fn) => fn());
+    } }, icon(LogOut))) : h("div", { class: "stack" }, discordButton, h("div", { class: "or" }, "or"), nameInput));
+  };
+  paint();
+  profileListeners.add(paint);
+  return card("Account", UserRound, body);
+}
+function playIntro() {
+  const word = h("b", {});
+  const intro = h("div", { class: "intro" }, h("img", { src: "logo.png", alt: "" }), word);
+  document.body.append(intro);
+  document.body.classList.add("entering");
+  let n = 0;
+  const typing = setInterval(() => {
+    word.textContent = "Ashlight".slice(0, ++n);
+    if (n >= 5)
+      clearInterval(typing);
+  }, 70);
+  setTimeout(() => {
+    intro.classList.add("out");
+    document.body.classList.remove("entering");
+    document.body.classList.add("entered");
+  }, 900);
+  setTimeout(() => {
+    intro.remove();
+    document.body.classList.remove("entered");
+  }, 1600);
+}
+var HELLOS = ["Hello", "Hej", "Hola", "Bonjour", "Hallo", "Ciao", "Olá", "Привет", "こんにちは", "안녕하세요", "你好", "مرحبا", "Merhaba", "Cześć", "नमस्ते", "Hei"];
+function showWelcome() {
+  if (document.querySelector(".hello"))
+    return;
+  let helloTimer = null;
+  const word = h("div", { class: "hello-word" }, h("span", {}, HELLOS[0]));
+  const tick = h("div", { class: "hello-done" });
+  tick.innerHTML = `<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l7 7 15-16"/></svg>`;
+  const screens = [
+    { body: () => h("div", { class: "hello-first" }, h("img", { class: "hello-logo", src: "logo.png", alt: "" }), word, h("p", { class: "hello-sub" }, "Welcome to Ashlight")), button: "Get started" },
+    { title: "Make it yours", text: "Sign in to see your name and picture. You can skip this.", body: () => h("div", { class: "hello-panel" }, accountCard()), button: "Continue" },
+    { title: "Pick a theme", text: "You can change it any time.", body: () => h("div", { class: "hello-panel" }, themePicker()), button: "Continue" },
+    { title: "You're ready", text: "Everything's set up.", body: () => tick, button: "Open Ashlight" }
+  ];
+  const built2 = screens.map((s) => s.body());
+  const title = h("h1", {});
+  const text = h("p", {});
+  const body = h("div", { class: "hello-body" });
+  const content = h("div", { class: "hello-content" }, body, title, text);
+  const progress = h("div", { class: "hello-progress" }, ...screens.map(() => h("i")));
+  const next = h("button", { class: "hello-next" });
+  const back = h("button", { class: "hello-back", "aria-label": "Back", onclick: () => index > 0 && go(index - 1) }, icon(ArrowRight));
+  const skip = h("button", { class: "hello-skip", onclick: () => finish() }, "Skip");
+  const glow = h("div", { class: "hello-glow", "aria-hidden": "true" }, h("i"), h("i"), h("i"));
+  const root = h("div", { class: "hello", role: "dialog", "aria-modal": "true", "aria-label": "Welcome" }, glow, h("div", { class: "hello-top" }, back, progress, skip), content, h("div", { class: "hello-foot" }, next));
+  let index = 0;
+  const startHellos = () => {
+    let n = 0;
+    helloTimer = setInterval(() => {
+      n = (n + 1) % HELLOS.length;
+      const old = word.firstElementChild;
+      const fresh = h("span", { class: "enter" }, HELLOS[n]);
+      old.classList.add("leave");
+      word.append(fresh);
+      setTimeout(() => old.remove(), 700);
+    }, 2200);
+  };
+  const go = (i) => {
+    const forward = i >= index;
+    index = i;
+    const s = screens[i];
+    const show = () => {
+      title.textContent = s.title ?? "";
+      title.hidden = !s.title;
+      text.textContent = s.text ?? "";
+      text.hidden = !s.text;
+      body.replaceChildren(built2[i]);
+      next.textContent = s.button;
+      progress.querySelectorAll("i").forEach((d, n) => d.classList.toggle("on", n <= i));
+      back.classList.toggle("shown", i > 0);
+      content.classList.remove("leaving", "back");
+      tick.classList.toggle("draw", i === screens.length - 1);
+    };
+    if (content.dataset.ready !== "1") {
+      content.dataset.ready = "1";
+      return show();
+    }
+    content.classList.add("leaving");
+    content.classList.toggle("back", !forward);
+    setTimeout(show, 240);
+  };
+  next.addEventListener("click", () => index === screens.length - 1 ? finish() : go(index + 1));
+  const finish = () => {
+    set("app.welcomed", true);
+    if (helloTimer)
+      clearInterval(helloTimer);
+    root.classList.add("out");
+    setTimeout(() => root.remove(), 700);
+  };
+  root.addEventListener("keydown", (e) => {
+    if (e.key === "Escape")
+      finish();
+    if (e.key === "Enter" && document.activeElement === document.body)
+      next.click();
+  });
+  document.body.append(root);
+  go(0);
+  if (settings2.ui.motion)
+    startHellos();
+  requestAnimationFrame(() => root.classList.add("in"));
+  next.focus();
+}
+start();

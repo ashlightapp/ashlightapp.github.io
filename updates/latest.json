@@ -1,7 +1,7 @@
 {
-  "version": "0.13.0",
+  "version": "0.15.0",
   "file": "Ashlight-Setup.exe",
-  "sha256": "2c89881877bc422f9a67ebc82a9f2399e3ac7de713e2f42ef23a3883dfca9d22",
-  "appSha256": "63e7f413556010a54157c2b8373dff534ff858cdd5dec8a202e382f01ba6eaf1",
-  "notes": "Decompiler reads native DLLs and programs, with no descriptions and a faster scan. Tilting 3D tiles and depth. Program details added so Windows and antivirus tools can see who made Ashlight."
+  "sha256": "3944dbeb2df13db21300be0201f45d31f6562a4febc4284b3be8c30860521462",
+  "appSha256": "c04a1dbacdd133b24bddf3c3bfdabed24bbbcbab864e4dac88aefc9064e38e40",
+  "notes": "Removed the decompiler and RAT checker, dropped Dark Boost, Screen Zoom and the screenshot tool, fixed the default theme, redesigned the sidebar, and added a developer plugin system with a marketplace."
 }
